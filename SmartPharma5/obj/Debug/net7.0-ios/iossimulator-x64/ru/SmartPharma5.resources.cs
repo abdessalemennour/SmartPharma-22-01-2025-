@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartPharma5")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute(" ")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+747ce3750b5f3e03d4c7f9941b064e7c9fabf239")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f4816f66c026b978ddfab0e964911243ae597149")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartPharma5")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartPharma5")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

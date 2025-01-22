@@ -1,0 +1,20 @@
+# Ignorer les répertoires de build
+**/bin/
+**/obj/
+
+# Ignorer les répertoires de configuration de Visual Studio
+.vs/
+
+# Ignorer les fichiers de log et de caches
+*.log
+*.bak
+*.tmp
+
+# Ignorer les fichiers de keystore
+key.keystore
+
+# Ignorer les fichiers de paquet NuGet
+*.nupkg
+
+# Ignorer les fichiers de configuration de build
+*.sourcelink.json
