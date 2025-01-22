@@ -1,0 +1,485 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net7.0-ios
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SmartPharma5
+build_property.ProjectDir = C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/MainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AddNewContact.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AddNewContact.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AddNewContact.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AddNewContact.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AddPartnerTemp.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AddPartnerTemp.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AddPartnerTemp.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AddPartnerTemp.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AjouterAvance.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AjouterAvance.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AjouterAvance.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AjouterAvance.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AjouterCongé.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AjouterCongé.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AjouterCongé.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AjouterCongé.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AllPartnerForForms.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AllPartnerForForms.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AllPartnerForForms.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AllPartnerForForms.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AllPartnerView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AllPartnerView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AllPartnerView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AllPartnerView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AppointmentEditPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AppointmentEditPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AppointmentEditPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AppointmentEditPage.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/AvanceRequestDétails.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.AvanceRequestDétails.xaml
+build_metadata.AdditionalFiles.TargetPath = View\AvanceRequestDétails.xaml
+build_metadata.AdditionalFiles.RelativePath = View\AvanceRequestDétails.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/Avance_list.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.Avance_list.xaml
+build_metadata.AdditionalFiles.TargetPath = View\Avance_list.xaml
+build_metadata.AdditionalFiles.RelativePath = View\Avance_list.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/BarPieGaugeViews.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.BarPieGaugeViews.xaml
+build_metadata.AdditionalFiles.TargetPath = View\BarPieGaugeViews.xaml
+build_metadata.AdditionalFiles.RelativePath = View\BarPieGaugeViews.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/Cash_deskLogView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.Cash_deskLogView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\Cash_deskLogView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\Cash_deskLogView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/Cash_deskStateView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.Cash_deskStateView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\Cash_deskStateView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\Cash_deskStateView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ChangeProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ChangeProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ChangeProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ChangeProfile.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ChartView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ChartView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ChartView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ChartView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ContactPartnerPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ContactPartnerPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ContactPartnerPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ContactPartnerPage.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/CustomerListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.CustomerListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\CustomerListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\CustomerListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/CustomerView2.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.CustomerView2.xaml
+build_metadata.AdditionalFiles.TargetPath = View\CustomerView2.xaml
+build_metadata.AdditionalFiles.RelativePath = View\CustomerView2.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/CustomPopup.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.CustomPopup.xaml
+build_metadata.AdditionalFiles.TargetPath = View\CustomPopup.xaml
+build_metadata.AdditionalFiles.RelativePath = View\CustomPopup.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/DashBoardCustomazedView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.DashBoardCustomazedView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\DashBoardCustomazedView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\DashBoardCustomazedView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/DashboardingView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.DashboardingView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\DashboardingView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\DashboardingView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/Day_Off_requestList.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.Day_Off_requestList.xaml
+build_metadata.AdditionalFiles.TargetPath = View\Day_Off_requestList.xaml
+build_metadata.AdditionalFiles.RelativePath = View\Day_Off_requestList.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/DécisionView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.DécisionView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\DécisionView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\DécisionView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/décision_avance_request.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.décision_avance_request.xaml
+build_metadata.AdditionalFiles.TargetPath = View\décision_avance_request.xaml
+build_metadata.AdditionalFiles.RelativePath = View\décision_avance_request.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/DétailsView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.DétailsView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\DétailsView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\DétailsView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/edit-quotationView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.edit-quotationView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\edit-quotationView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\edit-quotationView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/EditContactPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.EditContactPage.xaml
+build_metadata.AdditionalFiles.TargetPath = View\EditContactPage.xaml
+build_metadata.AdditionalFiles.RelativePath = View\EditContactPage.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/FormListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.FormListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\FormListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\FormListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/HomeView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.HomeView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\HomeView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\HomeView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/HrModule.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.HrModule.xaml
+build_metadata.AdditionalFiles.TargetPath = View\HrModule.xaml
+build_metadata.AdditionalFiles.RelativePath = View\HrModule.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ListContactsPartner.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ListContactsPartner.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ListContactsPartner.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ListContactsPartner.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ListOfOpportunity.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ListOfOpportunity.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ListOfOpportunity.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ListOfOpportunity.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/LocationView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.LocationView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\LocationView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\LocationView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/LoginView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.LoginView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\LoginView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\LoginView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyCash_deskView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyCash_deskView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyCash_deskView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyCash_deskView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyNotificationsProfilePartner.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyNotificationsProfilePartner.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyNotificationsProfilePartner.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyNotificationsProfilePartner.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyPartnerTempAttributesView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyPartnerTempAttributesView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyPartnerTempAttributesView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyPartnerTempAttributesView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyPartnerTempView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyPartnerTempView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyPartnerTempView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyPartnerTempView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyRequestsTap.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyRequestsTap.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyRequestsTap.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyRequestsTap.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyTransferListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyTransferListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyTransferListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyTransferListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyValidateAttributeChangeProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyValidateAttributeChangeProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyValidateAttributeChangeProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyValidateAttributeChangeProfile.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/MyValidateUpdateOfProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.MyValidateUpdateOfProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = View\MyValidateUpdateOfProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = View\MyValidateUpdateOfProfile.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/NotificationsProfilePartner.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.NotificationsProfilePartner.xaml
+build_metadata.AdditionalFiles.TargetPath = View\NotificationsProfilePartner.xaml
+build_metadata.AdditionalFiles.RelativePath = View\NotificationsProfilePartner.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/OpportunityListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.OpportunityListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\OpportunityListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\OpportunityListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/OpportunityView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.OpportunityView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\OpportunityView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\OpportunityView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/opportunity_formView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.opportunity_formView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\opportunity_formView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\opportunity_formView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PartnerFormView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PartnerFormView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PartnerFormView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PartnerFormView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PartnerTempAttributesView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PartnerTempAttributesView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PartnerTempAttributesView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PartnerTempAttributesView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PartnerTempView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PartnerTempView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PartnerTempView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PartnerTempView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentCustomerListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentCustomerListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentCustomerListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentCustomerListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentCustomers.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentCustomers.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentCustomers.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentCustomers.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentModule.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentModule.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentModule.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentModule.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PayView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PayView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PayView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PayView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PieDashboard.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PieDashboard.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PieDashboard.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PieDashboard.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ProductListView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ProductListView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ProductListView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ProductListView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ProfileUpdate.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ProfileUpdate.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ProfileUpdate.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ProfileUpdate.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ProfilingModule.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ProfilingModule.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ProfilingModule.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ProfilingModule.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/QuizForm2.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.QuizForm2.xaml
+build_metadata.AdditionalFiles.TargetPath = View\QuizForm2.xaml
+build_metadata.AdditionalFiles.RelativePath = View\QuizForm2.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/QuizPartnerFormCalender.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.QuizPartnerFormCalender.xaml
+build_metadata.AdditionalFiles.TargetPath = View\QuizPartnerFormCalender.xaml
+build_metadata.AdditionalFiles.RelativePath = View\QuizPartnerFormCalender.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/QuizQuestionView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.QuizQuestionView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\QuizQuestionView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\QuizQuestionView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/SaleQuotationView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.SaleQuotationView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\SaleQuotationView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\SaleQuotationView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/SalesModule.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.SalesModule.xaml
+build_metadata.AdditionalFiles.TargetPath = View\SalesModule.xaml
+build_metadata.AdditionalFiles.RelativePath = View\SalesModule.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/SammaryView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.SammaryView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\SammaryView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\SammaryView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ShowConnexion.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ShowConnexion.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ShowConnexion.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ShowConnexion.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ShowMenuItemPages.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ShowMenuItemPages.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ShowMenuItemPages.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ShowMenuItemPages.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ShowTest.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ShowTest.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ShowTest.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ShowTest.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TabPageValidationUpdates.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TabPageValidationUpdates.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TabPageValidationUpdates.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TabPageValidationUpdates.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TestInternet.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TestInternet.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TestInternet.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TestInternet.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TransferPaymentView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TransferPaymentView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TransferPaymentView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TransferPaymentView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TransferStateView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TransferStateView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TransferStateView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TransferStateView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TransferView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TransferView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TransferView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TransferView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/TypePaymentView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.TypePaymentView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\TypePaymentView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\TypePaymentView.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ValidateAttributeChangeProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ValidateAttributeChangeProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ValidateAttributeChangeProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ValidateAttributeChangeProfile.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ValidateUpdateOfProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ValidateUpdateOfProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ValidateUpdateOfProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ValidateUpdateOfProfile.xaml

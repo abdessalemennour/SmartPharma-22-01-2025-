@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="SmartPharma5.View.CustomPopup">
+
+    <!-- Conteneur Frame avec fond et coins arrondis -->
+    <Frame BackgroundColor="White"
+ 
+           WidthRequest="350" 
+           HeightRequest="300">
+        <VerticalStackLayout Spacing="10">
+            <Label Text="Enter File Details" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <!-- Zone pour le mémo -->
+            <Entry x:Name="MemoEntry" Placeholder="Enter Memo" />
+
+            <!-- Zone pour la description -->
+            <Entry x:Name="DescriptionEntry" Placeholder="Enter Description" />
+
+            <!-- Sélection du type de document -->
+            <Picker x:Name="TypePicker" Title="Select Document Type" />
+
+            <!-- Zone des boutons d'action (Save et Cancel) -->
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Padding="10">
+                <!-- Bouton Cancel -->
+                <Button Text="Cancel" 
+                        BackgroundColor="Red" 
+                        TextColor="White" 
+                        Clicked="OnCancelClicked" 
+                        WidthRequest="120" />
+
+                <!-- Bouton Save -->
+                <Button Text="Save" 
+                        BackgroundColor="Green" 
+                        TextColor="White" 
+                        Clicked="OnSaveClicked" 
+                        WidthRequest="120" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>
