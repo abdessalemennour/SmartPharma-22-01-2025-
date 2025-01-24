@@ -12,21 +12,15 @@
         <VerticalStackLayout Spacing="10">
             <Label Text="Enter File Details" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
 
-            <!-- Zone pour le mémo -->
             <Entry x:Name="MemoEntry" Placeholder="Enter Memo" />
-
-            <!-- Zone pour la description -->
             <Entry x:Name="DescriptionEntry" Placeholder="Enter Description" />
-
-            <!-- Sélection du type de document -->
             <Picker x:Name="TypePicker" Title="Select Document Type" />
-
-            <!-- Zone des boutons d'action (Save et Cancel) -->
             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Padding="10">
                 <!-- Bouton Cancel -->
                 <Button Text="Cancel" 
                         BackgroundColor="Red" 
                         TextColor="White" 
+                        CornerRadius="10"
                         Clicked="OnCancelClicked" 
                         WidthRequest="120" />
 
@@ -34,6 +28,7 @@
                 <Button Text="Save" 
                         BackgroundColor="Green" 
                         TextColor="White" 
+                        CornerRadius="10"
                         Clicked="OnSaveClicked" 
                         WidthRequest="120" />
             </HorizontalStackLayout>

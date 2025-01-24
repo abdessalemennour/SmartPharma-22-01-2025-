@@ -1,20 +1,26 @@
-# Ignorer les répertoires de build
-**/bin/
-**/obj/
-
-# Ignorer les répertoires de configuration de Visual Studio
+# Ignorer le dossier de build de Visual Studio
 .vs/
+bin/
+obj/
 
-# Ignorer les fichiers de log et de caches
+# Ignorer les fichiers de configuration utilisateur
+*.user
+*.suo
+
+# Ignorer les fichiers de cache
+*.cache
+
+# Ignorer les fichiers de sortie
+*.exe
+*.dll
+*.pdb
+*.apk
+
+# Ignorer les fichiers de dépendances
+packages/
+
+# Ignorer les fichiers de logs
 *.log
-*.bak
+
+# Ignorer les fichiers temporaires
 *.tmp
-
-# Ignorer les fichiers de keystore
-key.keystore
-
-# Ignorer les fichiers de paquet NuGet
-*.nupkg
-
-# Ignorer les fichiers de configuration de build
-*.sourcelink.json

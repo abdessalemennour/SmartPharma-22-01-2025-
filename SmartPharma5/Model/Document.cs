@@ -2,6 +2,7 @@
 using MySqlConnector;
 using System.ComponentModel;
 using SmartPharma5.View;
+using System.Threading.Tasks;
 
 namespace SmartPharma5.Model
 {
@@ -18,7 +19,6 @@ namespace SmartPharma5.Model
         public string extension { get; set; }
         public uint? type_document { get; set; }
         public byte[] content { get; set; }
-        // bool check => content != null && size > 0;
         public bool check => content != null && content.Length > 0;
         public long size => content?.LongLength ?? 0;
         public int? piece { get; set; }
@@ -62,23 +62,7 @@ namespace SmartPharma5.Model
         #endregion
 
         #region Méthodes
-        /*  public void Display()
-          {
-              if (content == null || content.Length == 0 || string.IsNullOrWhiteSpace(extension))
-                  throw new InvalidOperationException("Le document est vide ou invalide.");
-
-              string tempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + extension);
-              File.WriteAllBytes(tempPath, content);
-              Process.Start(new ProcessStartInfo
-              {
-                  FileName = tempPath,
-                  UseShellExecute = true
-              });
-          }
-        */
-
-        /**********************************add documnets**********************************/
-        public async static Task<bool> SaveToDatabase(Document document)
+        public async static Task<bool> SaveToDatabase(Document document, int opportunityId)
         {
             if (document == null)
                 throw new ArgumentNullException(nameof(document));
@@ -86,12 +70,21 @@ namespace SmartPharma5.Model
             if (document.content == null || document.content.Length == 0 || string.IsNullOrWhiteSpace(document.extension))
                 throw new InvalidOperationException("Le document est vide ou invalide.");
 
-            const string sqlCmd = @" INSERT INTO atooerp_document 
-            (name, create_date, memo, description, date, date_validity, extension, type_document, content, piece, piece_type, return_date,size,`check`) 
-            VALUES 
-            (@Name, @CreateDate, @Memo, @Description, @Date, @DateValidity, @Extension, @TypeDocument, @Content, @Piece, @PieceType, @ReturnDate, @Size,@Check);";
+            // Récupérer piece_type depuis la table commercial_dialing
+            string pieceType = await GetPieceTypeFromCommercialDialingAsync();
+            if (string.IsNullOrWhiteSpace(pieceType))
+            {
+                throw new InvalidOperationException("Impossible de récupérer piece_type depuis commercial_dialing.");
+            }
 
-            // Connexion à la base de données
+            // Assigner piece_type au document
+            document.piece_type = pieceType;
+
+            const string sqlCmd = @"INSERT INTO atooerp_document 
+    (name, create_date, memo, description, date, date_validity, extension, type_document, content, piece, piece_type, return_date, size, `check`) 
+    VALUES 
+    (@Name, @CreateDate, @Memo, @Description, @Date, @DateValidity, @Extension, @TypeDocument, @Content, @Piece, @PieceType, @ReturnDate, @Size, @Check);";
+
             DbConnection.Deconnecter();
             if (DbConnection.Connecter())
             {
@@ -109,11 +102,12 @@ namespace SmartPharma5.Model
                         cmd.Parameters.AddWithValue("@Extension", document.extension ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@TypeDocument", document.type_document ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@Content", document.content ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Piece", document.piece ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Piece", opportunityId); // Utiliser l'Id de l'opportunité
                         cmd.Parameters.AddWithValue("@PieceType", document.piece_type ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@ReturnDate", document.return_date ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@Size", document.size);
                         cmd.Parameters.AddWithValue("@Check", document.check);
+
                         // Exécuter la commande
                         int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
@@ -136,8 +130,134 @@ namespace SmartPharma5.Model
                 return false;
             }
         }
+        /*******************delete file*****************************/
+        public static async Task<bool> DeleteDocumentAsync(int documentId)
+        {
+            const string sqlCmd = @"DELETE FROM atooerp_document WHERE Id = @DocumentId;";
 
-        /**********************type_document*******************************/
+            DbConnection.Deconnecter();
+            if (DbConnection.Connecter())
+            {
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con))
+                    {
+                        // Ajouter le paramètre DocumentId
+                        cmd.Parameters.AddWithValue("@DocumentId", documentId);
+
+                        // Exécuter la commande
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                        // Déconnexion de la base de données
+                        DbConnection.Deconnecter();
+
+                        return rowsAffected > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erreur lors de la suppression du document : {ex.Message}");
+                    DbConnection.Deconnecter();
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Échec de la connexion à la base de données.");
+                return false;
+            }
+        }
+        public static async Task<List<Document>> GetDocumentsByOpportunityIdAsync(int opportunityId)
+        {
+            const string sqlCmd = @"SELECT * FROM atooerp_document WHERE piece = @OpportunityId;";
+
+            DbConnection.Deconnecter();
+            if (DbConnection.Connecter())
+            {
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con))
+                    {
+                        // Ajouter le paramètre OpportunityId
+                        cmd.Parameters.AddWithValue("@OpportunityId", opportunityId);
+
+                        // Exécuter la commande
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            var documents = new List<Document>();
+
+                            // Lire les résultats
+                            while (await reader.ReadAsync())
+                            {
+                                var document = new Document
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    name = reader.GetString("name"),
+                                    extension = reader.GetString("extension"),
+                                    content = (byte[])reader["content"],
+                                    create_date = reader.GetDateTime("create_date"),
+                                    date = reader.GetDateTime("date"),
+                                    memo = reader.IsDBNull(reader.GetOrdinal("memo")) ? null : reader.GetString("memo"),
+                                    description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString("description"),
+                                    type_document = reader.GetUInt32("type_document"),
+                                    piece_type = reader.GetString("piece_type"),
+                                    piece = reader.GetInt32("piece")
+                                };
+
+                                documents.Add(document);
+                            }
+
+                            // Déconnexion de la base de données
+                            DbConnection.Deconnecter();
+
+                            return documents;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erreur lors de la récupération des documents : {ex.Message}");
+                    DbConnection.Deconnecter();
+                    return null;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Échec de la connexion à la base de données.");
+                return null;
+            }
+        }
+        public static async Task<string> GetPieceTypeFromCommercialDialingAsync()
+        {
+            const string query = "SELECT piece_type FROM commercial_dialing WHERE name = 'Opportunity' LIMIT 1";
+
+            try
+            {
+                // Connexion à la base de données
+                DbConnection.Deconnecter();
+                if (DbConnection.Connecter())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, DbConnection.con))
+                    {
+                        var result = await cmd.ExecuteScalarAsync();
+                        DbConnection.Deconnecter();
+
+                        if (result != null)
+                        {
+                            return result.ToString(); // Retourne la valeur de piece_type
+                        }
+                    }
+                }
+                DbConnection.Deconnecter();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la récupération de piece_type : {ex.Message}");
+            }
+
+            return null; // Retourne null si aucune valeur n'est trouvée
+        }
+
         public static async Task<Dictionary<int, string>> GetDocumentTypesAsync()
         {
             const string query = "SELECT id, name FROM atooerp_type_document";
@@ -172,7 +292,6 @@ namespace SmartPharma5.Model
                 return null;
             }
         }
-        /***************************************************/
 
         public string GetTempPath()
         {

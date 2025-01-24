@@ -29,6 +29,8 @@ using SmartPharma5.Services;
 using SmartPharma5.Model;
 using SmartPharma5.Services;
 using SmartPharma5.View;
+using System.Collections.ObjectModel;
+
 //using Xamarin.Essentials;
 //using Xamarin.Forms;
 using Command = MvvmHelpers.Commands.Command;
@@ -37,6 +39,24 @@ namespace SmartPharma5.ViewModel
 {
     public partial class OpportunityViewModel : BaseViewModel
     {
+        /*************************************/
+        private Document _temporaryDocument;
+        public Document TemporaryDocument
+        {
+            get => _temporaryDocument;
+            set
+            {
+                _temporaryDocument = value;
+                OnPropertyChanged(nameof(TemporaryDocument));
+            }
+        }
+        public ObservableCollection<Document> TemporaryDocuments { get; set; } = new ObservableCollection<Document>();
+        // Méthode pour annuler le document temporaire
+        public void CancelTemporaryDocument()
+        {
+            TemporaryDocument = null; 
+        }
+        /************************************/
         public Command EnAttenteCommand { get; }
         public Command BcCommand { get; }
         public Command QuotationCommand { get; }
@@ -147,7 +167,20 @@ namespace SmartPharma5.ViewModel
         public Opportunity oppo;
         public Opportunity Opportunity { get => oppo; set => SetProperty(ref oppo, value); }
         public ObservableRangeCollection<Product> ProductList { get; set; }
-
+        /*****************/
+        private bool _isSaveDocumentButtonVisible;
+        public bool IsSaveDocumentButtonVisible
+        {
+            get => _isSaveDocumentButtonVisible;
+            set => SetProperty(ref _isSaveDocumentButtonVisible, value);
+        }
+        private bool _isFormsButtonVisible;
+        public bool IsFormsButtonVisible
+        {
+            get => _isFormsButtonVisible;
+            set => SetProperty(ref _isFormsButtonVisible, value);
+        }
+        /*****************/
         public OpportunityViewModel()
         {
             //Task.Run( () => LoadProductAndWholesaler());
@@ -155,11 +188,12 @@ namespace SmartPharma5.ViewModel
 
         public OpportunityViewModel(Opportunity opportunity)
         {
-            EnAttenteCommand = new Command(EnAttente); 
+            // Initialisation des commandes
+            EnAttenteCommand = new Command(EnAttente);
             BcCommand = new Command(Bc);
             QuotationCommand = new Command(quotationFun);
             GangneCommand = new Command(Gangne);
-            PerduCommand = new Command(Perdu); 
+            PerduCommand = new Command(Perdu);
             CancelMoreDetailCommand = new AsyncCommand(CancelMoreDetail);
             AddCommand = new AsyncCommand(AddItems);
             WholeSalerRemoveCommand = new AsyncCommand(WholeSalerRemove);
@@ -183,22 +217,24 @@ namespace SmartPharma5.ViewModel
             Opportunity = opportunity;
             RefreshCommand = new AsyncCommand(Refresh);
             GetQuotation = new AsyncCommand(GetQuotationFun);
-
-
             Title = "Opportunity";
 
-            /* Modification non fusionnée à partir du projet 'SmartPharma5 (net7.0-ios)'
-            Avant :
-                        Task.Run(()=>LoadProductAndWholesaler());
+            if (Opportunity.Id == 0)
+            {
+                // Mode ajout (nouvelle opportunité)
+                IsSaveDocumentButtonVisible = false;
+                IsFormsButtonVisible = false; // Masquer le bouton "Forms"
+            }
+            else
+            {
+                // Mode affichage (opportunité existante)
+                IsSaveDocumentButtonVisible = true;
+                IsFormsButtonVisible = true;
+            }
 
-                        if (Opportunity.Dealer != 0)
-            Après :
-                        Task.Run(()=>LoadProductAndWholesaler());
-
-                        if (Opportunity.Dealer != 0)
-            */
             Task.Run(async () => await LoadProductAndWholesaler());
 
+            // Contrôler la visibilité du titre du grossiste
             if (Opportunity.Dealer != 0)
             {
                 WholesalerTitleVisible = true;
@@ -206,25 +242,12 @@ namespace SmartPharma5.ViewModel
             else
             {
                 WholesalerTitleVisible = false;
-
-                /* Modification non fusionnée à partir du projet 'SmartPharma5 (net7.0-ios)'
-                Avant :
-                            }
-
-                            ValidatedControl(Opportunity.validated);
-                Après :
-                            }
-
-                            ValidatedControl(Opportunity.validated);
-                */
             }
 
             ValidatedControl(Opportunity.validated);
             ActPopup = false;
-
-
         }
-        
+
         public async Task GetQuotationFun()
         {
             try
@@ -580,12 +603,12 @@ namespace SmartPharma5.ViewModel
             {
                 SavingPopup = true;
                 await Task.Delay(1000);
+
                 if (Opportunity.Opportunity_lines.Count != 0)
                 {
                     var Connectivity = DbConnection.CheckConnectivity();
                     if (Connectivity)
                     {
-
                         if (await DbConnection.Connecter3())
                         {
                             try
@@ -594,41 +617,53 @@ namespace SmartPharma5.ViewModel
                                 {
                                     TestCon = true;
                                     return;
-                                };
+                                }
 
-                                //ValidatedControl(this.Opportunity.validated);
-                                //App.Current.MainPage.DisplayAlert("Success", "Opportunity has been validate", "Ok");
+                                // Enregistrer l'opportunité et récupérer l'Id généré
+                                int opportunityId = Opportunity.insert();
+
+                                if (opportunityId == -1)
+                                {
+                                    await App.Current.MainPage.DisplayAlert("Error", "Failed to insert opportunity.", "OK");
+                                    return;
+                                }
+
+                                // Enregistrer tous les documents temporaires
+                                foreach (var document in TemporaryDocuments)
+                                {
+                                    bool isSaved = await Document.SaveToDatabase(document, opportunityId);
+                                    if (!isSaved)
+                                    {
+                                        await App.Current.MainPage.DisplayAlert("Error", "Failed to save the document.", "OK");
+                                        return;
+                                    }
+                                }
+
                                 SavingPopup = false;
-                                SuccessPopupMessage = "Your opportunty has been successfully sent!";
+                                SuccessPopupMessage = "Your opportunity has been successfully sent!";
                                 SuccessPopup = true;
                                 await Task.Delay(1000);
                                 SuccessPopup = false;
 
-                                if (Opportunity.Dealer == 0) { await App.Current.MainPage.DisplayAlert("Done", "Opportunity Created Succefuly", "Ok");
+                                if (Opportunity.Dealer == 0)
+                                {
+                                    await App.Current.MainPage.DisplayAlert("Done", "Opportunity Created Successfully", "OK");
                                     await App.Current.MainPage.Navigation.PopAsync();
                                 }
-                                   
                                 else
                                 {
-
                                     var r = await App.Current.MainPage.DisplayAlert("MESSAGE", "Do you want to add GRATUITE!", "Yes", "No");
                                     if (r)
                                     {
-                                        //await App.Current.MainPage.Navigation.PopToRootAsync();
                                         await Gratuite();
                                         ValidatedControl(Opportunity.validated);
                                         Title = "Gratuité";
-
                                     }
                                     else
                                     {
-                                        await App.Current.MainPage.DisplayAlert("Done", "Opportunity Created Succefuly", "Ok");
+                                        await App.Current.MainPage.DisplayAlert("Done", "Opportunity Created Successfully", "OK");
                                         await App.Current.MainPage.Navigation.PopAsync();
                                     }
-                                       
-                                        
-                                    //ValidatedControl(this.Opportunity.validated);
-
                                 }
                             }
                             catch (Exception exception)
@@ -639,16 +674,13 @@ namespace SmartPharma5.ViewModel
                         else
                         {
                             SavingPopup = false;
-                            //App.Current.MainPage.DisplayAlert("Warning", "There is a problem in connecting to the server. \n Please contact our support for further assistance.", "Ok");
                             Message = "There is a problem in connecting to the server. \n Please contact our support for further assistance.";
-
                             TestCon = true;
                             FieldPopup = true;
                         }
                     }
                     else
                     {
-                        //App.Current.MainPage.DisplayAlert("Warning", "No network connectivity.", "Ok");
                         Message = "No network connectivity.";
                         TestCon = true;
                         SavingPopup = false;
@@ -658,17 +690,14 @@ namespace SmartPharma5.ViewModel
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Warning", "Add products before validate", "Ok");
+                    await App.Current.MainPage.DisplayAlert("Warning", "Add products before validate", "OK");
                     SavingPopup = false;
                 }
-                //return Task.CompletedTask;
             }
             catch (Exception ex)
             {
-
+                // Gérer les exceptions
             }
-          
-
         }
         public void ValidatedControl(bool validated)
         {

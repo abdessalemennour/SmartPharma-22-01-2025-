@@ -13,13 +13,12 @@ namespace SmartPharma5.ViewModel
     {
         public ICommand SaveDocumentCommand { get; }
 
-
         public DocumentViewModel()
         {
-            SaveDocumentCommand = new AsyncCommand(SaveDocumentAsync);
+            SaveDocumentCommand = new AsyncCommand<int>(SaveDocumentAsync); // <-- Utiliser AsyncCommand<int>
         }
 
-        public async Task SaveDocumentAsync()  
+        public async Task SaveDocumentAsync(int opportunityId) // <-- Ajouter opportunityId en paramètre
         {
             try
             {
@@ -39,8 +38,8 @@ namespace SmartPharma5.ViewModel
                         content = await File.ReadAllBytesAsync(result.FullPath)
                     };
 
-                    bool isSaved = await Document.SaveToDatabase(document);
-
+                    // Appeler SaveToDatabase avec les deux paramètres
+                    bool isSaved = await Document.SaveToDatabase(document, opportunityId); // <-- Correction ici
                     if (isSaved)
                     {
                         await Application.Current.MainPage.DisplayAlert("Succès", "Document sauvegardé avec succès", "OK");
@@ -56,6 +55,5 @@ namespace SmartPharma5.ViewModel
                 await Application.Current.MainPage.DisplayAlert("Erreur", $"Une erreur s'est produite : {ex.Message}", "OK");
             }
         }
-
     }
 }

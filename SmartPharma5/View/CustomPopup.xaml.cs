@@ -42,6 +42,5 @@ namespace SmartPharma5.View
             // Ferme la popup sans enregistrer
             Close(null);
         }
-
     }
 }

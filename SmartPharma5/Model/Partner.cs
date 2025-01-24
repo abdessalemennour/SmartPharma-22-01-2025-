@@ -916,12 +916,11 @@ namespace SmartPharma5.Model
                     // Formater les coordonnées GPS
                     string gpsCoordinates = $"{location.Latitude.ToString("F15", CultureInfo.InvariantCulture)},{location.Longitude.ToString("F15", CultureInfo.InvariantCulture)}";
 
-                    // Créer la commande SQL pour mettre à jour la colonne gps
                     string sqlCmd = "UPDATE commercial_partner SET gps = @Gps WHERE Id = @IdPartner;";
 
                     try
                     {
-                        // Préparer la commande SQL avec paramètres
+
                         MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
                         cmd.Parameters.AddWithValue("@Gps", gpsCoordinates);
                         cmd.Parameters.AddWithValue("@IdPartner", id_partner);
@@ -939,7 +938,6 @@ namespace SmartPharma5.Model
                     }
                     catch (Exception ex)
                     {
-                        // Gestion des erreurs
                         Console.WriteLine($"Erreur lors de la mise à jour de Gps: {ex.Message}");
                     }
                 }
@@ -962,7 +960,6 @@ namespace SmartPharma5.Model
                 string gpsCoordinates = null;
                 string sqlCmd = "SELECT gps FROM commercial_partner WHERE Id = @IdPartner;";
 
-                // Création de la commande avec la connexion ouverte
                 MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
                 cmd.Parameters.AddWithValue("@IdPartner", id_partner);
                 DbConnection.Connecter();

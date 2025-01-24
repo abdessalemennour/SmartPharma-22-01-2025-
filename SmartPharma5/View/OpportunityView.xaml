@@ -100,13 +100,70 @@
 
                     </Frame>
 
-            <Frame Margin="0" Padding="0" IsVisible="{Binding WholesalerTitleVisible}" Background="#F3BA04" >
+                     <Frame Margin="0" Padding="0" IsVisible="{Binding WholesalerTitleVisible}" Background="#F3BA04" >
                         <StackLayout Margin="0" Orientation="Horizontal" Spacing="0">
                             <Label HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center"  Padding="10"   Text="{Binding Opportunity.dealerName,StringFormat='Wholesaler: {0}'}" TextColor="Black"  FontSize="16"></Label>
                             <ImageButton HorizontalOptions="End" Padding="8" BackgroundColor="#ED1416" Source="personremove.png" Command="{Binding WholeSalerRemoveCommand}" IsVisible="{Binding WholeSalerRemoveIsvisible}"></ImageButton>
                         </StackLayout>
                     </Frame>
+
+
+            <Frame x:Name="ConfirmationFrame"
+       Margin="0"
+       Padding="0"
+       BackgroundColor="MediumSeaGreen"
+       CornerRadius="0"
+       IsVisible="False">
+
+                <StackLayout Margin="0"
+                 Orientation="Horizontal"
+                 Spacing="0">
+
+                    <!-- Label pour le message de confirmation -->
+                    <Label x:Name="ConfirmationLabel"
+               HorizontalOptions="StartAndExpand"
+               VerticalTextAlignment="Center"
+               Padding="10"
+               Text="The document has been saved successfully."
+               TextColor="Black"
+               FontSize="16" />
+
+                    <!-- Image pour le bouton de fermeture -->
+                    <Image Source="cancel.png"
+               HorizontalOptions="End"
+               Margin="8"
+               WidthRequest="24"
+               HeightRequest="24">
+                        <Image.GestureRecognizers>
+                            <!-- Lier l'événement Tapped à la méthode OnCloseConfirmationClicked -->
+                            <TapGestureRecognizer Tapped="OnCloseConfirmationClicked" />
+                        </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
+            </Frame>
+            <CollectionView ItemsSource="{Binding TemporaryDocuments}"
+                Margin="0,10,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#F5F5F5"
+                   CornerRadius="10"
+                   Padding="10"
+                   Margin="0,5,0,5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding name}"
+                           FontSize="14"
+                           TextColor="#2C3E50" />
+                                <Label Text="{Binding description}"
+                           FontSize="12"
+                           TextColor="#95A5A6" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </StackLayout>
 
         
                     <dxcv:DXCollectionView x:Name="CollectionV"   Grid.Row="1"  ItemsSource="{Binding Opportunity.Opportunity_lines, Mode=TwoWay}" BackgroundColor="#E6E6E6" Margin="0" >
@@ -236,9 +293,7 @@
                     <dxco:SimpleButton  Grid.Row="1" Margin="3" Grid.Column="1" Text="WHOLESALERS" CornerMode = "Round" HeightRequest="45" CornerRadius="5" BackgroundColor="#F3BA04" TextColor="White" Command="{Binding ValidateWithWholeSalerCommand}" IsVisible="{Binding WholesalerActive,Mode=TwoWay}" VerticalOptions="Start" />
                     <dxco:SimpleButton  Grid.Row="1" Grid.Column="0" Margin="3" Text="EXIT"  HeightRequest="45" CornerMode = "Round" CornerRadius="5"  Command="{Binding CancelCommand}" BackgroundColor="#ED1416" TextColor="White"  VerticalOptions="Start"/>
                     <!--<dxco:SimpleButton Grid.Row="2" Grid.Column="0" Margin="3" Text="Save Document" HeightRequest="45" CornerRadius="5" BackgroundColor="MediumSeaGreen" TextColor="White" Command="{Binding SaveDocumentCommand}" VerticalOptions="Start" />-->
-                    <dxco:SimpleButton Grid.Row="2" Grid.Column="0" Margin="3" Text="Save Document"
-                    HeightRequest="45" CornerRadius="5" BackgroundColor="MediumSeaGreen"
-                    TextColor="White" VerticalOptions="Start" Clicked="OnSelectFileClicked" />
+
 
 
 
@@ -252,8 +307,23 @@
             <dxco:SimpleButton Grid.Row="2" Grid.Column="0" Margin="3" Text="Quotation" x:Name="quotation" HeightRequest="45" CornerRadius="5"  Command ="{Binding GetQuotation}"  BackgroundColor="DarkSlateBlue" VerticalOptions="Start"></dxco:SimpleButton>
 
             <!--<dxco:SimpleButton Margin="3" Text="SaleQuotation"  Command ="{Binding GetQuotation}"  BackgroundColor="DarkSlateBlue" ></dxco:SimpleButton>-->
-            <dxco:SimpleButton Grid.Row="2" Grid.Column="1" Margin="3" Text="Forms"  Command ="{Binding GetForms}" HeightRequest="45" CornerRadius="5"  BackgroundColor="CadetBlue" VerticalOptions="Start" ></dxco:SimpleButton>
-
+            <dxco:SimpleButton Grid.Row="2" Grid.Column="1" Margin="3" 
+                   Text="Forms"  
+                   Command="{Binding GetForms}" 
+                   HeightRequest="45" 
+                   CornerRadius="5"  
+                   BackgroundColor="CadetBlue" 
+                   VerticalOptions="Start" 
+                   IsVisible="{Binding IsFormsButtonVisible}" />
+            <dxco:SimpleButton Grid.Row="0" Grid.Column="0" Margin="3" 
+                   Text="Save Document"
+                   HeightRequest="45" 
+                   CornerRadius="5" 
+                   BackgroundColor="MediumSeaGreen"
+                   TextColor="White" 
+                   VerticalOptions="Start" 
+                   Clicked="OnSaveDocumentClicked" 
+                   IsVisible="{Binding IsSaveDocumentButtonVisible}" />
         </Grid>
 
 

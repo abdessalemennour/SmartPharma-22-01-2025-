@@ -15,9 +15,7 @@
 
         <StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Frame HorizontalOptions="Start" Margin="0,0,10,0" >
-                    <ImageButton  Source="calendar.png"   HeightRequest="50"    Clicked="ImageButton_Clicked" ></ImageButton>
-                </Frame>
+
                 <Frame  HorizontalOptions="FillAndExpand">
                     <Button Clicked="Button_Clicked" VerticalOptions="CenterAndExpand"   HeightRequest="40"  CornerRadius="30" Text="FILTRAGE"></Button>
                 </Frame>

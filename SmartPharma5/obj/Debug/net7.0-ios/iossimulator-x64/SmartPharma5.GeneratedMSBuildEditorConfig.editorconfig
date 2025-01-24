@@ -190,6 +190,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.EditCont
 build_metadata.AdditionalFiles.TargetPath = View\EditContactPage.xaml
 build_metadata.AdditionalFiles.RelativePath = View\EditContactPage.xaml
 
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/FileSelectionView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.FileSelectionView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\FileSelectionView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\FileSelectionView.xaml
+
 [C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/FormListView.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.FormListView.xaml

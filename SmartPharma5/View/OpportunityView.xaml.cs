@@ -24,15 +24,16 @@ public partial class OpportunityView : ContentPage
     }
     private async void OnSaveDocumentClicked(object sender, EventArgs e)
     {
-        // Appeler la commande
-        var viewModel = (DocumentViewModel)BindingContext;
-        await viewModel.SaveDocumentAsync();
+        // Récupérer l'instance de Opportunity
+        var opportunity = this.Opportunity; // Assurez-vous que `Opportunity` est accessible ici
+
+        // Naviguer vers FileSelectionView en passant l'instance de Opportunity
+        await Navigation.PushAsync(new FileSelectionView(opportunity));
     }
 
 
-    private async void OnSelectFileClicked(object sender, EventArgs e)
+   /* private async void OnSelectFileClicked(object sender, EventArgs e)
     {
-
         try
         {
             string action = await DisplayActionSheet(
@@ -92,6 +93,12 @@ public partial class OpportunityView : ContentPage
                 return; // Aucun fichier sélectionné ou capturé
             }
 
+            // Ajouter un délai avant d'afficher l'indicateur de chargement
+            await Task.Delay(200); // Délai de 200 ms
+
+            // Afficher l'indicateur de chargement
+            UserDialogs.Instance.ShowLoading("Loading...");
+
             // Appeler le pop-up pour récupérer les informations supplémentaires
             try
             {
@@ -116,66 +123,113 @@ public partial class OpportunityView : ContentPage
                 var description = data.Description;
                 var selectedTypeId = data.TypeId;
 
-                // Sauvegarder le fichier avec les informations supplémentaires, y compris selectedDate
-                await SaveFileToDatabase(filePath, fileName, memo, description, selectedTypeId, selectedDate);
+                // Créer un document temporaire
+                var temporaryDocument = new Document
+                {
+                    name = Path.GetFileNameWithoutExtension(fileName),
+                    extension = Path.GetExtension(fileName),
+                    content = await File.ReadAllBytesAsync(filePath),
+                    create_date = DateTime.Now,
+                    date = selectedDate,
+                    memo = memo,
+                    description = description,
+                    type_document = (uint)selectedTypeId
+                };
+
+                // Ajouter le document temporaire à la liste
+                if (BindingContext is OpportunityViewModel viewModel)
+                {
+                    viewModel.TemporaryDocuments.Add(temporaryDocument);
+                }
+
+                // Afficher le message de confirmation
+                ConfirmationLabel.Text = $"File added: {fileName}";
+                ConfirmationFrame.IsVisible = true;
             }
             catch (InvalidOperationException ex)
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
+            }
+            finally
+            {
+                // Masquer l'indicateur de chargement
+                UserDialogs.Instance.HideLoading();
+            }
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
         }
+    }*/
 
+    private void OnCloseConfirmationClicked(object sender, EventArgs e)
+    {
+        // Masquer le Frame de confirmation
+        ConfirmationFrame.IsVisible = false;
+
+        // Annuler le document temporaire dans le ViewModel
+        if (BindingContext is OpportunityViewModel viewModel)
+        {
+            viewModel.CancelTemporaryDocument();
+        }
     }
-
 
     // Méthode pour sauvegarder un fichier dans la base de données
-    private async Task SaveFileToDatabase(string filePath, string fileName, string memo, string description, int typeId, DateTime selectedDate)
-    {
-        UserDialogs.Instance.ShowLoading("Loading...");
-        await Task.Delay(400);
-        try
-        {
-            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            string extension = Path.GetExtension(fileName);
-            byte[] fileContent = await File.ReadAllBytesAsync(filePath);
+    /********************************************/
+    /*  private async Task SaveFileToDatabase(string filePath, string fileName, string memo, string description, int typeId, DateTime selectedDate)
+      {
+          UserDialogs.Instance.ShowLoading("Loading...");
+          await Task.Delay(400);
+          try
+          {
+              string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+              string extension = Path.GetExtension(fileName);
+              byte[] fileContent = await File.ReadAllBytesAsync(filePath);
 
-            Document document = new Document
-            {
-                name = fileNameWithoutExtension,
-                extension = extension,
-                content = fileContent,
-                create_date = DateTime.Now, 
-                date = selectedDate, // Utilisation de selectedDate ici
-                memo = string.IsNullOrWhiteSpace(memo) ? null : memo,
-                description = string.IsNullOrWhiteSpace(description) ? null : description,
-                type_document = (uint)typeId
-            };
+              Document document = new Document
+              {
+                  name = fileNameWithoutExtension,
+                  extension = extension,
+                  content = fileContent,
+                  create_date = DateTime.Now,
+                  date = selectedDate,
+                  memo = string.IsNullOrWhiteSpace(memo) ? null : memo,
+                  description = string.IsNullOrWhiteSpace(description) ? null : description,
+                  type_document = (uint)typeId
+              };
 
-            bool isSaved = await Document.SaveToDatabase(document);
+              bool isSaved = await Document.SaveToDatabase(document);
 
-            if (isSaved)
-            {
-                await DisplayAlert("Success", "The document has been saved successfully.", "OK");
-            }
-            else
-            {
-                await DisplayAlert("Error", "An error occurred while saving the document.", "OK");
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
-        }
-        UserDialogs.Instance.HideLoading();
+              if (isSaved)
+              {
+                  // Afficher le message de confirmation dans le Frame
+                  ConfirmationLabel.Text = $"File added: {fileName}";
+                  ConfirmationFrame.IsVisible = true; 
+              }
+              else
+              {
 
-    }
+                  await DisplayAlert("Error", "An error occurred while saving the document.", "OK");
+              }
+          }
+          catch (Exception ex)
+          {
+
+              await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
+          }
+          finally
+          {
+              UserDialogs.Instance.HideLoading();
+          }
+      }*/
 
 
 
+    /****************************************/
     // Handle touch events for the button
     private void OnButtonTouchDown(object sender, TouchEventArgs e)
     {

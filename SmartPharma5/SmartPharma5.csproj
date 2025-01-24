@@ -40,6 +40,8 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 		<None Remove="Resources\AppIcon\workmanlogo.jpeg" />
+		<None Remove="Resources\Images\cancel.png" />
+		<None Remove="Resources\Images\delete_icon.png" />
 		<None Remove="Resources\Images\done.png" />
 		<None Remove="Resources\Images\done_pichon.png" />
 		<None Remove="Resources\Images\down_filled.png" />
@@ -65,6 +67,7 @@
 		<None Remove="Resources\Images\T_pichon.png" />
 		<None Remove="Resources\Images\up.png" />
 		<None Remove="Resources\Images\up_filled.png" />
+		<None Remove="Resources\Images\view_details_icon.png" />
 		<None Remove="Resources\Images\workmanlogo..jpeg" />
 
    
@@ -174,6 +177,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\EditContactPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\FileSelectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\FormListView.xaml">

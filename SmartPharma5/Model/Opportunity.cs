@@ -624,6 +624,25 @@ namespace SmartPharma5.Model
                 total = total + piece.PTARTTC;
             return Math.Round(total, 3);
         }
+        /*  public async Task<bool?> Validate()
+          {
+              try
+              {
+                  if (!this.validated)
+                      this.code = CreatCode();
+                  this.validated = true;
+                  if (Id == 0)
+                      insert();
+                  else
+                      update();
+                  insertlinesAsync();
+                  return true;
+              }
+              catch (Exception ex)
+              {
+                  return null;
+              }
+          }*/
         public async Task<bool?> Validate()
         {
             try
@@ -631,11 +650,6 @@ namespace SmartPharma5.Model
                 if (!this.validated)
                     this.code = CreatCode();
                 this.validated = true;
-                if (Id == 0)
-                    insert();
-                else
-                    update();
-                insertlinesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -643,53 +657,38 @@ namespace SmartPharma5.Model
                 return null;
             }
         }
-        public void insert()
+        public int insert()
         {
-
             string totalAmount = this.totalAmount.ToString().Replace(',', '.');
 
-            string sqlCmd = "INSERT INTO crm_opportunity SET purchase_probability="+(decimal)purchase_probability+",code ='" + code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + ";SELECT MAX(Id) FROM " + DbConnection.Database + ".crm_opportunity;";
+            string sqlCmd = "INSERT INTO crm_opportunity SET purchase_probability=" + (decimal)purchase_probability + ",code ='" + code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + ";SELECT LAST_INSERT_ID();";
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try
             {
-
                 Id = int.Parse(cmd.ExecuteScalar().ToString());
 
-            }
-            catch
-            {
-                Console.WriteLine("err");
-            }
-            DbConnection.Deconnecter();
-            sqlCmd = " INSERT INTO crm_opportunity_state SET create_date= NOW(), date= NOW(), opportunity=" + Id + ", state=1;SELECT MAX(Id) FROM crm_opportunity_state; ";
-            cmd = new MySqlCommand(sqlCmd, DbConnection.con);
-            DbConnection.Connecter();
-            try
-            {
-
+                // Insérer dans crm_opportunity_state
+                sqlCmd = "INSERT INTO crm_opportunity_state SET create_date= NOW(), date= NOW(), opportunity=" + Id + ", state=1;SELECT LAST_INSERT_ID();";
+                cmd = new MySqlCommand(sqlCmd, DbConnection.con);
                 state = int.Parse(cmd.ExecuteScalar().ToString());
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            DbConnection.Deconnecter();
-            sqlCmd = " UPDATE crm_opportunity SET state = " + state + " WHERE Id = " + Id + ";";
-            cmd = new MySqlCommand(sqlCmd, DbConnection.con);
-            DbConnection.Connecter();
-            try
-            {
-
+                // Mettre à jour crm_opportunity
+                sqlCmd = "UPDATE crm_opportunity SET state = " + state + " WHERE Id = " + Id + ";";
+                cmd = new MySqlCommand(sqlCmd, DbConnection.con);
                 cmd.ExecuteScalar();
 
+                return Id; // Retourner l'Id généré
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error during insert: " + ex.Message);
+                return -1; // Retourner -1 en cas d'erreur
             }
-            DbConnection.Deconnecter();
+            finally
+            {
+                DbConnection.Deconnecter();
+            }
         }
         public void update()
         {
