@@ -3,13 +3,25 @@ using SmartPharma5.Model;
 using Acr.UserDialogs;
 
 namespace SmartPharma5.View;
+[XamlCompilation(XamlCompilationOptions.Compile)]
 
 public partial class ProfileUpdate : ContentPage
 {
+    public Partner Partner { get; set; }
+
+    public ProfileUpdate()
+    {
+        InitializeComponent();
+
+        // Lier le contexte de données ici si nécessaire
+        BindingContext = new DocumentViewModel();
+    }
     public ProfileUpdate(uint a)
     {
         InitializeComponent();
         BindingContext = new UpdateProfileMV(a);
+        this.Partner = new Partner(); // Exemple, initialiser Partner si nécessaire
+        this.Partner.Id = a; // Exemple d'affectation de l'ID à Partner
     }
     private async void OnButtonClicked(object sender, EventArgs e)
     {
@@ -59,6 +71,41 @@ public partial class ProfileUpdate : ContentPage
         }
         UserDialogs.Instance.HideLoading();
     }
+    private async void OnDocumentButtonClicked(object sender, EventArgs e)
+    {
+        if (this.Partner != null)
+        {
+            var partnerId = this.Partner.Id;
+
+            // Passer l'ID du partenaire à ProfileUpdateFileSelectionView
+            await Navigation.PushAsync(new ProfileUpdateFileSelectionView(partnerId));
+        }
+        else
+        {
+            await DisplayAlert("Erreur", "Aucun partenaire trouvé.", "OK");
+        }
+    }
+
+
+    /* private async void OnDocumentButtonClicked(object sender, EventArgs e)
+     {
+         // Vérifie si le partenaire existe
+         if (this.Partner != null)
+         {
+             // Si le partenaire existe, récupérer son ID
+             var partnerId = this.Partner.Id;
+
+             // Naviguer vers une nouvelle page en passant l'ID du partenaire
+             await Navigation.PushAsync(new PartnerDetailView(partnerId));
+         }
+         else
+         {
+             // Si aucun partenaire trouvé, afficher un message d'erreur
+             await DisplayAlert("Erreur", "Aucun partenaire trouvé.", "OK");
+         }
+     }
+    */
+
 
 
 

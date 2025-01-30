@@ -42,6 +42,7 @@
 		<None Remove="Resources\AppIcon\workmanlogo.jpeg" />
 		<None Remove="Resources\Images\cancel.png" />
 		<None Remove="Resources\Images\delete_icon.png" />
+		<None Remove="Resources\Images\document.png" />
 		<None Remove="Resources\Images\done.png" />
 		<None Remove="Resources\Images\done_pichon.png" />
 		<None Remove="Resources\Images\down_filled.png" />
@@ -254,6 +255,9 @@
 	  <MauiXaml Update="View\PaymentCustomers.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\PaymentFileSelectionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\PaymentListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -273,6 +277,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfileUpdate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ProfileUpdateFileSelectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfilingModule.xaml">

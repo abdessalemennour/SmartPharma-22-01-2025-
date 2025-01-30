@@ -839,6 +839,7 @@ namespace SmartPharma5.Model
                     Piece_restAmount = piece_restAmount - this.amount;
             }
             #endregion
+
             public void Insert()
             {
                 string _Amount = this.amount.ToString().Replace(',', '.');

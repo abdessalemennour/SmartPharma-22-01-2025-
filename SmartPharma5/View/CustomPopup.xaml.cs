@@ -27,19 +27,16 @@ namespace SmartPharma5.View
 
             if (string.IsNullOrWhiteSpace(selectedType))
             {
-                // Lever une exception si aucun type n'est sélectionné
                 throw new InvalidOperationException("Please select a document type.");
             }
 
             var selectedTypeId = DocumentTypes.FirstOrDefault(x => x.Value == selectedType).Key;
 
-            // Fermer le pop-up et retourner les données
             Close(new { Memo = memo, Description = description, TypeId = selectedTypeId });
         }
 
         private void OnCancelClicked(object sender, EventArgs e)
         {
-            // Ferme la popup sans enregistrer
             Close(null);
         }
     }

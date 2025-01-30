@@ -223,7 +223,7 @@ namespace SmartPharma5.ViewModel
             {
                 // Mode ajout (nouvelle opportunité)
                 IsSaveDocumentButtonVisible = false;
-                IsFormsButtonVisible = false; // Masquer le bouton "Forms"
+                IsFormsButtonVisible = false; 
             }
             else
             {

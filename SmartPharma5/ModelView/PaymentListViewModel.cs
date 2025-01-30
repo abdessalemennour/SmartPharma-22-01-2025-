@@ -10,7 +10,7 @@ using System;
 namespace SmartPharma5.ViewModel
 {
     public class PaymentListViewModel : BaseViewModel
-    { 
+    {
         public Payment Payment;
         public bool ispulltorefreshenabled = false;
         public bool IsPullToRefreshEnabled { get => ispulltorefreshenabled; set => SetProperty(ref ispulltorefreshenabled, value); }
@@ -44,9 +44,9 @@ namespace SmartPharma5.ViewModel
             TapCommand = new AsyncCommand<Collection>(TapCommandAsync);
             RefreshCommand = new AsyncCommand(Refresh);
             PaymentList = new ObservableRangeCollection<Collection>();
-           // agentId = (int)agentid;
+            // agentId = (int)agentid;
 
-            Task.Run( ()=>  LoadPayment());
+            Task.Run(() => LoadPayment());
         }
         public PaymentListViewModel(int agentid)
         {
@@ -82,7 +82,7 @@ namespace SmartPharma5.ViewModel
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 PaymentList = new ObservableRangeCollection<Collection>();
                 TestCon = true;
@@ -90,7 +90,7 @@ namespace SmartPharma5.ViewModel
 
 
             }
-            
+
             ActPopup = false;
         }
         public async Task Refresh()
@@ -107,12 +107,12 @@ namespace SmartPharma5.ViewModel
             else
             {*/
 
-                var O = Model.Payment.GetCollectionList();
+            var O = Model.Payment.GetCollectionList();
 
-                PaymentList = new ObservableRangeCollection<Collection>(await O);
+            PaymentList = new ObservableRangeCollection<Collection>(await O);
 
             //}
-            ActPopup= false;
+            ActPopup = false;
             IsBusy = false;
 
         }
@@ -134,9 +134,9 @@ namespace SmartPharma5.ViewModel
             else
             {*/
 
-                var O = Task.Run(() => Model.Payment.GetCollectionList());
+            var O = Task.Run(() => Model.Payment.GetCollectionList());
 
-                PaymentList = new ObservableRangeCollection<Collection>(await O);
+            PaymentList = new ObservableRangeCollection<Collection>(await O);
 
             //}
             ActPopup = false;
@@ -145,7 +145,7 @@ namespace SmartPharma5.ViewModel
         }
         public async Task TapCommandAsync(object obj)
         {
-            Loading = true; 
+            Loading = true;
             await Task.Delay(500);
             if (obj != null)
             {
@@ -162,7 +162,7 @@ namespace SmartPharma5.ViewModel
                     await App.Current.MainPage.DisplayAlert("Warning", "Connection Failed", "Ok");
                 }
             }
-            Loading= false;
+            Loading = false;
         }
 
         /*private async Task Logout()

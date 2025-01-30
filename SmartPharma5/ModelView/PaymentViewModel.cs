@@ -23,6 +23,7 @@ using SmartPharma5.View;
 */
 using SmartPharma5.Model;
 using SmartPharma5.View;
+using System.ComponentModel;
 //using Xamarin.Essentials;
 //using static SmartPharma.Model.Payment;
 
@@ -95,7 +96,31 @@ namespace SmartPharma5.ViewModel
         public AsyncCommand AmountChangeCommand { get; }
 
         public AsyncCommand serr1 { get; }
-
+        /*******************************/
+        /* private bool _isSaveDocumentButtonVisible;
+         public bool IsSaveDocumentButtonVisible
+         {
+             get => _isSaveDocumentButtonVisible;
+             set
+             {
+                 _isSaveDocumentButtonVisible = value;
+                 OnPropertyChanged(nameof(IsSaveDocumentButtonVisible));
+             }
+         }
+        */
+        private bool _isSaveDocumentButtonVisible;
+        public bool IsSaveDocumentButtonVisible
+        {
+            get => _isSaveDocumentButtonVisible;
+            set => SetProperty(ref _isSaveDocumentButtonVisible, value);
+        }
+        private bool _isFormsButtonVisible;
+        public bool IsFormsButtonVisible
+        {
+            get => _isFormsButtonVisible;
+            set => SetProperty(ref _isFormsButtonVisible, value);
+        }
+        /*****************************/
         private async Task AmountChange()
         {
             decimal restEffectedAmount = Effected_Amount;
@@ -201,6 +226,7 @@ namespace SmartPharma5.ViewModel
             ExitCommand = new AsyncCommand(Exit);
             LogoutCommand = new AsyncCommand(Logout);
             serr1 = new AsyncCommand(serr);
+            IsSaveDocumentButtonVisible = false;
             Payment_pieceAmountChangeCommand = new AsyncCommand<object>(Payment_pieceAmountChange);
             setSaveVisibility();
             Task.Run(() => LoadList());
@@ -334,8 +360,8 @@ namespace SmartPharma5.ViewModel
 
                                         await App.Current.MainPage.DisplayAlert("Success", "Payment Saved", "Ok");
                                         await App.Current.MainPage.Navigation.PopToRootAsync();
-                                        
-                                        await App.Current.MainPage.Navigation.PushAsync(new NavigationPage( new  View.PaymentListView()));
+
+                                        await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new View.PaymentListView()));
                                     }
                                     else
                                     {
@@ -429,8 +455,11 @@ namespace SmartPharma5.ViewModel
             {
                 IsVisibleSaveButton = false;
                 IsReadOnlyOnValidated = true;
+                IsSaveDocumentButtonVisible = true;
             }
         }
+
+
         #endregion
         public void setInformation()
         {

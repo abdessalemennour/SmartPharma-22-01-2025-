@@ -340,6 +340,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentC
 build_metadata.AdditionalFiles.TargetPath = View\PaymentCustomers.xaml
 build_metadata.AdditionalFiles.RelativePath = View\PaymentCustomers.xaml
 
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentFileSelectionView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentFileSelectionView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\PaymentFileSelectionView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\PaymentFileSelectionView.xaml
+
 [C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/PaymentListView.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.PaymentListView.xaml
@@ -381,6 +387,12 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ProfileUpdate.xaml
 build_metadata.AdditionalFiles.TargetPath = View\ProfileUpdate.xaml
 build_metadata.AdditionalFiles.RelativePath = View\ProfileUpdate.xaml
+
+[C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ProfileUpdateFileSelectionView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = SmartPharma5.View.ProfileUpdateFileSelectionView.xaml
+build_metadata.AdditionalFiles.TargetPath = View\ProfileUpdateFileSelectionView.xaml
+build_metadata.AdditionalFiles.RelativePath = View\ProfileUpdateFileSelectionView.xaml
 
 [C:/Users/Asus/source/repos/SmartPharma-20-01-2025-/SmartPharma5/View/ProfilingModule.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

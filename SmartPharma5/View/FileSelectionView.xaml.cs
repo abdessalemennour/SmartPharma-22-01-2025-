@@ -21,32 +21,59 @@ namespace SmartPharma5.View
         public FileSelectionView(Opportunity opportunity)
         {
             InitializeComponent();
-            this.Opportunity = opportunity; // Stocker l'instance de Opportunity
-            this.BindingContext = this; // Définir le BindingContext
-
-            // Charger les documents au démarrage de la page
+            this.Opportunity = opportunity;
+            this.BindingContext = this; 
             LoadDocumentsAsync();
         }
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        /***************ouverture du document**************/
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            // Récupérer l'élément sélectionné
             var tappedFrame = sender as Frame;
             var document = tappedFrame?.BindingContext as Document;
 
             if (document != null)
             {
- DisplayAlert("Document Details", 
-                     $"Name: {document.name}\n" +
-                     $"Extension: {document.extension}\n" +
-                     $"Created: {document.create_date:dd/MM/yyyy HH:mm}\n" +
-                     $"Memo: {document.memo}\n" +
-                     $"Description: {document.description}", 
-                     "OK");
+                await OpenDocumentAsync(document);
             }
         }
+
+        private async Task OpenDocumentAsync(Document document)
+        {
+            try
+            {
+                UserDialogs.Instance.ShowLoading("Opening...");
+
+                // Chargez le contenu du fichier uniquement si nécessaire
+                if (document.content == null)
+                {
+                    document.content = await Document.GetDocumentContentAsync(document.Id);
+                }
+
+                if (document.content == null || document.content.Length == 0)
+                {
+                    await DisplayAlert("Error", "Document is empty or invalid.", "OK");
+                    return;
+                }
+
+                string filePath = Path.Combine(FileSystem.CacheDirectory, document.name + document.extension);
+                await File.WriteAllBytesAsync(filePath, document.content);
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath)
+                });
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
+            finally
+            {
+                UserDialogs.Instance.HideLoading();
+            }
+        }
+        /************************************************/
         private async Task LoadDocumentsAsync()
         {
-
             try
             {
                 UserDialogs.Instance.ShowLoading("Loading...");
@@ -72,8 +99,10 @@ namespace SmartPharma5.View
             {
                 await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
-            UserDialogs.Instance.HideLoading();
-
+            finally
+            {
+                UserDialogs.Instance.HideLoading();
+            }
         }
 
         private async void OnAddFileClicked(object sender, EventArgs e)
@@ -81,7 +110,7 @@ namespace SmartPharma5.View
             try
             {
                 UserDialogs.Instance.ShowLoading("Loading...");
-                await Task.Delay(200);
+               // await Task.Delay(200);
                 var result = await FilePicker.PickAsync(new PickOptions
                 {
                     PickerTitle = "Please select a file",
@@ -111,7 +140,7 @@ namespace SmartPharma5.View
             try
             {
                 UserDialogs.Instance.ShowLoading("Loading...");
-                await Task.Delay(200);
+                //await Task.Delay(200);
                 var photo = await MediaPicker.CapturePhotoAsync();
 
                 if (photo != null)
@@ -172,13 +201,11 @@ namespace SmartPharma5.View
                 description = description,
                 type_document = (uint)selectedTypeId
             };
-
+            temporaryDocument.size = temporaryDocument.content?.LongLength ?? 0;
             try
             {
                 // Récupérer l'ID de l'opportunité
                 int opportunityId = Opportunity.Id;
-
-                // Appeler la méthode SaveToDatabase
                 bool isSaved = await Document.SaveToDatabase(temporaryDocument, opportunityId);
 
                 if (isSaved)
@@ -207,10 +234,9 @@ namespace SmartPharma5.View
         }
 
         /***************ouverture du document**************/
-        private async void ViewDetails_Clicked(object sender, EventArgs e)
+       /* private async void ViewDetails_Clicked(object sender, EventArgs e)
         {
-            // Récupérer le bouton cliqué
-            var button = sender as ImageButton; // Changé de Button à ImageButton
+            var button = sender as ImageButton; 
             var document = button?.BindingContext as Document;
 
             if (document != null)
@@ -220,18 +246,14 @@ namespace SmartPharma5.View
                     UserDialogs.Instance.ShowLoading("Loading...");
                     await Task.Delay(200);
 
-                    // Vérifier si le document est valide
                     if (document.content == null || document.content.Length == 0)
                     {
                         await DisplayAlert("Error", "Document is empty or invalid.", "OK");
                         return;
                     }
 
-                    // Créer un fichier temporaire
                     string filePath = Path.Combine(FileSystem.CacheDirectory, document.name + document.extension);
                     await File.WriteAllBytesAsync(filePath, document.content);
-
-                    // Ouvrir le fichier
                     await Launcher.OpenAsync(new OpenFileRequest
                     {
                         File = new ReadOnlyFile(filePath)
@@ -246,7 +268,7 @@ namespace SmartPharma5.View
                     UserDialogs.Instance.HideLoading();
                 }
             }
-        }
+        }*/
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
             var button = sender as ImageButton;
@@ -281,16 +303,6 @@ namespace SmartPharma5.View
             }
         }
 
-        /*  private async void ImageButton_Clicked(object sender, EventArgs e)
-          {
-              //UserDialogs.Instance.ShowLoading("Loading Pleae wait ...");
-              //await Task.Delay(500);
-              var vm = BindingContext as PartnerFormViewModel;
-              vm.Loading = true;
-              await Task.Delay(1000);
-              await App.Current.MainPage.Navigation.PushAsync(new QuizPartnerFormCalender(vm.PartnerFormList));
-              vm.Loading = false;
-              // UserDialogs.Instance.HideLoading();
-          }*/
+      
     }
 }

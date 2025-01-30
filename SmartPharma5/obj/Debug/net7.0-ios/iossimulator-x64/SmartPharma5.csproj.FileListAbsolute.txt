@@ -1904,6 +1904,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\avance.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\baselineadd.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\calendar.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\cancel.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\cartarrowdown.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\cashregister.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\chevrondownsolid.png
@@ -1923,6 +1924,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\day_off2.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\day_off3.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\day_off4.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\delete_icon.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\deposit.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\done.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\done_pichon.png
@@ -2009,6 +2011,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\up_up.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\user.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\userregular.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\view_details_icon.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\week.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\workmanlogo..jpeg
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\mauiimage.stamp
@@ -2055,4 +2058,3 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\SmartPharma5.pdb
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\SmartPharma5.genruntimeconfig.cache
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\ref\SmartPharma5.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\cancel.png

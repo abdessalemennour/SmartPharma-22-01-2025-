@@ -10,6 +10,7 @@ obj\Release\net7.0-android\resizetizer\r\drawable\admin.png
 obj\Release\net7.0-android\resizetizer\r\drawable\avance.png
 obj\Release\net7.0-android\resizetizer\r\drawable\baselineadd.png
 obj\Release\net7.0-android\resizetizer\r\drawable\calendar.png
+obj\Release\net7.0-android\resizetizer\r\drawable\cancel.png
 obj\Release\net7.0-android\resizetizer\r\drawable\cartarrowdown.png
 obj\Release\net7.0-android\resizetizer\r\drawable\cashregister.png
 obj\Release\net7.0-android\resizetizer\r\drawable\chevrondownsolid.png
@@ -29,6 +30,7 @@ obj\Release\net7.0-android\resizetizer\r\drawable\day_off1.png
 obj\Release\net7.0-android\resizetizer\r\drawable\day_off2.png
 obj\Release\net7.0-android\resizetizer\r\drawable\day_off3.png
 obj\Release\net7.0-android\resizetizer\r\drawable\day_off4.png
+obj\Release\net7.0-android\resizetizer\r\drawable\delete_icon.png
 obj\Release\net7.0-android\resizetizer\r\drawable\deposit.png
 obj\Release\net7.0-android\resizetizer\r\drawable\done.png
 obj\Release\net7.0-android\resizetizer\r\drawable\done_pichon.png
@@ -115,6 +117,7 @@ obj\Release\net7.0-android\resizetizer\r\drawable\up_filled.png
 obj\Release\net7.0-android\resizetizer\r\drawable\up_up.png
 obj\Release\net7.0-android\resizetizer\r\drawable\user.png
 obj\Release\net7.0-android\resizetizer\r\drawable\userregular.png
+obj\Release\net7.0-android\resizetizer\r\drawable\view_details_icon.png
 obj\Release\net7.0-android\resizetizer\r\drawable\week.png
 obj\Release\net7.0-android\resizetizer\r\drawable\workmanlogo..jpeg
 obj\Release\net7.0-android\resizetizer\r\drawable-hdpi\background.png

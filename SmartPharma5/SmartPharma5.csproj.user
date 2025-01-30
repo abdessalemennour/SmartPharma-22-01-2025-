@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net7.0-android</ActiveDebugFramework>
-    <ActiveDebugProfile>Samsung SM-X115 (Android 14.0 - API 34)</ActiveDebugProfile>
+    <ActiveDebugProfile>Xiaomi Redmi Note 7 (Android 10.0 - API 29)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_34</DefaultDevice>
     <SelectedDevice>Samsung SM-X115</SelectedDevice>
@@ -171,6 +171,9 @@
     <MauiXaml Update="View\PaymentCustomers.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="View\PaymentFileSelectionView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="View\PaymentListView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -190,6 +193,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="View\ProfileUpdate.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="View\ProfileUpdateFileSelectionView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="View\ProfilingModule.xaml">

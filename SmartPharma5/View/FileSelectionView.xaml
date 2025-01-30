@@ -9,7 +9,6 @@
         <StackLayout>
             <!-- Barre horizontale en haut avec les boutons "Add File" et "Take Photo" -->
             <StackLayout Orientation="Horizontal">
-
                 <Frame HorizontalOptions="FillAndExpand">
                     <Button Clicked="OnAddFileClicked"
                             VerticalOptions="CenterAndExpand"
@@ -29,19 +28,19 @@
 
             <!-- CollectionView pour afficher les documents récupérés -->
             <RefreshView IsRefreshing="{Binding ActPopup}" 
-             Command="{Binding RefreshCommand}" 
-             HorizontalOptions="CenterAndExpand" 
-             RefreshColor="#4B9EE8">
+                         Command="{Binding RefreshCommand}" 
+                         HorizontalOptions="CenterAndExpand" 
+                         RefreshColor="#4B9EE8">
                 <dxcv:DXCollectionView x:Name="DocumentsCollectionView" 
-                           ItemsSource="{Binding Documents, Mode=TwoWay}" 
-                           ItemSpacing="1">
+                                       ItemsSource="{Binding Documents, Mode=TwoWay}" 
+                                       ItemSpacing="1">
                     <!-- Define the item template -->
                     <dxcv:DXCollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Margin="8" 
-                       HasShadow="True" 
-                       BorderColor="{Binding ValidatedColor}" 
-                       Padding="0">
+                                   HasShadow="True" 
+                                   BorderColor="{Binding ValidatedColor}" 
+                                   Padding="0">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                                 </Frame.GestureRecognizers>
@@ -55,59 +54,105 @@
                                     <StackLayout Grid.Column="0" Padding="10">
                                         <!-- Nom et type sur la même ligne -->
                                         <StackLayout Orientation="Horizontal" Spacing="5">
-                                            <Label Text="{Binding name}" 
-                                       FontSize="Medium" 
-                                       TextColor="#55575c" 
-                                       FontAttributes="Bold" />
-                                            <Label Text="{Binding extension}" 
-                                       FontSize="Medium" 
-                                       TextColor="#55575c" 
-                                       FontAttributes="Bold" />
+                                            <Label FontSize="Medium" TextColor="#55575c">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding name}" FontAttributes="Bold" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label FontSize="Medium" TextColor="#55575c">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding extension}" FontAttributes="Bold" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </StackLayout>
+                                        
 
-                                        <!-- Date de création en dessous du nom -->
-                                        <Label Text="{Binding create_date, StringFormat='Created: {0:dd/MM/yyyy HH:mm}'}" 
-                                   FontSize="Caption" 
-                                   TextColor="#959aa0" 
-                                   FontAttributes="Bold" 
-                                   Margin="0,5,0,0" />
+                                        <!-- Utiliser un Grid pour aligner "Created" et "Date" sur la même ligne -->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Label "Date" dans la première colonne -->
+                                            <Label Grid.Column="0" FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Date: " FontAttributes="Bold" />
+                                                        <Span Text="{Binding date, StringFormat='{0:dd/MM/yyyy}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <!-- Label "Creation Date" dans la deuxième colonne -->
+                                            <Label Grid.Column="1" FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0" HorizontalOptions="End">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Creation Date: " FontAttributes="Bold" />
+                                                        <Span Text="{Binding create_date, StringFormat='{0:dd/MM/yyyy HH:mm}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
 
                                         <!-- Memo -->
-                                        <Label Text="{Binding memo, StringFormat='Memo: {0}'}" 
-                                   FontSize="Caption" 
-                                   TextColor="#959aa0" 
-                                   Margin="0,5,0,0" />
+                                        <Label FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Memo: " FontAttributes="Bold" />
+                                                    <Span Text="{Binding memo}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
                                         <!-- Description -->
-                                        <Label Text="{Binding description, StringFormat='Description: {0}'}" 
-                                   FontSize="Caption" 
-                                   TextColor="#959aa0" 
-                                   Margin="0,5,0,0" />
+                                        <Label FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: " FontAttributes="Bold" />
+                                                    <Span Text="{Binding description}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <!-- Document_type -->
+                                        <Label FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Document Type: " FontAttributes="Bold" />
+                                                    <Span Text="{Binding TypeDocumentName}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <!-- Taille du document -->
+                                        <Label FontSize="Caption" TextColor="#959aa0" Margin="0,5,0,0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Size: " FontAttributes="Bold" />
+                                                    <Span Text="{Binding size, StringFormat='{0} bytes'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
                                     </StackLayout>
 
                                     <!-- Partie droite : Boutons -->
                                     <StackLayout Grid.Column="1" 
-                                     VerticalOptions="Center" 
-                                     Padding="10">
-                                        <!-- Bouton VIEW DETAILS -->
-                                        <ImageButton Margin="5" 
-                                             VerticalOptions="Center" 
-                                             HorizontalOptions="End" 
-                                             Padding="5" 
-                                             Source="view_details_icon.png"
-                                            BackgroundColor="Transparent" 
-                                             Clicked="ViewDetails_Clicked" 
-                                             CommandParameter="{Binding .}" />      
-
+                                                 VerticalOptions="Center" 
+                                                 Padding="10">
                                         <!-- Bouton DELETE remplacé par une icône -->
                                         <ImageButton Margin="5" 
-                                         VerticalOptions="Center" 
-                                         HorizontalOptions="End" 
-                                         Padding="5" 
-                                         Source="delete_icon.png"
-                                            BackgroundColor="Transparent" 
-                                         Clicked="OnDeleteClicked" 
-                                         CommandParameter="{Binding .}" />
+                                                     VerticalOptions="Center" 
+                                                     HorizontalOptions="End" 
+                                                     Padding="5" 
+                                                     Source="delete_icon.png"
+                                                     BackgroundColor="Transparent" 
+                                                     Clicked="OnDeleteClicked" 
+                                                     CommandParameter="{Binding .}" />
                                     </StackLayout>
                                 </Grid>
                             </Frame>

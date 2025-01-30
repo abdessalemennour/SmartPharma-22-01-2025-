@@ -8396,6 +8396,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\avance.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\baselineadd.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\calendar.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\cancel.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\cartarrowdown.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\cashregister.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\chevrondownsolid.png
@@ -8415,6 +8416,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\day_off2.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\day_off3.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\day_off4.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\delete_icon.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\deposit.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\done.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\done_pichon.png
@@ -8501,6 +8503,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\up_up.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\user.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\userregular.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\view_details_icon.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\week.png
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\workmanlogo..jpeg
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\mipmap-anydpi-v26\icon1.xml
@@ -8645,7 +8648,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\HarfBuzzSharp.pdb
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Java.Interop.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Java.Interop.pdb
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\machine.config
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mapsui.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mapsui.Nts.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mapsui.Rendering.Skia.dll
@@ -8680,7 +8682,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mono.Android.Export.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mono.Android.Export.pdb
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Mono.Android.pdb
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\mscorlib.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\MvvmHelpers.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\MvvmHelpers.pdb
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\MySqlConnector.dll
@@ -8721,7 +8722,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\Syncfusion.Maui.Gauges.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.AppContext.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Buffers.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Collections.Concurrent.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Collections.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Collections.Immutable.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Collections.NonGeneric.dll
@@ -8735,20 +8735,15 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Configuration.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Console.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Core.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Data.Common.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Data.DataSetExtensions.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Data.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.Contracts.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.Debug.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.FileVersionInfo.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.Process.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.StackTrace.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.TextWriterTraceListener.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.Tools.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.TraceSource.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.Tracing.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Drawing.Common.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Drawing.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Drawing.Primitives.dll
@@ -8800,9 +8795,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Numerics.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Numerics.Vectors.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.ObjectModel.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.CoreLib.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.DataContractSerialization.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.Uri.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.Xml.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.Xml.Linq.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Reflection.DispatchProxy.dll
@@ -8819,8 +8812,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Resources.Writer.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.CompilerServices.VisualC.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Extensions.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Handles.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.InteropServices.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.InteropServices.JavaScript.dll
@@ -8829,7 +8820,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Loader.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Numerics.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.Formatters.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.Json.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.Primitives.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.Xml.dll
@@ -8871,7 +8861,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Web.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Web.HttpUtility.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Windows.dll
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Xml.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Xml.Linq.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Xml.ReaderWriter.dll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Xml.Serialization.dll
@@ -9039,6 +9028,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\AndroidManifest.xml
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\__environment__.txt
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\mono\MonoRuntimeProvider.java
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\machine.config
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\bin\mono.android.jar
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\static.flag
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\buildid.txt
@@ -9093,7 +9083,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\androidx\viewpager2\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\androidx\window\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\bumptech\glide\R.java
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\companyname\smartpharma5\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\devexpress\dxcharts\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\devexpress\dxgrid\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\devexpress\dxlistview\R.java
@@ -9750,6 +9739,7 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\mono\com\google\android\material\textfield\TextInputLayout_OnEndIconChangedListenerImplementor.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\mono\MonoPackageManager_Resources.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\bin\packaged_resources
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\src\com\companyname\smartpharma5\R.java
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\compressed_assemblies.arm64-v8a.ll
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\typemaps.arm64-v8a.o
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\environment.arm64-v8a.o
@@ -9766,6 +9756,17 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\stamp\_ResolveLibraryProjectImports.stamp
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\cancel.png
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\delete_icon.png
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\view_details_icon.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\resizetizer\r\drawable\document.png
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\mscorlib.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Collections.Concurrent.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Data.Common.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Data.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.StackTrace.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Diagnostics.TraceSource.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.CoreLib.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Private.Uri.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Extensions.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Runtime.Serialization.Formatters.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-android\android\assets\System.Xml.dll

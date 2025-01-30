@@ -316,7 +316,7 @@
                    VerticalOptions="Start" 
                    IsVisible="{Binding IsFormsButtonVisible}" />
             <dxco:SimpleButton Grid.Row="0" Grid.Column="0" Margin="3" 
-                   Text="Save Document"
+                   Text="Document"
                    HeightRequest="45" 
                    CornerRadius="5" 
                    BackgroundColor="MediumSeaGreen"

@@ -24,10 +24,7 @@ public partial class OpportunityView : ContentPage
     }
     private async void OnSaveDocumentClicked(object sender, EventArgs e)
     {
-        // Récupérer l'instance de Opportunity
-        var opportunity = this.Opportunity; // Assurez-vous que `Opportunity` est accessible ici
-
-        // Naviguer vers FileSelectionView en passant l'instance de Opportunity
+        var opportunity = this.Opportunity; 
         await Navigation.PushAsync(new FileSelectionView(opportunity));
     }
 

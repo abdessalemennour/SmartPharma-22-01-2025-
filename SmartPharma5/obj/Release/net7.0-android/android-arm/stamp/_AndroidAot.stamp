@@ -93,6 +93,7 @@ obj\Release\net7.0-android\android-arm\aot\Xamarin.AndroidX.Window.dll.so
 obj\Release\net7.0-android\android-arm\aot\Xamarin.Google.Android.Material.dll.so
 obj\Release\net7.0-android\android-arm\aot\Xamarin.Kotlin.StdLib.dll.so
 obj\Release\net7.0-android\android-arm\aot\Xamarin.KotlinX.Coroutines.Core.Jvm.dll.so
+obj\Release\net7.0-android\android-arm\aot\Microsoft.CSharp.dll.so
 obj\Release\net7.0-android\android-arm\aot\Microsoft.Win32.Primitives.dll.so
 obj\Release\net7.0-android\android-arm\aot\System.Buffers.dll.so
 obj\Release\net7.0-android\android-arm\aot\System.Collections.Concurrent.dll.so
