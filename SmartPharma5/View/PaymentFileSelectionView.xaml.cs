@@ -55,7 +55,7 @@ namespace SmartPharma5.View
                     Payments.Clear();
                     foreach (var payment in payments)
                     {
-                        await payment.LoadTypeDocumentNameAsync();
+                        //await payment.LoadTypeDocumentNameAsync();
                         Payments.Add(payment);
                     }
                 }
@@ -129,7 +129,7 @@ namespace SmartPharma5.View
                 return;
             }
 
-            var popup = new CustomPopup(documentTypes);
+            var popup = new CustomPopup(documentTypes, fileName);
             var result = await this.ShowPopupAsync(popup);
 
             if (result == null)
@@ -141,13 +141,14 @@ namespace SmartPharma5.View
             // Récupérer les données du popup
             var data = (dynamic)result;
             var memo = data.Memo;
+            var newFileName = data.FileName;
             var description = data.Description;
             var selectedTypeId = data.TypeId;
 
             // Créer un document temporaire
             var temporaryDocument = new Document
             {
-                name = Path.GetFileNameWithoutExtension(fileName),
+                name = newFileName, // Utiliser le nouveau nom du fichier
                 extension = Path.GetExtension(fileName),
                 content = await File.ReadAllBytesAsync(filePath),
                 create_date = DateTime.Now,

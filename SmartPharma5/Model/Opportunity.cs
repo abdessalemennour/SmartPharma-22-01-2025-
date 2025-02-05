@@ -34,6 +34,7 @@ namespace SmartPharma5.Model
         public string general_condition { get; set; }
         [Column("Notes")]
         public string memo { get; set; }
+
         [Column("Date")]
         public DateTime? date
         {
@@ -104,6 +105,8 @@ namespace SmartPharma5.Model
             }
             set { }
         }
+        // Propriété
+        public uint Currency { get; set; }
         public int? IdAgent { get; set; }
         public uint parent { get; set; }
         private int dealer;
@@ -112,7 +115,8 @@ namespace SmartPharma5.Model
         public string dealerName { get => dealername; set => SetProperty(ref dealername, value); }
         public string stateName { get; set; }
         public int state { get; set; }
-        public decimal purchase_probability { get; set; }
+        // public decimal purchase_probability { get; set; }
+        public int purchase_probability { get; set; }
         private BindingList<OpportunityLine> opportunity_lines;
         public BindingList<OpportunityLine> Opportunity_lines { get => opportunity_lines; set => SetProperty(ref opportunity_lines, value); }
         //public BindingList<OpportunityLine> OpportunityLines { get => opportunity_lines; set => SetProperty(ref opportunity_lines, value); }
@@ -128,28 +132,23 @@ namespace SmartPharma5.Model
         }
         public Opportunity(int id)
         {
-            string sqlCmd = "select crm_opportunity.purchase_probability,crm_opportunity.Id,crm_opportunity.code,crm_opportunity.create_date,crm_opportunity.date," +
-                "crm_opportunity.reference,crm_opportunity.memo,crm_opportunity.general_condition,crm_opportunity.partner," +
-                "crm_opportunity.payment_condition,crm_opportunity.payment_method,crm_opportunity.validated," +
-                "crm_opportunity.agent,crm_opportunity.revenue_stamp,crm_opportunity.to_invoice," +
-                "crm_opportunity.state,crm_opportunity.order,dealer, p1.name as partnerName,p2.name as dealerName,parent," +
-                "crm_state.name,crm_opportunity_state.create_date as date_State,crm_opportunity_state.state as opp_State," +
-                "crm_opportunity.order,sale_order.create_date as orderDate,sale_order.delivred," +
-                "max(sale_order.delivred_date) as delivredDate,sale_order.invoice, sale_invoice.create_date as invoiceDate " +
-                "from crm_opportunity left join " +
-                "commercial_partner p1  on p1.Id = crm_opportunity.partner left " +
-                "join " +
-                "commercial_partner p2 on p2.Id = crm_opportunity.dealer left " +
-                "join " +
-                "crm_opportunity_state on crm_opportunity.Id = crm_opportunity_state.opportunity left " +
-                "join " +
-                "sale_order on sale_order.Id = crm_opportunity.order left " +
-                "join " +
-                "sale_shipping on sale_order.Id = sale_shipping.order left " +
-                "join " +
-                "sale_invoice on sale_invoice.Id = sale_order.invoice left " +
-                "join " +
-                "crm_state on crm_state.Id = crm_opportunity_state.state " +
+            string sqlCmd = "select crm_opportunity.purchase_probability, crm_opportunity.Id, crm_opportunity.code, crm_opportunity.create_date, crm_opportunity.date, " +
+                "crm_opportunity.reference, crm_opportunity.memo, crm_opportunity.general_condition, crm_opportunity.partner, " +
+                "crm_opportunity.payment_condition, crm_opportunity.payment_method, crm_opportunity.validated, " +
+                "crm_opportunity.agent, crm_opportunity.revenue_stamp, crm_opportunity.to_invoice, " +
+                "crm_opportunity.state, crm_opportunity.order, crm_opportunity.dealer, crm_opportunity.currency, " + // crm_opportunity.currency
+                "p1.name as partnerName, p2.name as dealerName, crm_opportunity.parent, " +
+                "crm_state.name, crm_opportunity_state.create_date as date_State, crm_opportunity_state.state as opp_State, " +
+                "crm_opportunity.order, sale_order.create_date as orderDate, sale_order.delivred, " +
+                "max(sale_order.delivred_date) as delivredDate, sale_order.invoice, sale_invoice.create_date as invoiceDate " +
+                "from crm_opportunity " +
+                "left join commercial_partner p1 on p1.Id = crm_opportunity.partner " +
+                "left join commercial_partner p2 on p2.Id = crm_opportunity.dealer " +
+                "left join crm_opportunity_state on crm_opportunity.Id = crm_opportunity_state.opportunity " +
+                "left join sale_order on sale_order.Id = crm_opportunity.order " +
+                "left join sale_shipping on sale_order.Id = sale_shipping.order " +
+                "left join sale_invoice on sale_invoice.Id = sale_order.invoice " +
+                "left join crm_state on crm_state.Id = crm_opportunity_state.state " +
                 "where crm_opportunity_state.opportunity = " + id +
                 " group by crm_opportunity_state.Id " +
                 "order by crm_opportunity_state.date;";
@@ -175,7 +174,10 @@ namespace SmartPharma5.Model
                 this.IdPayment_condition = Convert.ToInt32(dt.Rows[0]["payment_condition"].ToString()); ;
                 this.IdPayment_method = Convert.ToInt32(dt.Rows[0]["payment_method"].ToString());
                 this.validated = Convert.ToBoolean(dt.Rows[0]["validated"]);
-                this.purchase_probability = Convert.ToDecimal(dt.Rows[0]["purchase_probability"]);
+                // this.purchase_probability = Convert.ToDecimal(dt.Rows[0]["purchase_probability"]);
+                this.purchase_probability = Convert.ToInt32(dt.Rows[0]["purchase_probability"]);
+                this.Currency = Convert.ToUInt32(dt.Rows[0]["currency"].ToString());
+
                 try
                 {
                     this.delivred = Convert.ToBoolean(dt.Rows[0]["delivred"]);
@@ -218,7 +220,9 @@ namespace SmartPharma5.Model
             this.Dealer = dealer;
             this.opportunity_lines = new BindingList<OpportunityLine>(lines);
 
+
         }
+
         public Opportunity(int idagent, Partner partner)
         {
             IdAgent = idagent;
@@ -227,13 +231,37 @@ namespace SmartPharma5.Model
             IdPayment_condition = partner.PaymentConditionCustomer;
             IdPayment_method = (int)partner.PaymentMethodCustomer;
             toinvoice = true;
+            Currency = partner.Currency;
             this.opportunity_lines = new BindingList<OpportunityLine>();
+           // LoadCurrencyFromPartner((int)partner.Id);  
         }
+     /*   private void LoadCurrencyFromPartner(int partnerId)
+        {
+            string sqlCmd = "SELECT currency FROM commercial_partner WHERE Id = @PartnerId";
+            DbConnection.Connecter();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCmd, DbConnection.con);
+            adapter.SelectCommand.Parameters.AddWithValue("@PartnerId", partnerId);
+            adapter.SelectCommand.CommandType = CommandType.Text;
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                string currencyName = dt.Rows[0]["currency"].ToString();
+                if (!string.IsNullOrEmpty(currencyName))
+                {
+                    this.Currency = currencyName; 
+                }
+            }
+        }*/
         public Opportunity(Opportunity opportunity)
         {
             Dealer = opportunity.Dealer;
             dealerName = opportunity.dealerName;
         }
+
+
         public void TransferToQuotation()
         {
             int IDBC = 0;
@@ -584,6 +612,7 @@ namespace SmartPharma5.Model
         }
 
         #endregion
+
         public class Withholding_tax_line
         {
             public int Id { get; set; }
@@ -624,7 +653,7 @@ namespace SmartPharma5.Model
                 total = total + piece.PTARTTC;
             return Math.Round(total, 3);
         }
-        /*  public async Task<bool?> Validate()
+        public async Task<bool?> Validate()
           {
               try
               {
@@ -642,58 +671,75 @@ namespace SmartPharma5.Model
               {
                   return null;
               }
+          }
+        /*  public async Task<bool?> Validate()
+          {
+              try
+              {
+                  if (!this.validated)
+                      this.code = CreatCode();
+                  this.validated = true;
+                  return true;
+              }
+              catch (Exception ex)
+              {
+                  return null;
+              }
           }*/
-        public async Task<bool?> Validate()
+
+        public void insert()
         {
-            try
-            {
-                if (!this.validated)
-                    this.code = CreatCode();
-                this.validated = true;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        public int insert()
-        {
+
             string totalAmount = this.totalAmount.ToString().Replace(',', '.');
 
-            string sqlCmd = "INSERT INTO crm_opportunity SET purchase_probability=" + (decimal)purchase_probability + ",code ='" + code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + ";SELECT LAST_INSERT_ID();";
+            string sqlCmd = "INSERT INTO crm_opportunity SET purchase_probability=" + (int)purchase_probability + ",code ='" + code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + ",currency=" + Currency + ";SELECT LAST_INSERT_ID();";
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try
             {
+
                 Id = int.Parse(cmd.ExecuteScalar().ToString());
 
-                // Insérer dans crm_opportunity_state
-                sqlCmd = "INSERT INTO crm_opportunity_state SET create_date= NOW(), date= NOW(), opportunity=" + Id + ", state=1;SELECT LAST_INSERT_ID();";
-                cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+            }
+            catch
+            {
+                Console.WriteLine("err");
+            }
+            DbConnection.Deconnecter();
+            sqlCmd = " INSERT INTO crm_opportunity_state SET create_date= NOW(), date= NOW(), opportunity=" + Id + ", state=1;SELECT MAX(Id) FROM crm_opportunity_state; ";
+            cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+            DbConnection.Connecter();
+            try
+            {
+
                 state = int.Parse(cmd.ExecuteScalar().ToString());
 
-                // Mettre à jour crm_opportunity
-                sqlCmd = "UPDATE crm_opportunity SET state = " + state + " WHERE Id = " + Id + ";";
-                cmd = new MySqlCommand(sqlCmd, DbConnection.con);
-                cmd.ExecuteScalar();
-
-                return Id; // Retourner l'Id généré
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error during insert: " + ex.Message);
-                return -1; // Retourner -1 en cas d'erreur
+                Console.WriteLine(ex.Message);
             }
-            finally
+            DbConnection.Deconnecter();
+            sqlCmd = " UPDATE crm_opportunity SET state = " + state + " WHERE Id = " + Id + ";";
+            cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+            DbConnection.Connecter();
+            try
             {
-                DbConnection.Deconnecter();
+
+                cmd.ExecuteScalar();
+
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            DbConnection.Deconnecter();
         }
         public void update()
         {
             string totalAmount = this.totalAmount.ToString().Replace(',', '.');
-            string sqlCmd = "Update crm_opportunity crm_opportunity SET purchase_probability="+(decimal)purchase_probability+", tva_chec=" + true + ",code= '" + code + "' ,memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + " where Id = " + Id + ";";
+            string sqlCmd = "Update crm_opportunity SET purchase_probability=" + (int)purchase_probability + ", tva_chec=" + true + ",code= '" + code + "' ,memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=" + validated + ",total_amount=" + totalAmount + ",due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",revenue_stamp=0,closing_date=Now(),to_invoice=" + toinvoice + ",dealer=" + Dealer + ", parent=" + parent + ",currency=" + Currency +" where Id = " + Id + ";";
+            
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try
@@ -709,6 +755,44 @@ namespace SmartPharma5.Model
             DbConnection.Deconnecter();
 
         }
+
+        /**********************************/
+        /*  public static async Task<List<Currency>> GetCurrenciesFromDatabaseAsync()
+          {
+              var currencies = new List<Currency>();
+
+              string sqlCmd = "SELECT name FROM atooerp_currency;";
+              DbConnection.Connecter();
+
+              try
+              {
+                  using (var cmd = new MySqlCommand(sqlCmd, DbConnection.con))
+                  {
+                      using (var reader = await cmd.ExecuteReaderAsync())
+                      {
+                          while (await reader.ReadAsync())
+                          {
+                              currencies.Add(new Currency
+                              {
+                                  Id = reader.GetInt32("id"),
+                                  name = reader.GetString("name")
+                              });
+                          }
+                      }
+                  }
+              }
+              catch (Exception ex)
+              {
+                  Console.WriteLine($"Error: {ex.Message}");
+              }
+              finally
+              {
+                  DbConnection.Deconnecter();
+              }
+
+              return currencies;
+          }*/
+        /**********************************/
         public void insertlinesAsync()
         {
             DbConnection.Connecter();

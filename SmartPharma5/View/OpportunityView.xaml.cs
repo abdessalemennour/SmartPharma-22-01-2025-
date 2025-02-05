@@ -21,147 +21,216 @@ public partial class OpportunityView : ContentPage
         InitializeComponent();
 
         BindingContext = new DocumentViewModel();
+
     }
+
+  /*  protected override async void OnAppearing()
+{
+    base.OnAppearing();
+
+    // Récupérer la liste des partenaires
+    List<Partner> partners = await Partner.GetPartnerList();
+
+    if (partners != null && partners.Count > 0)
+    {
+        // Supposons que vous voulez afficher le currency du premier partenaire dans la liste
+        uint currency = partners[0].Currency;
+
+        // Afficher le currency dans un DisplayAlert
+        await DisplayAlert("Currency", $"Le currency du partenaire est : {currency}", "OK");
+    }
+    else
+    {
+        await DisplayAlert("Erreur", "Aucun partenaire trouvé ou erreur de chargement.", "OK");
+    }
+}*/
+   /* protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Récupérer la liste des partenaires
+        var wholesalerList = await Partner.GetWholesalerList();
+
+        // Afficher les devises disponibles
+        if (Partner.AllCurrencies.Count > 0)
+        {
+            string currencies = string.Join(", ", Partner.AllCurrencies.Select(c => c.Item2));
+            await DisplayAlert("Devises Disponibles", $"Les devises récupérées sont :\n{currencies}", "OK");
+        }
+        else
+        {
+            await DisplayAlert("Aucune Devise", "Aucune devise n'a été récupérée depuis la base de données.", "OK");
+        }
+
+        // Vérifier si des partenaires ont été récupérés
+       /* if (wholesalerList.Count > 0)
+        {
+            var firstPartner = wholesalerList.First(); // Prend le premier élément au lieu de wholesalerList[2]
+            uint defaultCurrencyId = firstPartner.Currency;
+
+            await DisplayAlert("Devise du premier partenaire",
+                $"Nom : {firstPartner.Name}\nDevise : (ID: {defaultCurrencyId})", "OK");
+        }
+        else
+        {
+            await DisplayAlert("Aucun Partenaire", "Aucun partenaire n'a été récupéré depuis la base de données.", "OK");
+        }*/
+   // }
+
+
     private async void OnSaveDocumentClicked(object sender, EventArgs e)
     {
         var opportunity = this.Opportunity; 
         await Navigation.PushAsync(new FileSelectionView(opportunity));
     }
-
-
-   /* private async void OnSelectFileClicked(object sender, EventArgs e)
+    /*
+         private async void OnSaveDocumentClicked(object sender, EventArgs e)
     {
-        try
+        var opportunity = this.Opportunity;  // ou Partner si c'est le cas
+        if (opportunity == null || opportunity.Id == 0)
         {
-            string action = await DisplayActionSheet(
-                "Choose an option",
-                "Cancel",
-                null,
-                "Add File",
-                "Camera");
-
-            if (action == "Cancel" || action == null)
-            {
-                return;
-            }
-
-            string filePath = null;
-            string fileName = null;
-
-            DateTime selectedDate = DateTime.Now; // Date actuelle au moment de la sélection
-
-            if (action == "Add File")
-            {
-                var result = await FilePicker.PickAsync(new PickOptions
-                {
-                    PickerTitle = "Please select a file",
-                    FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-                {
-                    { DevicePlatform.Android, new[] { "image/*", "application/pdf" } }
-                })
-                });
-
-                if (result != null)
-                {
-                    filePath = result.FullPath;
-                    fileName = result.FileName;
-                }
-            }
-            else if (action == "Camera")
-            {
-                var photo = await MediaPicker.CapturePhotoAsync();
-
-                if (photo != null)
-                {
-                    filePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
-                    using (var stream = await photo.OpenReadAsync())
-                    using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                    {
-                        await stream.CopyToAsync(fileStream);
-                    }
-
-                    fileName = photo.FileName;
-                }
-            }
-
-            if (filePath == null || fileName == null)
-            {
-                return; // Aucun fichier sélectionné ou capturé
-            }
-
-            // Ajouter un délai avant d'afficher l'indicateur de chargement
-            await Task.Delay(200); // Délai de 200 ms
-
-            // Afficher l'indicateur de chargement
-            UserDialogs.Instance.ShowLoading("Loading...");
-
-            // Appeler le pop-up pour récupérer les informations supplémentaires
-            try
-            {
-                var documentTypes = await Document.GetDocumentTypesAsync();
-                if (documentTypes == null || documentTypes.Count == 0)
-                {
-                    await DisplayAlert("Error", "Unable to retrieve document types.", "OK");
-                    return;
-                }
-
-                var popup = new CustomPopup(documentTypes);
-                var result = await this.ShowPopupAsync(popup);
-
-                if (result == null)
-                {
-                    await DisplayAlert("Cancelation", "The selection process has been cancelled.", "OK");
-                    return;
-                }
-
-                var data = (dynamic)result;
-                var memo = data.Memo;
-                var description = data.Description;
-                var selectedTypeId = data.TypeId;
-
-                // Créer un document temporaire
-                var temporaryDocument = new Document
-                {
-                    name = Path.GetFileNameWithoutExtension(fileName),
-                    extension = Path.GetExtension(fileName),
-                    content = await File.ReadAllBytesAsync(filePath),
-                    create_date = DateTime.Now,
-                    date = selectedDate,
-                    memo = memo,
-                    description = description,
-                    type_document = (uint)selectedTypeId
-                };
-
-                // Ajouter le document temporaire à la liste
-                if (BindingContext is OpportunityViewModel viewModel)
-                {
-                    viewModel.TemporaryDocuments.Add(temporaryDocument);
-                }
-
-                // Afficher le message de confirmation
-                ConfirmationLabel.Text = $"File added: {fileName}";
-                ConfirmationFrame.IsVisible = true;
-            }
-            catch (InvalidOperationException ex)
-            {
-                await DisplayAlert("Error", ex.Message, "OK");
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
-            }
-            finally
-            {
-                // Masquer l'indicateur de chargement
-                UserDialogs.Instance.HideLoading();
-            }
+            await DisplayAlert("Erreur", "Aucune opportunité valide sélectionnée.", "OK");
+            return;
         }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
-        }
+
+        // Passer l'ID d'Opportunity ou Partner à la nouvelle page
+        await Navigation.PushAsync(new FileSelectionView(opportunity.Id));
     }*/
+
+
+    /* private async void OnSelectFileClicked(object sender, EventArgs e)
+     {
+         try
+         {
+             string action = await DisplayActionSheet(
+                 "Choose an option",
+                 "Cancel",
+                 null,
+                 "Add File",
+                 "Camera");
+
+             if (action == "Cancel" || action == null)
+             {
+                 return;
+             }
+
+             string filePath = null;
+             string fileName = null;
+
+             DateTime selectedDate = DateTime.Now; // Date actuelle au moment de la sélection
+
+             if (action == "Add File")
+             {
+                 var result = await FilePicker.PickAsync(new PickOptions
+                 {
+                     PickerTitle = "Please select a file",
+                     FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+                 {
+                     { DevicePlatform.Android, new[] { "image/*", "application/pdf" } }
+                 })
+                 });
+
+                 if (result != null)
+                 {
+                     filePath = result.FullPath;
+                     fileName = result.FileName;
+                 }
+             }
+             else if (action == "Camera")
+             {
+                 var photo = await MediaPicker.CapturePhotoAsync();
+
+                 if (photo != null)
+                 {
+                     filePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                     using (var stream = await photo.OpenReadAsync())
+                     using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                     {
+                         await stream.CopyToAsync(fileStream);
+                     }
+
+                     fileName = photo.FileName;
+                 }
+             }
+
+             if (filePath == null || fileName == null)
+             {
+                 return; // Aucun fichier sélectionné ou capturé
+             }
+
+             // Ajouter un délai avant d'afficher l'indicateur de chargement
+             await Task.Delay(200); // Délai de 200 ms
+
+             // Afficher l'indicateur de chargement
+             UserDialogs.Instance.ShowLoading("Loading...");
+
+             // Appeler le pop-up pour récupérer les informations supplémentaires
+             try
+             {
+                 var documentTypes = await Document.GetDocumentTypesAsync();
+                 if (documentTypes == null || documentTypes.Count == 0)
+                 {
+                     await DisplayAlert("Error", "Unable to retrieve document types.", "OK");
+                     return;
+                 }
+
+                 var popup = new CustomPopup(documentTypes);
+                 var result = await this.ShowPopupAsync(popup);
+
+                 if (result == null)
+                 {
+                     await DisplayAlert("Cancelation", "The selection process has been cancelled.", "OK");
+                     return;
+                 }
+
+                 var data = (dynamic)result;
+                 var memo = data.Memo;
+                 var description = data.Description;
+                 var selectedTypeId = data.TypeId;
+
+                 // Créer un document temporaire
+                 var temporaryDocument = new Document
+                 {
+                     name = Path.GetFileNameWithoutExtension(fileName),
+                     extension = Path.GetExtension(fileName),
+                     content = await File.ReadAllBytesAsync(filePath),
+                     create_date = DateTime.Now,
+                     date = selectedDate,
+                     memo = memo,
+                     description = description,
+                     type_document = (uint)selectedTypeId
+                 };
+
+                 // Ajouter le document temporaire à la liste
+                 if (BindingContext is OpportunityViewModel viewModel)
+                 {
+                     viewModel.TemporaryDocuments.Add(temporaryDocument);
+                 }
+
+                 // Afficher le message de confirmation
+                 ConfirmationLabel.Text = $"File added: {fileName}";
+                 ConfirmationFrame.IsVisible = true;
+             }
+             catch (InvalidOperationException ex)
+             {
+                 await DisplayAlert("Error", ex.Message, "OK");
+             }
+             catch (Exception ex)
+             {
+                 await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
+             }
+             finally
+             {
+                 // Masquer l'indicateur de chargement
+                 UserDialogs.Instance.HideLoading();
+             }
+         }
+         catch (Exception ex)
+         {
+             await DisplayAlert("Error", $"An error has occurred: {ex.Message}", "OK");
+         }
+     }*/
 
     private void OnCloseConfirmationClicked(object sender, EventArgs e)
     {

@@ -285,6 +285,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
+
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -447,6 +448,19 @@
                                     <dxe:NumericEdit  WidthRequest="300" VerticalOptions="Start" TextHorizontalAlignment="Start" Value="{Binding Opportunity.purchase_probability,Mode=TwoWay}"></dxe:NumericEdit>
                                 </StackLayout>
                             </Frame>
+                <Frame Grid.Row="2">
+                    <StackLayout>
+                        <Label Text="Currency" TextColor="Black" FontSize="16"/>
+
+                        <Picker Title="Select Currency"
+                ItemsSource="{Binding Currencies}"
+                ItemDisplayBinding="{Binding Item2}"
+                SelectedItem="{Binding SelectedCurrency, Mode=TwoWay}" />
+                    </StackLayout>
+                </Frame>
+
+
+
 
                 <Grid Grid.Row="2" VerticalOptions="CenterAndExpand" >
                             <Grid.ColumnDefinitions>

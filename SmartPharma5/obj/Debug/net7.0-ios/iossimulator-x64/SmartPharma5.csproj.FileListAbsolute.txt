@@ -2058,3 +2058,4 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\SmartPharma5.pdb
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\SmartPharma5.genruntimeconfig.cache
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\ref\SmartPharma5.dll
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\Resources\document.png

@@ -39,7 +39,33 @@ namespace SmartPharma5.ViewModel
 {
     public partial class OpportunityViewModel : BaseViewModel
     {
-        /*************************************/
+        /*  public ObservableCollection<Currency> Currencies { get; set; }
+          public Currency SelectedCurrency { get; set; }
+          /**************************************/
+        private Tuple<uint, string> _selectedCurrency;
+        public Tuple<uint, string> SelectedCurrency
+        {
+            get => _selectedCurrency;
+            set
+            {
+                _selectedCurrency = value;
+                OnPropertyChanged();
+                OnCurrencyChanged();
+            }
+        }
+
+        public List<Tuple<uint, string>> Currencies { get; set; }
+
+        private void OnCurrencyChanged()
+        {
+            if (SelectedCurrency != null)
+            {
+                uint selectedCurrencyId = SelectedCurrency.Item1; // Récupère l'ID de la devise sélectionnée
+                Opportunity.Currency = selectedCurrencyId; // Met à jour la propriété Currency dans le modèle
+            }
+        }
+
+
         private Document _temporaryDocument;
         public Document TemporaryDocument
         {
@@ -54,9 +80,11 @@ namespace SmartPharma5.ViewModel
         // Méthode pour annuler le document temporaire
         public void CancelTemporaryDocument()
         {
-            TemporaryDocument = null; 
+            TemporaryDocument = null;
         }
         /************************************/
+
+
         public Command EnAttenteCommand { get; }
         public Command BcCommand { get; }
         public Command QuotationCommand { get; }
@@ -180,11 +208,12 @@ namespace SmartPharma5.ViewModel
             get => _isFormsButtonVisible;
             set => SetProperty(ref _isFormsButtonVisible, value);
         }
+
         /*****************/
-        public OpportunityViewModel()
+        /*public void LoadCurrencies()
         {
-            //Task.Run( () => LoadProductAndWholesaler());
-        }
+            Currencies = Partner.AllCurrencies.Select(c => c.Name).ToList();
+        }*/
 
         public OpportunityViewModel(Opportunity opportunity)
         {
@@ -215,6 +244,19 @@ namespace SmartPharma5.ViewModel
             ClosePopupWholesalerCommand = new AsyncCommand(ClosePopupWholesaler);
             Tryagain = new Command(() => FieldPopup = false);
             Opportunity = opportunity;
+            /*******************************/
+            // Simule une liste de devises (id, nom)
+            Currencies = new List<Tuple<uint, string>>
+            {
+                new Tuple<uint, string>(1, "TND"),
+                new Tuple<uint, string>(2, "USD"),
+                new Tuple<uint, string>(3, "EURO"),
+            };
+
+            // Sélectionne la devise correspondant à Opportunity.Currency
+            SelectedCurrency = Currencies.FirstOrDefault(c => c.Item1 == Opportunity.Currency);
+
+            /*******************************/
             RefreshCommand = new AsyncCommand(Refresh);
             GetQuotation = new AsyncCommand(GetQuotationFun);
             Title = "Opportunity";
@@ -247,6 +289,8 @@ namespace SmartPharma5.ViewModel
             ValidatedControl(Opportunity.validated);
             ActPopup = false;
         }
+
+
 
         public async Task GetQuotationFun()
         {
@@ -620,9 +664,9 @@ namespace SmartPharma5.ViewModel
                                 }
 
                                 // Enregistrer l'opportunité et récupérer l'Id généré
-                                int opportunityId = Opportunity.insert();
+                                //int opportunityId = Opportunity.insert();
 
-                                if (opportunityId == -1)
+                                if (Opportunity.Id == -1)
                                 {
                                     await App.Current.MainPage.DisplayAlert("Error", "Failed to insert opportunity.", "OK");
                                     return;
@@ -631,7 +675,7 @@ namespace SmartPharma5.ViewModel
                                 // Enregistrer tous les documents temporaires
                                 foreach (var document in TemporaryDocuments)
                                 {
-                                    bool isSaved = await Document.SaveToDatabase(document, opportunityId);
+                                    bool isSaved = await Document.SaveToDatabase(document, Opportunity.Id);
                                     if (!isSaved)
                                     {
                                         await App.Current.MainPage.DisplayAlert("Error", "Failed to save the document.", "OK");
@@ -701,8 +745,9 @@ namespace SmartPharma5.ViewModel
         }
         public void ValidatedControl(bool validated)
         {
+            MoreDetailActive = true;
 
-            AddActive = ToinvoiceEdit = WholeSalerRemoveIsvisible = RemoveVisible = ValidateActive = GratuiteActive = MoreDetailActive = EditActive = WholesalerActive = !validated;
+            AddActive = ToinvoiceEdit = WholeSalerRemoveIsvisible = RemoveVisible = ValidateActive = GratuiteActive = EditActive = WholesalerActive = !validated;
             QuantityEdit = DiscountEdit = validated;
             if (Opportunity.parent != 0)
                 GratuiteActive = WholesalerActive = false;

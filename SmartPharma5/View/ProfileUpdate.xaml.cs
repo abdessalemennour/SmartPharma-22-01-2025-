@@ -20,8 +20,8 @@ public partial class ProfileUpdate : ContentPage
     {
         InitializeComponent();
         BindingContext = new UpdateProfileMV(a);
-        this.Partner = new Partner(); // Exemple, initialiser Partner si nécessaire
-        this.Partner.Id = a; // Exemple d'affectation de l'ID à Partner
+        this.Partner = new Partner(); 
+        this.Partner.Id = a; 
     }
     private async void OnButtonClicked(object sender, EventArgs e)
     {
@@ -52,7 +52,7 @@ public partial class ProfileUpdate : ContentPage
                     await Partner.UpdateGpsCoordinates(viewModel.Partner.Id);
 
                     // Afficher une confirmation que les coordonnées ont été mises à jour
-                    //await DisplayAlert("Succès", "Les coordonnées GPS ont été mises à jour.", "OK");
+                    await DisplayAlert("Success", "The GPS coordinates have been updated.", "OK");
 
                     // Ouvrir Google Maps pour afficher la position actuelle
                     string uri = $"https://www.google.com/maps/search/?api=1&query={formattedLatitude},{formattedLongitude}";

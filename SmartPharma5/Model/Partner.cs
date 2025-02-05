@@ -84,6 +84,8 @@ namespace SmartPharma5.Model
         public decimal CreditLimit { get; set; }
         [Column("Currency")]
         public uint Currency { get; set; }
+        public string CurrencyName { get; set; }
+
         [Column("JobPosition")]
         public string JobPosition { get; set; }
         [Column("CustomsCode")]
@@ -128,7 +130,7 @@ namespace SmartPharma5.Model
         public AsyncCommand ShowContacts { get; set; }
 
         public AsyncCommand ShowForms { get; set; }
-
+        public static List<(uint Id, string Name)> AllCurrencies { get; set; } = new List<(uint, string)>();
         private async Task Button_Clicked()
         {
             UserDialogs.Instance.ShowLoading("Loading Pleae wait ...");
@@ -150,7 +152,7 @@ namespace SmartPharma5.Model
             ShowContacts = new AsyncCommand(Button_Clicked);
             ShowForms = new AsyncCommand(showFormFonc);
         }
-        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc, decimal? rest, DateTime? due_date, decimal? unpaied_invoice, decimal? unpaied_invoice_due)
+        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc, decimal? rest, DateTime? due_date, decimal? unpaied_invoice, decimal? unpaied_invoice_due, uint currency)
         {
             Id = id;
             Name = name;
@@ -164,14 +166,16 @@ namespace SmartPharma5.Model
             Due_date = due_date;
             Unpaied_invoice = unpaied_invoice;
             Unpaied_invoice_due = unpaied_invoice_due;
+            Currency = currency;
             ShowProfile = new AsyncCommand(showProfileFonc);
             ShowForms = new AsyncCommand(showFormFonc);
             ShowContacts = new AsyncCommand(Button_Clicked);
 
-
         }
+        //currency
 
-        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc, decimal? rest, DateTime? due_date)
+
+        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc, decimal? rest, DateTime? due_date, uint currency)
         {
             Id = id;
             Name = name;
@@ -183,6 +187,7 @@ namespace SmartPharma5.Model
             PaymentMethodCustomer = pmc;
             Rest = rest;
             Due_date = due_date;
+            Currency = currency;
             ShowProfile = new AsyncCommand(showProfileFonc);
             ShowForms = new AsyncCommand(showFormFonc);
             ShowContacts = new AsyncCommand(Button_Clicked);
@@ -190,10 +195,7 @@ namespace SmartPharma5.Model
 
         }
 
-
-
-
-        public Partner(uint id, string name, string phone, string country, string postale_code, string street, string state, string category_name, string vat_code, string fax, string number)
+        public Partner(uint id, string name, string phone, string country, string postale_code, string street, string state, string category_name, string vat_code, string fax, string number, uint currency)
         {
             Id = id;
             Name = name;
@@ -207,29 +209,31 @@ namespace SmartPharma5.Model
             VatCode = vat_code;
             Fax = fax;
             Number = number;
+            Currency = currency;
             ShowProfile = new AsyncCommand(showProfileFonc);
             ShowForms = new AsyncCommand(showFormFonc);
             ShowContacts = new AsyncCommand(Button_Clicked);
 
 
         }
-        public Partner(int id, string name, uint category, string phone, string street, string city, string postale_code, string state, string email, ImageSource img, string category_name)
+        public Partner(int id, string name, uint category, string phone, string street, string city, string postal_code, string state, string email, uint currency, ImageSource img, string category_name)
         {
             Id = (uint)id;
             Category = category;
             Name = name;
             Phone = phone;
-            FullAdress = street + " " + city + " " + postale_code;
+            FullAdress = street + " " + city + " " + postal_code;
             State = state;
             Email = email;
+            Currency = currency;
             Photo = img;
-            Category_Name = category_name;
+            Category_Name = category_name;              
             ShowProfile = new AsyncCommand(showProfileFonc);
             ShowContacts = new AsyncCommand(Button_Clicked);
             ShowForms = new AsyncCommand(showFormFonc);
-
         }
-        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc)
+
+        public Partner(uint id, string name, string phone, string country, string email, string reference, int pcc, uint pmc, uint currency)
         {
             Id = id;
             Name = name;
@@ -239,11 +243,13 @@ namespace SmartPharma5.Model
             Reference = reference;
             PaymentConditionCustomer = pcc;
             PaymentMethodCustomer = pmc;
+            Currency = currency;
             ShowProfile = new AsyncCommand(showProfileFonc);
             ShowForms = new AsyncCommand(showFormFonc);
             ShowContacts = new AsyncCommand(Button_Clicked);
-
         }
+      
+      
         private async Task showFormFonc()
         {
             await App.Current.MainPage.Navigation.PushAsync(new FormListView(this));
@@ -260,7 +266,7 @@ namespace SmartPharma5.Model
         public static async Task<BindingList<Partner>> GetPartnaire()
         {
             string sqlCmd = "SELECT cp.Id,cp.name,cp.mobile,cp.country,cp.email,cp.reference,cp.payment_condition_customer," +
-                    "cp.payment_method_customer,yy.due_date,yy.rest " +
+                    "cp.payment_method_customer,cp.currency,yy.due_date,yy.rest " +
                     "FROM commercial_partner cp Left Join " +
                     "(SELECT partner, sum(restAmount) as rest, min(due_date) as due_date " +
                     "from(SELECT  sale_balance.restAmount, sale_balance.due_date, commercial_partner.Id as partner " +
@@ -299,7 +305,9 @@ namespace SmartPharma5.Model
                                         int.Parse(reader["payment_condition_customer"].ToString()),
                                         Convert.ToUInt32(reader["payment_method_customer"]),
                                         reader["rest"] is decimal ? Convert.ToDecimal(reader["rest"]) : (decimal?)null,
-                                        reader["due_date"] is DateTime ? Convert.ToDateTime(reader["due_date"].ToString()) : (DateTime?)null
+                                        reader["due_date"] is DateTime ? Convert.ToDateTime(reader["due_date"].ToString()) : (DateTime?)null,
+                                        reader["currency"] is null ? 0 : Convert.ToUInt32(reader["currency"])
+
                                     ));
                                 }
                                 catch (Exception ex)
@@ -335,7 +343,7 @@ namespace SmartPharma5.Model
             MySqlDataReader reader = null;
             if (await DbConnection.Connecter3())
             {
-                string sqlCmd = "select commercial_partner.Id,commercial_partner.name,category,commercial_partner.phone,commercial_partner.street,commercial_partner.city,commercial_partner.postal_code,commercial_partner.state,commercial_partner.email,commercial_partner_category.name as category_name from commercial_partner\r\nleft join commercial_partner_category on commercial_partner_category.Id =  commercial_partner.category " +
+                string sqlCmd = "select commercial_partner.Id,commercial_partner.name,category,commercial_partner.phone,commercial_partner.street,commercial_partner.city,commercial_partner.postal_code,commercial_partner.state,commercial_partner.email,commercial_partner.currency,commercial_partner_category.name as category_name from commercial_partner\r\nleft join commercial_partner_category on commercial_partner_category.Id =  commercial_partner.category " +
                     "where not(customer=0 and supplier=1) and sale_agent = " + id_agent + ";";
 
                 try
@@ -359,6 +367,7 @@ namespace SmartPharma5.Model
                   reader["postal_code"] is null ? "" : reader["postal_code"].ToString(),
                   reader["state"] is null ? "" : reader["state"].ToString(),
                   reader["email"] is null ? "" : reader["email"].ToString(),
+                  reader["currency"] is null ? 0 : Convert.ToUInt32(reader["currency"]),
                   img,
                    reader["category_name"] is null ? "" : reader["category_name"].ToString()));
                         }
@@ -410,11 +419,13 @@ namespace SmartPharma5.Model
                                 "category, commercial_partner.phone, commercial_partner.street, " +
                                 "commercial_partner.city, commercial_partner.postal_code, " +
                                 "commercial_partner.state, commercial_partner.email, " +
+                                "commercial_partner.currency, " +  // Ajout de l'attribut currency
                                 "commercial_partner_category.name AS category_name " +
                                 "FROM commercial_partner " +
                                 "LEFT JOIN commercial_partner_category ON " +
                                 "commercial_partner_category.Id = commercial_partner.category " +
                                 "WHERE NOT(customer=0 AND supplier=1);";
+
 
                 try
                 {
@@ -437,8 +448,11 @@ namespace SmartPharma5.Model
                                     reader["postal_code"] is null ? "" : reader["postal_code"].ToString(),
                                     reader["state"] is null ? "" : reader["state"].ToString(),
                                     reader["email"] is null ? "" : reader["email"].ToString(),
+                                    reader["currency"] is null ? 0 : Convert.ToUInt32(reader["currency"]),
                                     img,
                                     reader["category_name"] is null ? "" : reader["category_name"].ToString()
+
+
                                 ));
                             }
                             catch (Exception ex)
@@ -546,7 +560,7 @@ namespace SmartPharma5.Model
         public async static Task<List<Partner>> GetPartnaireForFormByIdAgent(uint idagent)
         {
 
-            string sqlCmd = "select commercial_partner.Id,commercial_partner.name,category,commercial_partner.phone,commercial_partner.street,commercial_partner.city,commercial_partner.postal_code,commercial_partner.state,commercial_partner.email,commercial_partner_category.name as category_name from commercial_partner\r\nleft join commercial_partner_category on commercial_partner_category.Id =  commercial_partner.category ;";
+            string sqlCmd = "select commercial_partner.Id,commercial_partner.name,category,commercial_partner.phone,commercial_partner.street,commercial_partner.city,commercial_partner.postal_code,commercial_partner.state,commercial_partner.currency,commercial_partner.email,commercial_partner_category.name as category_name from commercial_partner\r\nleft join commercial_partner_category on commercial_partner_category.Id =  commercial_partner.category ;";
             //where not(customer=0 and supplier=1)
             List<Partner> list = new List<Partner>();
 
@@ -573,8 +587,9 @@ namespace SmartPharma5.Model
                            reader["street"] is null ? "" : reader["street"].ToString(),
                            reader["city"] is null ? "" : reader["city"].ToString(),
                            reader["postal_code"] is null ? "" : reader["postal_code"].ToString(),
-                           reader["state"] is null ? "" : reader["state"].ToString(),
+                           reader["state"] is null ? "" : reader["state"].ToString(),                          
                            reader["email"] is null ? "" : reader["email"].ToString(),
+                           reader["currency"] is null ? 0 : Convert.ToUInt32(reader["currency"]),
                            img,
                             reader["category_name"] is null ? "" : reader["category_name"].ToString()
                            ));
@@ -600,9 +615,24 @@ namespace SmartPharma5.Model
 
             return list;
         }
+        // ajouter la récupération de la colonne currency
         public static async Task<BindingList<Partner>> GetPartnaireForPayment()
         {
-            string sqlCmd = "SELECT cp.Id,cp.name,cp.mobile,cp.country,cp.email,cp.reference,cp.payment_condition_customer,cp.payment_method_customer,yy.due_date,\r\n\r\n       yy.rest, unpaied_invoice, unpaied_invoice_due\r\n\r\nFROM commercial_partner cp\r\n\r\nLeft Join (SELECT partner, sum(restAmount) as rest, sum(unpaied_invoice) as unpaied_invoice, sum(unpaied_invoice_due) as unpaied_invoice_due, min(due_date) as due_date\r\n\r\n           from(SELECT  sale_balance.restAmount,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' , restAmount, 0) as unpaied_invoice,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'  and date(sale_balance.due_date) < now(), restAmount, 0) as unpaied_invoice_due,\r\n\r\n                        sale_balance.due_date, commercial_partner.Id as partner\r\n\r\n                 FROM     commercial_partner\r\n\r\n                 LEFT OUTER JOIN sale_balance ON sale_balance.IdPartner = commercial_partner.Id\r\n\r\n                 LEFT OUTER JOIN commercial_partner_category ON commercial_partner.category = commercial_partner_category.Id\r\n\r\n                 WHERE(FORMAT(sale_balance.restAmount, 3) <> 0))\r\n\r\nxx group by partner order by due_date)  yy on cp.Id = yy.partner WHERE(cp.customer = 1) AND(cp.chec_socity = 1) AND(cp.actif = 1)\r\n\r\norder by yy.due_date is null, yy.due_date asc;";
+            string sqlCmd = "SELECT cp.Id, cp.name, cp.mobile, cp.country, cp.email, cp.reference, cp.payment_condition_customer, cp.payment_method_customer, yy.due_date, " +
+                            "yy.rest, yy.unpaied_invoice, yy.unpaied_invoice_due, cp.currency " + // Ajout de cp.currency 
+                            "FROM commercial_partner cp " +
+                            "LEFT JOIN (SELECT partner, sum(restAmount) as rest, sum(unpaied_invoice) as unpaied_invoice, sum(unpaied_invoice_due) as unpaied_invoice_due, min(due_date) as due_date " +
+                            "           FROM (SELECT sale_balance.restAmount, " +
+                            "                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null', restAmount, 0) as unpaied_invoice, " +
+                            "                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' AND date(sale_balance.due_date) < now(), restAmount, 0) as unpaied_invoice_due, " +
+                            "                        sale_balance.due_date, commercial_partner.Id as partner " +
+                            "                 FROM commercial_partner " +
+                            "                 LEFT OUTER JOIN sale_balance ON sale_balance.IdPartner = commercial_partner.Id " +
+                            "                 LEFT OUTER JOIN commercial_partner_category ON commercial_partner.category = commercial_partner_category.Id " +
+                            "                 WHERE FORMAT(sale_balance.restAmount, 3) <> 0) xx " +
+                            "           GROUP BY partner ORDER BY due_date) yy ON cp.Id = yy.partner " +
+                            "WHERE cp.customer = 1 AND cp.chec_socity = 1 AND cp.actif = 1 " +
+                            "ORDER BY yy.due_date IS NULL, yy.due_date ASC;";
             BindingList<Partner> list = new BindingList<Partner>();
 
             DbConnection.Deconnecter();
@@ -616,28 +646,25 @@ namespace SmartPharma5.Model
                     try
                     {
                         list.Add(new Partner(
-     Convert.ToUInt32(reader["Id"]),
-     reader["name"]?.ToString(),
-     reader["mobile"]?.ToString(),
-     reader["country"]?.ToString(),
-     reader["email"]?.ToString(),
-     reader["reference"]?.ToString(),
-     int.Parse(reader["payment_condition_customer"]?.ToString() ?? "0"),
-     Convert.ToUInt32(reader["payment_method_customer"]?.ToString() ?? "0"),
-     reader["rest"] != DBNull.Value ? Convert.ToDecimal(reader["rest"]) : (decimal?)null,
-     reader["due_date"] != DBNull.Value ? Convert.ToDateTime(reader["due_date"].ToString()) : (DateTime?)null,
-     reader["unpaied_invoice"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice"]) : (decimal?)null,
-     reader["unpaied_invoice_due"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice_due"]) : (decimal?)null
- ));
-
-
+                            Convert.ToUInt32(reader["Id"]),
+                            reader["name"]?.ToString(),
+                            reader["mobile"]?.ToString(),
+                            reader["country"]?.ToString(),
+                            reader["email"]?.ToString(),
+                            reader["reference"]?.ToString(),
+                            int.Parse(reader["payment_condition_customer"]?.ToString() ?? "0"),
+                            Convert.ToUInt32(reader["payment_method_customer"]?.ToString() ?? "0"),
+                            reader["rest"] != DBNull.Value ? Convert.ToDecimal(reader["rest"]) : (decimal?)null,
+                            reader["due_date"] != DBNull.Value ? Convert.ToDateTime(reader["due_date"].ToString()) : (DateTime?)null,
+                            reader["unpaied_invoice"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice"]) : (decimal?)null,
+                            reader["unpaied_invoice_due"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice_due"]) : (decimal?)null,
+                            reader["currency"] != DBNull.Value ? Convert.ToUInt32(reader["currency"]) : 0 // Conversion en uint
+                        ));
                     }
                     catch (Exception ex)
                     {
-                        reader.Close();
-                        return null;
-                        //await App.Current.MainPage.DisplayAlert("Warning", "Connetion Time out", "Ok");
-                        //await App.Current.MainPage.Navigation.PopAsync();
+                        // Gérer l'exception
+                        Console.WriteLine("Erreur lors de la création d'un objet Partner : " + ex.Message);
                     }
 
                 }
@@ -654,7 +681,7 @@ namespace SmartPharma5.Model
         }
         public static async Task<BindingList<Partner>> GetPartnaireByIdAgent(uint idagent)
         {
-            string sqlCmd = "SELECT cp.Id,cp.name,cp.mobile,cp.country,cp.email,cp.reference,cp.payment_condition_customer,cp.payment_method_customer,yy.due_date,\r\n\r\n       yy.rest, unpaied_invoice, unpaied_invoice_due\r\n\r\nFROM commercial_partner cp\r\n\r\nLeft Join (SELECT partner, sum(restAmount) as rest, sum(unpaied_invoice) as unpaied_invoice, sum(unpaied_invoice_due) as unpaied_invoice_due, min(due_date) as due_date\r\n\r\n           from(SELECT  sale_balance.restAmount,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' , restAmount, 0) as unpaied_invoice,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'  and date(sale_balance.due_date) < now(), restAmount, 0) as unpaied_invoice_due,\r\n\r\n                        sale_balance.due_date, commercial_partner.Id as partner\r\n\r\n                 FROM     commercial_partner\r\n\r\n                 LEFT OUTER JOIN sale_balance ON sale_balance.IdPartner = commercial_partner.Id\r\n\r\n                 LEFT OUTER JOIN commercial_partner_category ON commercial_partner.category = commercial_partner_category.Id\r\n\r\n                 WHERE(FORMAT(sale_balance.restAmount, 3) <> 0))\r\n\r\nxx group by partner order by due_date)  yy on cp.Id = yy.partner WHERE(cp.customer = 1) AND(cp.chec_socity = 1) AND(cp.actif = 1) AND (sale_agent = " + idagent + ") \r\n\r\norder by yy.due_date is null, yy.due_date asc;";
+            string sqlCmd = "SELECT cp.Id,cp.name,cp.mobile,cp.country,cp.email,cp.reference,cp.payment_condition_customer,cp.currency,cp.payment_method_customer,yy.due_date,\r\n\r\n       yy.rest, unpaied_invoice, unpaied_invoice_due\r\n\r\nFROM commercial_partner cp\r\n\r\nLeft Join (SELECT partner, sum(restAmount) as rest, sum(unpaied_invoice) as unpaied_invoice, sum(unpaied_invoice_due) as unpaied_invoice_due, min(due_date) as due_date\r\n\r\n           from(SELECT  sale_balance.restAmount,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' , restAmount, 0) as unpaied_invoice,\r\n\r\n                        if(piece_type = 'Sale.Invoice, Sale, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'  and date(sale_balance.due_date) < now(), restAmount, 0) as unpaied_invoice_due,\r\n\r\n                        sale_balance.due_date, commercial_partner.Id as partner\r\n\r\n                 FROM     commercial_partner\r\n\r\n                 LEFT OUTER JOIN sale_balance ON sale_balance.IdPartner = commercial_partner.Id\r\n\r\n                 LEFT OUTER JOIN commercial_partner_category ON commercial_partner.category = commercial_partner_category.Id\r\n\r\n                 WHERE(FORMAT(sale_balance.restAmount, 3) <> 0))\r\n\r\nxx group by partner order by due_date)  yy on cp.Id = yy.partner WHERE(cp.customer = 1) AND(cp.chec_socity = 1) AND(cp.actif = 1) AND (sale_agent = " + idagent + ") \r\n\r\norder by yy.due_date is null, yy.due_date asc;";
 
             BindingList<Partner> list = new BindingList<Partner>();
 
@@ -680,7 +707,8 @@ namespace SmartPharma5.Model
       reader["rest"] != DBNull.Value ? Convert.ToDecimal(reader["rest"]) : (decimal?)null,
       reader["due_date"] != DBNull.Value ? Convert.ToDateTime(reader["due_date"].ToString()) : (DateTime?)null,
       reader["unpaied_invoice"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice"]) : (decimal?)null,
-      reader["unpaied_invoice_due"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice_due"]) : (decimal?)null
+      reader["unpaied_invoice_due"] != DBNull.Value ? Convert.ToDecimal(reader["unpaied_invoice_due"]) : (decimal?)null,
+      reader["currency"] != DBNull.Value ? Convert.ToUInt32(reader["currency"]) : 0
   ));
                     }
                     catch (Exception ex)
@@ -705,7 +733,7 @@ namespace SmartPharma5.Model
         }
         public async static Task<Partner> GetCommercialPartnerById(int idpartner)
         {
-            string sqlCmd = "SELECT partner.Id,partner.vat_code,partner.fax ,partner.category, partner.country , partner.mobile,partner.name, partner.email, partner.number, partner.phone, partner.postal_code , partner.street , partner.state ,category.name category_name,category.id category FROM commercial_partner partner left join commercial_partner_category category on category.Id = partner.category  WHERE(partner.Id = " + (uint)idpartner + ");";
+            string sqlCmd = "SELECT partner.Id,partner.vat_code,partner.fax ,partner.category, partner.country , partner.mobile,partner.name, partner.email, partner.number, partner.phone, partner.postal_code , partner.street ,partner.currency, partner.state ,category.name category_name,category.id category FROM commercial_partner partner left join commercial_partner_category category on category.Id = partner.category  WHERE(partner.Id = " + (uint)idpartner + ");";
             Partner partner = new Partner();
 
             if (await DbConnection.Connecter3())
@@ -729,7 +757,8 @@ namespace SmartPharma5.Model
                             reader["category_name"].ToString(),
                             reader["vat_code"].ToString(),
                             reader["fax"].ToString(),
-                            reader["number"].ToString()
+                            reader["number"].ToString(),
+                            reader["currency"] != DBNull.Value ? Convert.ToUInt32(reader["currency"]) : 0
 
                             );
                         partner.Category = Convert.ToUInt32(reader["category"]);
@@ -855,7 +884,8 @@ namespace SmartPharma5.Model
                         dr["email"].ToString(),
                         dr["reference"].ToString(),
                         Convert.ToInt32(dr["payment_condition_customer"]),
-                        Convert.ToUInt32(dr["payment_method_customer"].ToString())));
+                        Convert.ToUInt32(dr["payment_method_customer"].ToString()),
+                        dr["currency"] is DBNull ? 0 : Convert.ToUInt32(dr["currency"])));
                 }
             }
             catch (Exception ex)
@@ -865,29 +895,70 @@ namespace SmartPharma5.Model
             }
             return list;
         }
+
+        /*   public static Task<Partner> GetCommercialPartnerByIdForPayment(int idpartner)
+           {
+               string sqlCmd = "SELECT Id,country,mobile,name, email, number, payment_condition_customer, payment_condition_supplier, payment_method_customer, payment_method_supplier, " +
+                   "phone, reference FROM commercial_partner WHERE(Id = " + (uint)idpartner + ");";
+               Partner partner = new Partner();
+               DbConnection.Deconnecter();
+               DbConnection.Connecter();
+
+               MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+
+               MySqlDataReader reader = cmd.ExecuteReader();
+               while (reader.Read())
+               {
+                   try
+                   {
+                       partner = new Partner(Convert.ToUInt32(reader["Id"]),
+                           reader["name"].ToString(),
+                           reader["mobile"].ToString(),
+                           reader["country"].ToString(),
+                           reader["email"].ToString(),
+                           reader["reference"].ToString(),
+                           int.Parse(reader["payment_condition_customer"].ToString()),
+                           Convert.ToUInt32(reader["payment_method_customer"]));
+                   }
+                   catch (Exception ex)
+                   {
+                       Console.WriteLine(ex.Message);
+                   }
+               }
+
+               DbConnection.Deconnecter();
+
+               return Task.FromResult(partner);
+
+           }*/
         public static Task<Partner> GetCommercialPartnerByIdForPayment(int idpartner)
         {
-            string sqlCmd = "SELECT Id,country,mobile,name, email, number, payment_condition_customer, payment_condition_supplier, payment_method_customer, payment_method_supplier, " +
-                "phone, reference FROM commercial_partner WHERE(Id = " + (uint)idpartner + ");";
+            string sqlCmd = "SELECT Id, country, mobile, name, email, number, payment_condition_customer, " +
+                            "payment_condition_supplier, payment_method_customer, payment_method_supplier, " +
+                            "phone, reference, currency FROM commercial_partner WHERE Id = " + (uint)idpartner + ";";
+
             Partner partner = new Partner();
             DbConnection.Deconnecter();
             DbConnection.Connecter();
 
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
-
             MySqlDataReader reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 try
                 {
-                    partner = new Partner(Convert.ToUInt32(reader["Id"]),
+                    partner = new Partner(
+                        Convert.ToUInt32(reader["Id"]),
                         reader["name"].ToString(),
                         reader["mobile"].ToString(),
                         reader["country"].ToString(),
                         reader["email"].ToString(),
                         reader["reference"].ToString(),
                         int.Parse(reader["payment_condition_customer"].ToString()),
-                        Convert.ToUInt32(reader["payment_method_customer"]));
+                        Convert.ToUInt32(reader["payment_method_customer"]),
+                        Convert.ToUInt32(reader["currency"]) // Ajout de la récupération de currency
+                    );
                 }
                 catch (Exception ex)
                 {
@@ -896,10 +967,9 @@ namespace SmartPharma5.Model
             }
 
             DbConnection.Deconnecter();
-
             return Task.FromResult(partner);
-
         }
+
 
         /*************Mettre à jour la colonne gps dans ta table commercial_partner(gps)*************/
 

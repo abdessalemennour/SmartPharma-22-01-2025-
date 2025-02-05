@@ -5785,3 +5785,4 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Release\net7
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Release\net7.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Release\net7.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Release\net7.0-android\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Release\net7.0-android\resizetizer\r\drawable\document.png

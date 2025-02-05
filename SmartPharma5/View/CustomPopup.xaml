@@ -6,34 +6,37 @@
 
     <Frame BackgroundColor="White"
            WidthRequest="350" 
-           HeightRequest="350">
+           HeightRequest="400">
         <VerticalStackLayout Spacing="10">
             <Label Text="Enter File Details" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <!-- Champ pour modifier le nom du document -->
+            <Entry x:Name="FileNameEntry" Placeholder="Enter File Name" />
 
             <Editor x:Name="MemoEntry" 
                     Placeholder="Enter Memo" 
                     HeightRequest="100" 
-                AutoSize="TextChanges" />
+                    AutoSize="TextChanges" />
 
-                <Entry x:Name="DescriptionEntry" Placeholder="Enter Description" />
-                <Picker x:Name="TypePicker" Title="Select Document Type" />
-                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Padding="10">
-                    <!-- Bouton Cancel -->
-                    <Button Text="Cancel" 
+            <Entry x:Name="DescriptionEntry" Placeholder="Enter Description" />
+            <Picker x:Name="TypePicker" Title="Select Document Type" />
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Padding="10">
+                <!-- Bouton Cancel -->
+                <Button Text="Cancel" 
                         BackgroundColor="Red" 
                         TextColor="White" 
                         CornerRadius="10"
                         Clicked="OnCancelClicked" 
                         WidthRequest="120" />
 
-                    <!-- Bouton Save -->
-                    <Button Text="Save" 
+                <!-- Bouton Save -->
+                <Button Text="Save" 
                         BackgroundColor="Green" 
                         TextColor="White" 
                         CornerRadius="10"
                         Clicked="OnSaveClicked" 
                         WidthRequest="120" />
-                </HorizontalStackLayout>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>

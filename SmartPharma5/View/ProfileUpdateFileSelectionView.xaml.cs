@@ -194,7 +194,7 @@ public partial class ProfileUpdateFileSelectionView : ContentPage
         }
 
         // Afficher le popup pour choisir Memo, Description et Type
-        var popup = new CustomPopup(documentTypes);
+        var popup = new CustomPopup(documentTypes, fileName);
         var result = await Application.Current.MainPage.ShowPopupAsync(popup);
 
         if (result == null)
@@ -207,12 +207,13 @@ public partial class ProfileUpdateFileSelectionView : ContentPage
         var data = (dynamic)result;
         var memo = data.Memo;
         var description = data.Description;
+        var newFileName = data.FileName;
         var selectedTypeId = data.TypeId;
 
         // Créer un document temporaire
         var temporaryDocument = new Document
         {
-            name = Path.GetFileNameWithoutExtension(fileName),
+            name = newFileName, // Utiliser le nouveau nom du fichier
             extension = Path.GetExtension(fileName),
             content = await File.ReadAllBytesAsync(filePath),
             create_date = DateTime.Now,
@@ -230,6 +231,7 @@ public partial class ProfileUpdateFileSelectionView : ContentPage
         {
             Documents.Add(temporaryDocument); // Mettre à jour la liste
             await DisplayAlert("Success", $"File added: {temporaryDocument.name}", "OK");
+            LoadDocumentsAsync();
         }
         else
         {

@@ -113,5 +113,24 @@ public partial class PayView : ContentPage
             await DisplayAlert("Erreur", $"Une erreur s'est produite : {ex.Message}", "OK");
         }
     }
+    /*
+      private async void OnSaveDocumentClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Payment == null || Payment.Id == 0)
+            {
+                await DisplayAlert("Erreur", "Aucun paiement valide sélectionné.", "OK");
+                return;
+            }
 
+            // Passer l'ID de Payment à la vue de sélection de fichiers
+            await Navigation.PushAsync(new FileSelectionView(Payment.Id));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur dans OnPaymentButtonClicked : {ex.Message}");
+            await DisplayAlert("Erreur", $"Une erreur s'est produite : {ex.Message}", "OK");
+        }
+    }*/
 }

@@ -332,59 +332,77 @@ namespace SmartPharma5.ViewModel
                     //}
                     
 
-                    foreach (var item in ListRequired)
+                    try
                     {
-                        if (item == "vat_code" && (Vat_Code.ToString() == "" | Vat_Code==null)) 
+                        if(selected_category == null)
                         {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the vat code first", "Ok");
+                            await App.Current.MainPage.DisplayAlert("Warning", "Must Choose Category first", "Ok");
                             UserDialogs.Instance.HideLoading();
                             return;
                         }
-                        else if (item == "name" && (InputName.ToString()=="" | InputName==null)) 
+                        foreach (var item in ListRequired)
                         {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the name first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
+                            if (item == "vat_code" && string.IsNullOrEmpty(Vat_Code?.ToString()))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the vat code first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "name" && (InputName.ToString() == "" | InputName == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the name first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "country" && (InputCountry.ToString() == "" | InputCountry == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the country first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "state" && (InputState.ToString() == "" | InputState == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the state first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "postale_code" && (InputPostaleCode.ToString() == "" | InputPostaleCode == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the postale code first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "email" && (InputEmail.ToString() == "" | InputEmail == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write the email first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+                            else if (item == "fax" && (InputFax.ToString() == "" | InputFax == null))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must Write fax first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }
+
+                         /*   else if (item == "category" && Selected_category == null)
+                            {
+                                await App.Current.MainPage.DisplayAlert("Warning", "Must choose a category first", "Ok");
+                                UserDialogs.Instance.HideLoading();
+                                return;
+                            }*/
+                            else
+                            {
+                                UserDialogs.Instance.HideLoading();
+
+                            }
                         }
-                        else if (item == "country" && (InputCountry.ToString() == "" | InputCountry == null)) {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the country first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }
-                        else if (item == "state" && (InputState.ToString() == "" | InputState == null)) {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the state first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }
-                        else if (item == "postale_code" && (InputPostaleCode.ToString() == "" | InputPostaleCode == null)) {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the postale code first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }
-                        else if (item == "email" && (InputEmail.ToString() == "" | InputEmail == null)) {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write the email first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }
-                        else if (item == "fax" && (InputFax.ToString() == "" | InputFax == null)) {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must Write fax first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }
-                        else if (item == "category" && Selected_category != null) 
-                        {
-                            await App.Current.MainPage.DisplayAlert("Warning", "Must choosse category first", "Ok");
-                            UserDialogs.Instance.HideLoading();
-                            return;
-                        }else
-                        {
-                            UserDialogs.Instance.HideLoading();
-                            
-                        }
+
                     }
-
-
-
+                    catch (Exception ex )
+                    {
+                        
+                    }
 
 
                     if (Selected_profile != null )
@@ -547,7 +565,7 @@ namespace SmartPharma5.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    return;
+                    
 
                 }
                
