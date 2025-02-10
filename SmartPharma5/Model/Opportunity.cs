@@ -106,7 +106,7 @@ namespace SmartPharma5.Model
             set { }
         }
         // Propriété
-        public uint Currency { get; set; }
+        public uint? Currency { get; set; }
         public int? IdAgent { get; set; }
         public uint parent { get; set; }
         private int dealer;
@@ -206,7 +206,22 @@ namespace SmartPharma5.Model
 
         }
 
-        public Opportunity(int id, int IdPartner, string partnerName, int IdPayment_method, int IdPayment_condition, int? IdAgent, string memo, bool toinvoice, int parent, int dealer, BindingList<OpportunityLine> lines)
+       /*  public Opportunity(int id, int IdPartner, string partnerName, int IdPayment_method, int IdPayment_condition, int? IdAgent, string memo, bool toinvoice, int parent, int dealer, BindingList<OpportunityLine> lines)
+          {
+              this.Id = id;
+              this.IdPartner = IdPartner;
+              this.partnerName = partnerName;
+              this.IdPayment_condition = IdPayment_condition;
+              this.IdPayment_method = IdPayment_method;
+              this.IdAgent = IdAgent;
+              this.memo = memo;
+              this.toinvoice = toinvoice;
+              this.parent = (uint)parent;
+              this.Dealer = dealer;
+              this.opportunity_lines = new BindingList<OpportunityLine>(lines);
+
+          }*/
+       public Opportunity(int id, int IdPartner, string partnerName, int IdPayment_method, int IdPayment_condition, int? IdAgent, string memo, uint? currency, bool toinvoice, int parent, int dealer, BindingList<OpportunityLine> lines)
         {
             this.Id = id;
             this.IdPartner = IdPartner;
@@ -215,13 +230,28 @@ namespace SmartPharma5.Model
             this.IdPayment_method = IdPayment_method;
             this.IdAgent = IdAgent;
             this.memo = memo;
+            this.Currency = currency;  // Ajouté ici
             this.toinvoice = toinvoice;
             this.parent = (uint)parent;
             this.Dealer = dealer;
             this.opportunity_lines = new BindingList<OpportunityLine>(lines);
-
-
         }
+
+        /*   public Opportunity(int id, int IdPartner, string partnerName, int IdPayment_method, int IdPayment_condition, int? IdAgent, string memo, string currency, bool toinvoice, int parent, int dealer, BindingList<OpportunityLine> lines)
+          {
+              this.Id = id;
+              this.IdPartner = IdPartner;
+              this.partnerName = partnerName;
+              this.IdPayment_condition = IdPayment_condition;
+              this.IdPayment_method = IdPayment_method;
+              this.IdAgent = IdAgent;
+              this.memo = memo;
+              this.currency = currency;
+              this.toinvoice = toinvoice;
+              this.parent = (uint)parent;
+              this.Dealer = dealer;
+              this.opportunity_lines = new BindingList<OpportunityLine>(lines);
+          }*/
 
         public Opportunity(int idagent, Partner partner)
         {
@@ -267,9 +297,13 @@ namespace SmartPharma5.Model
             int IDBC = 0;
             string Code = CreatCodeQuotation();
             string totalAmount = this.totalAmount.ToString().Replace(',', '.');
+            string sqlCmd = "INSERT INTO sale_quotation SET code ='" + Code + "', create_date= NOW(), date= NOW(), " +
+                "tva_chec=" + true + ", memo='" + memo + "', currency='" + Currency + "', " +
+                "partner=" + (int)IdPartner + ", payment_method=" + (int)IdPayment_method +
+                ", payment_condition=" + (int)IdPayment_condition + ", validated=false, total_amount=" + totalAmount +
+                ", agent=" + (int)IdAgent + ", tax1=true, tax2=true, tax3=true, revenue_stamp=0, crm_opportunity=" + Id +
+                "; SELECT MAX(Id) FROM " + DbConnection.Database + ".sale_quotation;";
 
-            string sqlCmd = "INSERT INTO sale_quotation SET code ='" + Code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=false,total_amount=" + totalAmount + "" +
-                ",agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0,crm_opportunity="+Id+";SELECT MAX(Id) FROM " + DbConnection.Database + ".sale_quotation;";
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try
@@ -336,7 +370,7 @@ namespace SmartPharma5.Model
             string Code = CreatCodeBc();
             string totalAmount = this.totalAmount.ToString().Replace(',', '.');
 
-            string sqlCmd = "INSERT INTO sale_order SET code ='" + Code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=false,total_amount=" + totalAmount + ",paied_amount=0,delivred=0,due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0;SELECT MAX(Id) FROM " + DbConnection.Database + ".sale_order;";
+            string sqlCmd = "INSERT INTO sale_order SET code ='" + Code + "',create_date= NOW(), date= NOW(),tva_chec=" + true + ",memo='" + memo + "', currency='" + Currency + "',partner=" + (int)IdPartner + ",payment_method=" + (int)IdPayment_method + ",payment_condition=" + (int)IdPayment_condition + ",validated=false,total_amount=" + totalAmount + ",paied_amount=0,delivred=0,due_date=Now(),delivred_date=now(),agent=" + (int)IdAgent + ",tax1=true,tax2=true,tax3=true,revenue_stamp=0;SELECT MAX(Id) FROM " + DbConnection.Database + ".sale_order;";
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try

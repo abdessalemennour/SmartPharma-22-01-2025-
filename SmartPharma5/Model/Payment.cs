@@ -23,6 +23,9 @@ namespace SmartPharma5.Model
         public DateTime? due_date { get; set; }
         public int IdPartner { get; set; }
         public int IdCurrency { get; set; }
+        public uint? Currency { get; set; }
+
+
         public int IdPayment_type { get; set; } //Affectation auto/manuelle ou par pieces
         public uint? IdCash_desk { get; set; }
         public bool ended { get; set; } //(0)
@@ -36,6 +39,7 @@ namespace SmartPharma5.Model
         public BindingList<Payment_piece> Payment_pieceList { get; set; }
         #endregion
         #region Constructeur
+            
         public Payment()
         {
             create_date = date = DateTime.Now;
@@ -87,6 +91,8 @@ namespace SmartPharma5.Model
                 this.sign = Convert.ToBoolean(dt.Rows[0]["sign"]);
                 this.agent = dt.Rows[0]["agent"] is uint ? Convert.ToUInt32(dt.Rows[0]["agent"]) : (uint?)null; ;
                 this.Payment_pieceList = new BindingList<Payment_piece>();
+                this.Currency = dt.Rows[0]["currency"] != DBNull.Value ? Convert.ToUInt32(dt.Rows[0]["currency"]) : (uint?)null;
+
             }
             catch (Exception ex)
             {
@@ -95,17 +101,99 @@ namespace SmartPharma5.Model
             DbConnection.Deconnecter();
             GetPaymentPieceByPayment();
         }
+        /*  public string GetCurrencyName(uint? currencyId)
+          {
+              if (!currencyId.HasValue)
+              {
+                  Console.WriteLine("CurrencyId is null");
+                  return "Unknown";
+              }
 
-        #endregion
-        #region Insert
-        public void Insert()
-        {
+              string currencyName = "Unknown";
+              string sqlCmd = "SELECT name FROM commercial_currency WHERE id = 1";
+
+              try
+              {
+                  DbConnection.ConnectionIsTrue(); // Assurez-vous que la connexion est ouverte ici
+                  using (var cmd = new MySqlCommand(sqlCmd, DbConnection.con))
+                  {
+                      cmd.Parameters.AddWithValue("@CurrencyId", currencyId.Value);
+
+                      using (var reader = cmd.ExecuteReader())
+                      {
+                          if (reader.Read())
+                          {
+                              currencyName = reader["name"].ToString();
+                              Console.WriteLine("Currency name fetched: " + currencyName);
+                          }
+                          else
+                          {
+                              Console.WriteLine("No currency found for ID: " + currencyId.Value);
+                          }
+                      }
+                  }
+              }
+              catch (Exception ex)
+              {
+                  Console.WriteLine("Error while fetching currency name: " + ex.Message);
+              }
+              finally
+              {
+                  DbConnection.Deconnecter(); // Vous pouvez laisser cette ligne ici après l'exécution de la requête
+              }
+
+              return currencyName;
+          }*/
+
+            // Autres propriétés et méthodes du modèle Payment...
+
+            // Méthode statique pour récupérer toutes les devises
+         /*   public static async Task<List<Currency>> GetAllCurrencies()
+            {
+                List<Currency> currencies = new List<Currency>();
+
+                string sqlCmd = "SELECT Id, name FROM commercial_currency;";
+
+                DbConnection.Deconnecter();
+                if (await DbConnection.Connecter3())
+                {
+                    MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        try
+                        {
+                            currencies.Add(new Currency
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Name = reader["name"].ToString()
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Erreur lors de la récupération des devises : " + ex.Message);
+                        }
+                    }
+
+                    reader.Close();
+                    DbConnection.Deconnecter();
+                }
+
+                return currencies;
+            }*/
+
+
+            #endregion
+            #region Insert
+            public void Insert()
+            {
             this.code = CreatCode();
             string _Amount = this.amount.ToString().Replace(',', '.');
             string _dueDate = "null";
             if (this.due_date != null)
                 _dueDate = "'" + Convert.ToDateTime(due_date).ToString("yyyy-MM-dd") + "'";
-            string sqlCmd = "INSERT INTO commercial_payment SET code ='" + code + "',create_date= NOW(), date= NOW(),amount=" + _Amount + ",memo='" + memo + "',payment_method=" + (int)IdPayment_method + ",cash_desk=" + (int)IdCash_desk + ",partner=" + (int)IdPartner + ",piece_type='Sale',payment_type=" + (int)IdPayment_type + ",ended=0,validated=" + false + ",sale_bank=" + sale_bank + ",sign=1,pos_session=0,reference='" + reference + "',due_date=" + _dueDate + ",agent=" + agent + ";SELECT MAX(Id) FROM " + DbConnection.Database + ".commercial_payment;";
+            string sqlCmd = "INSERT INTO commercial_payment SET code ='" + code + "',create_date= NOW(), date= NOW(),amount=" + _Amount + ",memo='" + memo + "',payment_method=" + (int)IdPayment_method + ",cash_desk=" + (int)IdCash_desk + ",partner=" + (int)IdPartner + ",piece_type='Sale',payment_type=" + (int)IdPayment_type + ",ended=0,validated=" + false + ",sale_bank=" + sale_bank + ",sign=1,pos_session=0,reference='" + reference + "',due_date=" + _dueDate + ",agent=" + agent + ", currency=" + Currency + ";SELECT MAX(Id) FROM " + DbConnection.Database + ".commercial_payment;";
             MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
             DbConnection.Connecter();
             try
@@ -353,6 +441,7 @@ namespace SmartPharma5.Model
 
             return Banklist;
         }
+
         public static async Task<BindingList<Type>> getTypeList()
         {
             string sqlCmd = "SELECT Id, name FROM commercial_payment_type;";
@@ -802,6 +891,8 @@ namespace SmartPharma5.Model
             #region Attribus
             public int Id { get; set; }
             public DateTime create_date { get; set; }
+            //public uint Currency { get; set; }
+
             public int piece { get; set; }
             public string PieceCode { get; set; }
             public string piece_typeName { get; set; }
@@ -859,6 +950,47 @@ namespace SmartPharma5.Model
                 DbConnection.Deconnecter();
             }
         }
+      /*  public class currency
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+            public currency() { }
+
+            public currency(int id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+
+            public static async Task<List<currency>> GetAllCurrencies()
+            {
+                List<currency> currencies = new List<currency>();
+                string sqlCmd = "SELECT * FROM commercial_currency;";
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCmd, DbConnection.con);
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        currencies.Add(new currency(
+                            Convert.ToInt32(row["Id"]),
+                            row["Name"].ToString()
+                        ));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Warning", ex.Message, "Ok");
+                }
+
+                return currencies;
+            }
+        }*/
         public class Payment_method
         {
             public int Id { get; set; }
@@ -913,6 +1045,41 @@ namespace SmartPharma5.Model
                 return payment_method;
             }
         }
+ /*       public class Currency
+        {
+            public int Id { get; set; }
+            public string name { get; set; }
+            public Currency(int id, string name)
+            {
+                Id = id;
+                this.name = name;
+            }
+            public Currency() { }
+
+            public Currency(int Id)
+            {
+
+                Currency currency = new Currency();
+                string sqlCmd = "SELECT * FROM commercial_currency where Id=" + Id + ";";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlCmd, DbConnection.con);
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                try
+                {
+                    this.Id = Id;
+                    this.name = dt.Rows[0]["name"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+
+            }
+
+        }*/
         public class Bank
         {
             public int Id { get; set; }
@@ -1015,6 +1182,9 @@ namespace SmartPharma5.Model
                 return type;
             }
         }
+
+       
+
         public class Cash_desk
         {
             public int Id { get; set; }
@@ -1070,6 +1240,7 @@ namespace SmartPharma5.Model
                 return cd;
             }
         }
+
         public class Collection
         {
             public int Id { get; set; }

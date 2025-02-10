@@ -52,7 +52,7 @@ namespace SmartPharma5.ViewModel
             string Partner_Number = "";
             string Partner_Street = "";
             string Partner_City = "";
-            string Partner_State = "";
+            string Partner_State = ""; 
             string Partner_Country = "";
             string Partner_Postal = "";
             string Partner_Email = "";
@@ -60,9 +60,33 @@ namespace SmartPharma5.ViewModel
             bool? Partner_Customer = false;
             bool? Partner_Supplier = false;
             int? Partner_Category = 0;
+            // Variable pour stocker l'ID de la devise
+            int? currencyId = 0;
 
             if (await App.Current.MainPage.DisplayAlert("INFO", "DO YOU WANT TO SAVE CHANGES", "YES", "NO"))
             {
+
+                // Récupérer l'ID de currency principal
+                if (await DbConnection.Connecter3())
+                {
+                    string sqlCurrency = "SELECT id FROM atooerp_currency WHERE principal = 1;";
+                    MySqlCommand cmdCurrency = new MySqlCommand(sqlCurrency, DbConnection.con);
+                    try
+                    {
+                        currencyId = int.Parse(cmdCurrency.ExecuteScalar().ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERROR", "Failed to retrieve currency ID: " + ex.Message, "OK");
+                        return;
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("ERROR", "Failed to connect to the database.", "OK");
+                    return;
+                }
+
                 foreach (PartnerTempAttributesModel item in ListPartnerTempAttributes)
                 {
 
@@ -133,8 +157,28 @@ namespace SmartPharma5.ViewModel
 
                 }
 
-                id_new_partner = await Partner.InsertNewPartner(Partner_name, Partner_Street, Partner_City, Partner_State, Partner_Postal, Partner_Country, Partner_Email, Partner_Fax, Partner_Customer, Partner_Supplier, Partner_Category, Partner_Vat_Code,Id_employe);
+                id_new_partner = await Partner.InsertNewPartner(Partner_name, Partner_Street, Partner_City, Partner_State, Partner_Postal, Partner_Country, Partner_Email, Partner_Fax, Partner_Customer, Partner_Supplier, Partner_Category, Partner_Vat_Code, Id_employe);
 
+                // Mettre à jour l'attribut currency dans la table commercial_partner
+                if (await DbConnection.Connecter3())
+                {
+                    string sqlUpdateCurrency = "UPDATE commercial_partner SET currency = " + currencyId + " WHERE id = " + id_new_partner + ";";
+                    MySqlCommand cmdUpdateCurrency = new MySqlCommand(sqlUpdateCurrency, DbConnection.con);
+                    try
+                    {
+                        cmdUpdateCurrency.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERROR", "Failed to update currency: " + ex.Message, "OK");
+                        return;
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("ERROR", "Failed to connect to the database.", "OK");
+                    return;
+                }
 
                 foreach (PartnerTempAttributesModel item in ListPartnerTempAttributes)
                 {
@@ -144,7 +188,6 @@ namespace SmartPharma5.ViewModel
                         {
                             if (ProfileExiste == false)
                             {
-
                                 if (await DbConnection.Connecter3())
                                 {
                                     string sqlCmd = "insert into marketing_profile_instances(create_date,partner,profil) values('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_new_partner + "," + id_profile + ");" +
@@ -154,57 +197,45 @@ namespace SmartPharma5.ViewModel
                                     {
                                         id_instance = int.Parse(cmd.ExecuteScalar().ToString());
                                         ProfileExiste = true;
-
                                     }
                                     catch (Exception ex)
                                     {
-
+                                        await App.Current.MainPage.DisplayAlert("ERROR", "Failed to insert profile instance: " + ex.Message, "OK");
+                                        return;
                                     }
                                 }
                                 else
                                 {
-
+                                    await App.Current.MainPage.DisplayAlert("ERROR", "Failed to connect to the database.", "OK");
+                                    return;
                                 }
-
-
                             }
+
                             if (item.HasString)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,string_value) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + ",'" + item.String_value + "');";
-
                             }
                             else if (item.HasInt)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,int_value) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + "," + item.Int_value + ");";
-
                             }
                             else if (item.HasDecimal)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,decimal_value) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + "," + item.Decimal_value.ToString().Replace(',', '.') + ");";
-
-
                             }
                             else if (item.HasDate)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,date_value) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + ",'" + item.Date_value?.ToString("yyyy-MM-dd HH:mm:ss") + "');";
-
-
                             }
                             else if (item.HasBool)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,boolean_value) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + "," + item.Boolean_value + ");";
-
-
                             }
                             else if (item.HasType)
                             {
                                 sqlCmdGlobal = sqlCmdGlobal + "insert into marketing_profile_attribut_value(create_date,profile_instance,attribut,type) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + id_instance + "," + item.Id_Attribute + "," + item.Type_value + ");";
                             }
-                            else
-                            {
-                            }
                         }
-
                     }
                 }
 
@@ -239,7 +270,6 @@ namespace SmartPharma5.ViewModel
                     try
                     {
                         cmd.ExecuteScalar();
-
                     }
                     catch (Exception ex)
                     {

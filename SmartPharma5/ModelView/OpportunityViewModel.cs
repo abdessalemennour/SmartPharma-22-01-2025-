@@ -184,7 +184,7 @@ namespace SmartPharma5.ViewModel
         public bool EnAttenteIsEnabled { get => enattenteisenabled; set => SetProperty(ref enattenteisenabled, value); }
 
 
-
+        //public uint Currency { get; set; }
         private bool testCon = true;
         public bool TestCon { get => testCon; set => SetProperty(ref testCon, value); }
         public string Note { get; set; } = string.Empty;
@@ -631,7 +631,7 @@ namespace SmartPharma5.ViewModel
         private async Task Gratuite()
         {
 
-            Opportunity = new Opportunity(0, Opportunity.IdPartner, Opportunity.partnerName, Opportunity.IdPayment_method, Opportunity.IdPayment_condition, Opportunity.IdAgent, "", false, Opportunity.Id, 0, Opportunity.Opportunity_lines);
+            Opportunity = new Opportunity(0, Opportunity.IdPartner, Opportunity.partnerName, Opportunity.IdPayment_method, Opportunity.IdPayment_condition, Opportunity.IdAgent, "", Opportunity.Currency, false, Opportunity.Id, 0, Opportunity.Opportunity_lines);
             Opportunity = Opportunity.opportunityLineGratuite(Opportunity);
             ActPopup = true;
             await Task.Delay(1000);

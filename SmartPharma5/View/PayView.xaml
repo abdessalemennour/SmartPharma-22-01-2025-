@@ -24,15 +24,36 @@
 
 
 
-        <StackLayout   Spacing="1" Margin="0" Padding="5,5,5,2">
-            <dxe:NumericEdit LabelText="Amount" Value="{Binding Payment.amount , Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" BorderColor="Black" VerticalOptions="Center" IsReadOnly="True" DisplayFormat="n3"/>
-            <dxe:ComboBoxEdit LabelText="Payment Method" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Payment_methodList, Mode=TwoWay}"  BorderColor="Black" SelectedItem="{Binding Payment_methodListSelectedItem, Mode=TwoWay}" DisplayMember="name" SelectionChangedCommand="{Binding Payment_methodChangedCommand}" IsReadOnly="True"></dxe:ComboBoxEdit>
-            <dxe:ComboBoxEdit LabelText="Cash Desk" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}"   BorderColor="Black" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name" IsReadOnly="True"></dxe:ComboBoxEdit>
-            <dxe:ComboBoxEdit LabelText="Bank Account" IsVisible="{Binding IsVisibleBankAccount, Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center"  BorderColor="Black"  ItemsSource="{Binding BankList}" SelectedItem="{Binding BankListSelectedItem}" DisplayMember="name" IsReadOnly="True"></dxe:ComboBoxEdit>
-            <dxe:ComboBoxEdit HeightRequest="45" LabelText="Payment Type" TextHorizontalAlignment="Center" ItemsSource="{Binding PaymentTypeList}" SelectedItem="{Binding PaymentTypeListSelectedItem}"  BorderColor="Black" DisplayMember="name" SelectionChangedCommand="{Binding Payment_typeChangedCommand}" IsReadOnly="True"></dxe:ComboBoxEdit>
-            <dxe:NumericEdit IsVisible="{Binding IsVisibleEffectedAmount, Mode=TwoWay}" HeightRequest="40" LabelText="Affected Amount" Value="{Binding Effected_Amount}" IsReadOnly="True"></dxe:NumericEdit>
-            <dxe:DateEdit HeightRequest="45" LabelText="Due Date" Date="{Binding Due_date, Mode=TwoWay}" IsVisible="{Binding IsVisibledue_date}" DisplayFormat="dd/MM/yyyy" IsReadOnly="True"></dxe:DateEdit>
-            <dxe:TextEdit HeightRequest="45" LabelText="Reference" Text="{Binding Payment.reference, Mode=TwoWay}" IsVisible="{Binding IsVisiblereference}" IsReadOnly="True"></dxe:TextEdit>
+
+        
+   <StackLayout Spacing="1" Margin="0" Padding="5,5,5,2">
+            <dxe:NumericEdit LabelText="Amount" Value="{Binding Payment.amount, Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" BorderColor="Black" VerticalOptions="Center" IsReadOnly="True" DisplayFormat="n3"/>
+            <dxe:ComboBoxEdit LabelText="Payment Method" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Payment_methodList, Mode=TwoWay}" BorderColor="Black" SelectedItem="{Binding Payment_methodListSelectedItem, Mode=TwoWay}" DisplayMember="name" SelectionChangedCommand="{Binding Payment_methodChangedCommand}" IsReadOnly="True"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <dxe:ComboBoxEdit Grid.Column="0" LabelText="Cash Desk" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" BorderColor="Black" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name" IsReadOnly="True"/>
+                <dxe:ComboBoxEdit 
+                Grid.Column="1" 
+                LabelText="Currency" 
+                HeightRequest="45" 
+                TextHorizontalAlignment="Center" 
+                VerticalOptions="Center" 
+                ItemsSource="{Binding CurrencyList, Mode=TwoWay}" 
+                BorderColor="Black" 
+                SelectedItem="{Binding CurrencyName}" 
+                IsReadOnly="True"
+                IsVisible="{Binding IsVisibleCurrency}" />
+
+
+            </Grid>
+            <dxe:ComboBoxEdit LabelText="Bank Account" IsVisible="{Binding IsVisibleBankAccount, Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" BorderColor="Black" ItemsSource="{Binding BankList}" SelectedItem="{Binding BankListSelectedItem}" DisplayMember="name" IsReadOnly="True"/>
+            <dxe:ComboBoxEdit HeightRequest="45" LabelText="Payment Type" TextHorizontalAlignment="Center" ItemsSource="{Binding PaymentTypeList}" SelectedItem="{Binding PaymentTypeListSelectedItem}" BorderColor="Black" DisplayMember="name" SelectionChangedCommand="{Binding Payment_typeChangedCommand}" IsReadOnly="True"/>
+            <dxe:NumericEdit IsVisible="{Binding IsVisibleEffectedAmount, Mode=TwoWay}" HeightRequest="40" LabelText="Affected Amount" Value="{Binding Effected_Amount}" IsReadOnly="True"/>
+            <dxe:DateEdit HeightRequest="45" LabelText="Due Date" Date="{Binding Due_date, Mode=TwoWay}" IsVisible="{Binding IsVisibledue_date}" DisplayFormat="dd/MM/yyyy" IsReadOnly="True"/>
+            <dxe:TextEdit HeightRequest="45" LabelText="Reference" Text="{Binding Payment.reference, Mode=TwoWay}" IsVisible="{Binding IsVisiblereference}" IsReadOnly="True"/>
         </StackLayout>
 
         <dxcv:DXCollectionView Grid.Row="1" x:Name="UnpaiedCollectionView" ItemsSource="{Binding Payment.Payment_pieceList}" ItemSpacing="5"  Margin="5,8,8,0">

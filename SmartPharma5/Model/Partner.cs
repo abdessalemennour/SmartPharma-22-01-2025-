@@ -957,7 +957,7 @@ namespace SmartPharma5.Model
                         reader["reference"].ToString(),
                         int.Parse(reader["payment_condition_customer"].ToString()),
                         Convert.ToUInt32(reader["payment_method_customer"]),
-                        Convert.ToUInt32(reader["currency"]) // Ajout de la récupération de currency
+                        Convert.ToUInt32(reader["currency"]) // Devise récupérée
                     );
                 }
                 catch (Exception ex)
@@ -1418,29 +1418,64 @@ namespace SmartPharma5.Model
         }
 
 
+        /*      public static async Task<int?> InsertNewPartner(string name, string street, string city, string state, string postal_code, string country, string email, string fax, bool? customer, bool? supplier, int? category, string vat_code, int id_employe)
+              {
+                  if (await DbConnection.Connecter3())
+                  {
+                      string sqlCmd = "insert into commercial_partner(create_date,name,street,city,state,postal_code,country,email,fax,customer,supplier,category,vat_code,customer_discount,supplier_discount,Custumer_withholding_tax,Supplier_withholding_tax,sale_agent,currency) " +
+                                      "values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + name + "','" + street + "','" + city + "','" + state + "','" + postal_code + "','" + country + "','" + email + "','" + fax + "'," + customer + "," + supplier + "," + category + ",'" + vat_code + "'," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + id_employe + ", 1); " + // Ajout de la devise par défaut (1)
+                                      "select max(id) from commercial_partner;";
+
+                      MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
+                      try
+                      {
+                          return int.Parse(cmd.ExecuteScalar().ToString());
+                      }
+                      catch (Exception ex)
+                      {
+                          // Log l'erreur si nécessaire
+                          return null;
+                      }
+                  }
+                  else
+                  {
+                      return null;
+                  }
+              }*/
         public static async Task<int?> InsertNewPartner(string name, string street, string city, string state, string postal_code, string country, string email, string fax, bool? customer, bool? supplier, int? category, string vat_code, int id_employe)
         {
             if (await DbConnection.Connecter3())
             {
-                string sqlCmd = "insert into commercial_partner(create_date,name,street,city,state,postal_code,country,email,fax,customer,supplier,category,vat_code,customer_discount,supplier_discount,Custumer_withholding_tax,Supplier_withholding_tax,sale_agent) values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + name + "','" + street + "','" + city + "','" + state + "','" + postal_code + "','" + country + "','" + email + "','" + fax + "'," + customer + "," + supplier + "," + category + ",'" + vat_code + "'," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + id_employe + " );select max(id) from commercial_partner ; ";
+                // Étape 1 : Récupérer l'ID de la devise principale à partir de la table atooerp_currency
+                string getCurrencySql = "SELECT id FROM atooerp_currency WHERE principal = 1 LIMIT 1";
+                MySqlCommand getCurrencyCmd = new MySqlCommand(getCurrencySql, DbConnection.con);
+                object result = getCurrencyCmd.ExecuteScalar();
+
+                int currencyId = result != null ? Convert.ToInt32(result) : 1; // Si aucune devise principale n'est trouvée, on utilise 1 par défaut
+
+                // Étape 2 : Insérer le nouveau partenaire avec la devise récupérée
+                string sqlCmd = "insert into commercial_partner(create_date,name,street,city,state,postal_code,country,email,fax,customer,supplier,category,vat_code,customer_discount,supplier_discount,Custumer_withholding_tax,Supplier_withholding_tax,sale_agent,currency) " +
+                                "values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + name + "','" + street + "','" + city + "','" + state + "','" + postal_code + "','" + country + "','" + email + "','" + fax + "'," + customer + "," + supplier + "," + category + ",'" + vat_code + "'," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + id_employe + "," + currencyId + "); " +
+                                "select max(id) from commercial_partner;";
+
                 MySqlCommand cmd = new MySqlCommand(sqlCmd, DbConnection.con);
                 try
                 {
                     return int.Parse(cmd.ExecuteScalar().ToString());
-
                 }
                 catch (Exception ex)
                 {
+                    // Log l'erreur si nécessaire
                     return null;
-
                 }
             }
             else
             {
                 return null;
-
             }
         }
+
+
 
     }
     public class tempValueName

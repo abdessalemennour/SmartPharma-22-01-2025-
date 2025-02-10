@@ -23,7 +23,9 @@ using SmartPharma5.View;
 */
 using SmartPharma5.Model;
 using SmartPharma5.View;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 //using Xamarin.Essentials;
 //using static SmartPharma.Model.Payment;
 
@@ -60,6 +62,13 @@ namespace SmartPharma5.ViewModel
         public bool VerifPopup { get => verifPopup; set => SetProperty(ref verifPopup, value); }
         private bool isVisibleSaveButton = true;
         public bool IsVisibleSaveButton { get => isVisibleSaveButton; set => SetProperty(ref isVisibleSaveButton, value); }
+        private bool isVisibleCurrency = false;
+        public bool IsVisibleCurrency
+        {
+            get => isVisibleCurrency;
+            set => SetProperty(ref isVisibleCurrency, value);
+        }
+
         private bool isVisibleBankAccount = false;
         public bool IsVisibleBankAccount { get => isVisibleBankAccount; set => SetProperty(ref isVisibleBankAccount, value); }
         private bool isVisibledue_date = false;
@@ -77,6 +86,55 @@ namespace SmartPharma5.ViewModel
         private decimal effected_amount;
         public decimal Effected_Amount { get => effected_amount; set => SetProperty(ref effected_amount, value); }
         #endregion
+        /*************currency**************/
+        #region Currency
+        private string _currencySelectedItem;
+        private currency _currencyListselecteditem;
+        public currency CurrencyListselecteditem
+        {
+            get => _currencyListselecteditem;
+            set
+            {
+                if (_currencyListselecteditem != value)
+                {
+                    _currencyListselecteditem = value;
+                    OnPropertyChanged(nameof(CurrencyListselecteditem));
+
+                    // Met à jour l'ID de la devise
+                    if (value != null)
+                    {
+                        Currency = (uint?)value.Id;
+                        Payment.Currency = Currency; // Mise à jour dans Payment
+                    }
+                }
+            }
+        }
+        public ObservableRangeCollection<currency> CurrencyList { get; set; }
+        public string CurrencySelectedItem
+        {
+            get => _currencySelectedItem;
+            set
+            {
+                if (_currencySelectedItem != value)
+                {
+                    _currencySelectedItem = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private uint? _currency;
+        public uint? Currency
+        {
+            get { return _currency; }
+            set
+            {
+                _currency = value;
+                OnPropertyChanged(nameof(Currency));
+            }
+        }
+
+        #endregion
+        
         #region PaymentMethod
         private ObservableRangeCollection<Payment.Payment_method> payment_methodList;
         public ObservableRangeCollection<Payment.Payment_method> Payment_methodList { get => payment_methodList; set => SetProperty(ref payment_methodList, value); }
@@ -205,14 +263,50 @@ namespace SmartPharma5.ViewModel
         public ObservableRangeCollection<Payment.Bank> BankList { get => bankList; set => SetProperty(ref bankList, value); }
         private Payment.Bank bankListSelectedItem;
         public Payment.Bank BankListSelectedItem { get => bankListSelectedItem; set => SetProperty(ref bankListSelectedItem, value); }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
         #region Constructeur
+          public string CurrencyName
+           {
+               get
+               {
+                   return Currency switch
+                   {
+                       1 => "TND",
+                       2 => "USD",
+                       3 => "EURO",
+                       _ => "Unknown"
+                   };
+               }
+           }
+
         public PaymentViewModel() { }
         public PaymentViewModel(Payment payment)
         {
             Payment = payment;
             Partner = Partner.GetCommercialPartnerByIdForPayment(payment.IdPartner).Result;
             Title = "Payment[ " + Partner.Name + " ]";
+            /* CurrencyList = new ObservableRangeCollection<string> { Payment.Currency?.ToString() };
+             CurrencySelectedItem = Payment.Currency?.ToString();*/
+            Currency = Payment.Currency;
+            Currency = payment.Currency ?? Partner.Currency;
+            CurrencyList = new ObservableRangeCollection<currency>
+            {
+                new currency { Id = 1, Name = "TND" },
+                new currency { Id = 2, Name = "USD" },
+                new currency { Id = 3, Name = "EURO" }
+            };
+            // Sélectionner la devise correcte en fonction de l'ID de la devise récupéré
+            CurrencyListselecteditem = CurrencyList.FirstOrDefault(c => c.Id == Currency.Value);
+
+
+            UnpaiedList = new ObservableRangeCollection<Payment.Piece>();
+
             UnpaiedList = new ObservableRangeCollection<Payment.Piece>();
             Payment_methodList = new ObservableRangeCollection<Payment.Payment_method>();
             Cash_deskList = new ObservableRangeCollection<Payment.Cash_desk>();
@@ -454,6 +548,7 @@ namespace SmartPharma5.ViewModel
             if (Payment.Id > 0)
             {
                 IsVisibleSaveButton = false;
+                IsVisibleCurrency = true;
                 IsReadOnlyOnValidated = true;
                 IsSaveDocumentButtonVisible = true;
             }

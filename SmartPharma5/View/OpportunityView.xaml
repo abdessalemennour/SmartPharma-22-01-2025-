@@ -69,7 +69,7 @@
                         <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                             <!--<dxco:SimpleButton Margin="3" Text="Add Quotation"  Command ="{Binding QuotationCommand}"  BackgroundColor="Grey" ></dxco:SimpleButton>-->
                             <dxco:SimpleButton Margin="3" Text="Attente" Command="{Binding EnAttenteCommand}" IsVisible="{Binding EnAttenteIsEnabled,Mode=TwoWay}" BackgroundColor="#F3BA04"></dxco:SimpleButton>
-                            <dxco:SimpleButton Margin="3" Text="Gangnée" Command="{Binding GangneCommand}" IsVisible="{Binding GangneIsEnabled,Mode=TwoWay}" BackgroundColor="#4DBF49"></dxco:SimpleButton>
+                            <dxco:SimpleButton Margin="3" Text="Gagnée" Command="{Binding GangneCommand}" IsVisible="{Binding GangneIsEnabled,Mode=TwoWay}" BackgroundColor="#4DBF49"></dxco:SimpleButton>
                             <dxco:SimpleButton Margin="3" Text="Bon commande" Command="{Binding BcCommand}" IsVisible="{Binding BcIsEnabled, Mode=TwoWay}" BackgroundColor="#F59132"></dxco:SimpleButton>
                             <dxco:SimpleButton Margin="3" Text="Perdue" Command="{Binding PerduCommand}" IsVisible="{Binding PerduIsEnabled, Mode=TwoWay}" BackgroundColor="#ED1416"></dxco:SimpleButton>
                         </StackLayout>
@@ -290,7 +290,7 @@
             </Grid.ColumnDefinitions>
 
                     <dxco:SimpleButton Margin="3" Grid.Row="0"  Grid.Column="1" Text="VALIDATE" CornerMode = "Round" HeightRequest="45" CornerRadius="5" BackgroundColor="#3897f0" TextColor="White" Command="{Binding ValidateCommand}" IsVisible="{Binding ValidateActive,Mode=TwoWay}" VerticalOptions="Start" />
-                    <dxco:SimpleButton  Grid.Row="0" Margin="3" Grid.Column="0" Text="GRATUITE SUPP" CornerMode = "Round" HeightRequest="45" CornerRadius="5" BackgroundColor="#4DBF49" TextColor="White" Command="{Binding GratuiteCommand}" IsVisible="{Binding GratuiteActive,Mode=TwoWay}"  VerticalOptions="Start"/>
+                    <dxco:SimpleButton  Grid.Row="1" Margin="3" Grid.Column="1" Text="GRATUITE SUPP" CornerMode = "Round" HeightRequest="45" CornerRadius="5" BackgroundColor="#4DBF49" TextColor="White" Command="{Binding GratuiteCommand}" IsVisible="{Binding GratuiteActive,Mode=TwoWay}"  VerticalOptions="Start"/>
                     <dxco:SimpleButton  Grid.Row="1" Margin="3" Grid.Column="1" Text="WHOLESALERS" CornerMode = "Round" HeightRequest="45" CornerRadius="5" BackgroundColor="#F3BA04" TextColor="White" Command="{Binding ValidateWithWholeSalerCommand}" IsVisible="{Binding WholesalerActive,Mode=TwoWay}" VerticalOptions="Start" />
                     <dxco:SimpleButton  Grid.Row="1" Grid.Column="0" Margin="3" Text="EXIT"  HeightRequest="45" CornerMode = "Round" CornerRadius="5"  Command="{Binding CancelCommand}" BackgroundColor="#ED1416" TextColor="White"  VerticalOptions="Start"/>
                     <!--<dxco:SimpleButton Grid.Row="2" Grid.Column="0" Margin="3" Text="Save Document" HeightRequest="45" CornerRadius="5" BackgroundColor="MediumSeaGreen" TextColor="White" Command="{Binding SaveDocumentCommand}" VerticalOptions="Start" />-->

@@ -19,8 +19,27 @@
         <StackLayout Padding="10">
             <dxe:NumericEdit  LabelText="Amount" Value="{Binding Payment.amount , Mode=TwoWay}" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center" IsReadOnly="True" DisplayFormat="n3"  BorderColor="AliceBlue"/>
             <dxe:ComboBoxEdit LabelText="Payment Method" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Payment_methodList, Mode=TwoWay}" SelectedItem="{Binding Payment_methodListSelectedItem, Mode=TwoWay}" DisplayMember="name" SelectionChangedCommand="{Binding Payment_methodChangedCommand}"></dxe:ComboBoxEdit>
-            <dxe:ComboBoxEdit LabelText="Cash Desk" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name"></dxe:ComboBoxEdit>
-            <dxe:ComboBoxEdit LabelText="Sale Bank" IsFilterEnabled="True"  FilterCondition="Contains" IsVisible="{Binding IsVisibleBankAccount, Mode=TwoWay}" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center"  ItemsSource="{Binding BankList}" SelectedItem="{Binding BankListSelectedItem}" DisplayMember="name"></dxe:ComboBoxEdit>
+                <!-- <dxe:ComboBoxEdit LabelText="Cash Desk" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name"></dxe:ComboBoxEdit>-->
+
+                            <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <dxe:ComboBoxEdit LabelText="Cash Desk" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name"></dxe:ComboBoxEdit>
+                    <dxe:ComboBoxEdit 
+                    Grid.Column="1" 
+                    LabelText="Currency" 
+                    HeightRequest="50" 
+                    TextHorizontalAlignment="Center" 
+                    VerticalOptions="Center" 
+                    ItemsSource="{Binding CurrencyList}" 
+                    SelectedItem="{Binding CurrencyListselecteditem, Mode=TwoWay}" 
+                    DisplayMember="Name" />
+
+                </Grid>
+
+                <dxe:ComboBoxEdit LabelText="Sale Bank" IsFilterEnabled="True"  FilterCondition="Contains" IsVisible="{Binding IsVisibleBankAccount, Mode=TwoWay}" HeightRequest="50" TextHorizontalAlignment="Center" VerticalOptions="Center"  ItemsSource="{Binding BankList}" SelectedItem="{Binding BankListSelectedItem}" DisplayMember="name"></dxe:ComboBoxEdit>
             <dxe:ComboBoxEdit HeightRequest="50" LabelText="Payment Type" TextHorizontalAlignment="Center" ItemsSource="{Binding PaymentTypeList}" SelectedItem="{Binding PaymentTypeListSelectedItem}" DisplayMember="name" SelectionChangedCommand="{Binding Payment_typeChangedCommand}"></dxe:ComboBoxEdit>
             <dxe:NumericEdit IsVisible="{Binding IsVisibleEffectedAmount, Mode=TwoWay}" HeightRequest="50" LabelText="Affected Amount" Value="{Binding Effected_Amount, Mode=TwoWay}" DisplayFormat="F3">
                 <dxe:NumericEdit.Behaviors>
