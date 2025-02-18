@@ -1,5 +1,0 @@
-{
-  "name": "SmartPharma5",
-  "os": "iOS",
-  "platform": "Xamarin"
-}
