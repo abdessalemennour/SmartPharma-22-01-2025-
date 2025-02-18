@@ -1,17 +1,41 @@
 workflows:
+  ios-build:
+    name: Build iOS App
+    max_build_duration: 120
+    environment:
+      vars:
+        XCODE_WORKSPACE: "SmartPharma5"  # Remplace par ton workspace
+        XCODE_SCHEME: "SmartPharma5"  # Nom du scheme Xcode
+        BUNDLE_ID: "com.tonentreprise.smartpharma"  # Remplace par ton Bundle ID iOS
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Restauration des dépendances
+        script: |
+          dotnet restore
+      
+      - name: Compilation de l'application iOS
+        script: |
+          dotnet publish -f net7.0-ios -c Release /p:RuntimeIdentifier=ios-arm64
+      
+      - name: Packager l'application iOS
+        script: |
+          xcodebuild -workspace $XCODE_WORKSPACE.xcworkspace \
+                     -scheme $XCODE_SCHEME \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     archive -archivePath build/SmartPharma.xcarchive
 
-    android-workflow-id:
-
-        name: Android Sample Workflow
-
-        # .......    
-
-        # .......
-
-        # .......  
-
-    ios-workflow-id:
-
-        name: iOS Sample Workflow
-
-        # ......
+      - name: Exporter le fichier IPA
+        script: |
+          xcodebuild -exportArchive \
+                     -archivePath build/SmartPharma.xcarchive \
+                     -exportOptionsPlist ExportOptions.plist \
+                     -exportPath build
+      
+    artifacts:
+      - build/*.ipa  # Garde le fichier IPA pour le tester sur un iPhone
+    publishing:
+      email:
+        recipients:
+          - "tonemail@example.com"
