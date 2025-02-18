@@ -1,41 +1,41 @@
 workflows:
   ios-build:
-    name: Build iOS App
-    max_build_duration: 120
+    name: iOS Build for .NET MAUI
+    instance_type: mac_mini_m1
     environment:
+      groups:
+        - apple-credentials  # Stocke ton certificat et profil de provisionnement dans Codemagic
+        - dotnet-7           # Utilise .NET 7 (ou modifie selon ta version)
       vars:
-        XCODE_WORKSPACE: "SmartPharma5"  # Remplace par ton workspace
-        XCODE_SCHEME: "SmartPharma5"  # Nom du scheme Xcode
-        BUNDLE_ID: "com.tonentreprise.smartpharma"  # Remplace par ton Bundle ID iOS
-      xcode: latest
-      cocoapods: default
+        BUNDLE_ID: "com.tonentreprise.smartpharma"
+        XCODE_SCHEME: "SmartPharma5"
+        XCODE_WORKSPACE: "SmartPharma5"
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
     scripts:
-      - name: Restauration des dépendances
+      - name: Install .NET SDK
         script: |
-          dotnet restore
-      
-      - name: Compilation de l'application iOS
+          export DOTNET_ROOT=$HOME/.dotnet
+          export PATH=$DOTNET_ROOT:$PATH
+          curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.100
+      - name: Check .NET version
+        script: dotnet --version
+      - name: Restore dependencies
+        script: dotnet restore
+      - name: Build the iOS project
         script: |
-          dotnet publish -f net7.0-ios -c Release /p:RuntimeIdentifier=ios-arm64
-      
-      - name: Packager l'application iOS
+          dotnet build SmartPharma5.sln -c Release -f net8.0-ios --no-restore
+      - name: Publish the iOS App
         script: |
-          xcodebuild -workspace $XCODE_WORKSPACE.xcworkspace \
-                     -scheme $XCODE_SCHEME \
-                     -sdk iphoneos \
-                     -configuration Release \
-                     archive -archivePath build/SmartPharma.xcarchive
-
-      - name: Exporter le fichier IPA
-        script: |
-          xcodebuild -exportArchive \
-                     -archivePath build/SmartPharma.xcarchive \
-                     -exportOptionsPlist ExportOptions.plist \
-                     -exportPath build
-      
+          dotnet publish SmartPharma5.sln -c Release -f net8.0-ios --no-restore --output ./output
     artifacts:
-      - build/*.ipa  # Garde le fichier IPA pour le tester sur un iPhone
+      - output/**/*
     publishing:
       email:
         recipients:
-          - "tonemail@example.com"
+          - "abdessalemennour@gmail.com"
