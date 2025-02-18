@@ -1,37 +1,9 @@
 workflows:
-  ios-build:
-    name: Build iOS App
-    max_build_duration: 120
-    environment:
-      flutter: stable
-      xcode: 16.2
-      dotnet: latest  # Assure-toi d'utiliser la dernière version stable de .NET
-    scripts:
-      - name: Install .NET SDK
-        script: |
-          # Assure-toi que .NET SDK est installé
-          curl -sSL https://dotnet.microsoft.com/download/dotnet | bash
-          dotnet --version  # Vérifier que .NET est bien installé
-          
-      - name: Restore dependencies
-        script: |
-          # Restaure les dépendances de ton application .NET MAUI
-          dotnet restore SmartPharma5/SmartPharma5.csproj
-          
-      - name: Build iOS
-        script: |
-          # Construire ton application iOS en utilisant .NET MAUI
-          dotnet build SmartPharma5/SmartPharma5.csproj -f:net7.0-ios --configuration Release
-          
-      - name: Deploy to iOS simulator
-        script: |
-          # Déploie ton application sur le simulateur iOS
-          dotnet publish SmartPharma5/SmartPharma5.csproj -f:net7.0-ios --configuration Release -o ./output
-          
-          # Si tu veux exécuter un simulateur iOS spécifique, tu peux ajouter une commande pour cela, par exemple :
-          xcrun simctl boot "iPhone 14"  # Choisir un simulateur
-          xcrun simctl install booted ./output/SmartPharma5.app
-          xcrun simctl launch booted com.tonentreprise.smartpharma  # Lancer l'application
-          
-    artifacts:
-      - ./output/*
+
+    sample-workflow:
+
+        name: Codemagic Sample Workflow
+
+        max_build_duration: 120
+
+        instance_type: mac_mini_m2
