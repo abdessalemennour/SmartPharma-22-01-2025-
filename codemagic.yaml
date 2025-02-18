@@ -1,41 +1,37 @@
 workflows:
   ios-build:
-    name: iOS Build for .NET MAUI
-    instance_type: mac_mini_m1
+    name: Build iOS App
+    max_build_duration: 120
     environment:
-      groups:
-        - apple-credentials  # Stocke ton certificat et profil de provisionnement dans Codemagic
-        - dotnet-7           # Utilise .NET 7 (ou modifie selon ta version)
-      vars:
-        BUNDLE_ID: "com.tonentreprise.smartpharma"
-        XCODE_SCHEME: "SmartPharma5"
-        XCODE_WORKSPACE: "SmartPharma5"
-    triggering:
-      events:
-        - push
-      branch_patterns:
-        - pattern: "*"
-          include: true
-          source: true
+      flutter: stable
+      xcode: 16.2
+      dotnet: latest  # Assure-toi d'utiliser la dernière version stable de .NET
     scripts:
       - name: Install .NET SDK
         script: |
-          export DOTNET_ROOT=$HOME/.dotnet
-          export PATH=$DOTNET_ROOT:$PATH
-          curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.100
-      - name: Check .NET version
-        script: dotnet --version
+          # Assure-toi que .NET SDK est installé
+          curl -sSL https://dotnet.microsoft.com/download/dotnet | bash
+          dotnet --version  # Vérifier que .NET est bien installé
+          
       - name: Restore dependencies
-        script: dotnet restore
-      - name: Build the iOS project
         script: |
-          dotnet build SmartPharma5.sln -c Release -f net8.0-ios --no-restore
-      - name: Publish the iOS App
+          # Restaure les dépendances de ton application .NET MAUI
+          dotnet restore SmartPharma5/SmartPharma5.csproj
+          
+      - name: Build iOS
         script: |
-          dotnet publish SmartPharma5.sln -c Release -f net8.0-ios --no-restore --output ./output
+          # Construire ton application iOS en utilisant .NET MAUI
+          dotnet build SmartPharma5/SmartPharma5.csproj -f:net7.0-ios --configuration Release
+          
+      - name: Deploy to iOS simulator
+        script: |
+          # Déploie ton application sur le simulateur iOS
+          dotnet publish SmartPharma5/SmartPharma5.csproj -f:net7.0-ios --configuration Release -o ./output
+          
+          # Si tu veux exécuter un simulateur iOS spécifique, tu peux ajouter une commande pour cela, par exemple :
+          xcrun simctl boot "iPhone 14"  # Choisir un simulateur
+          xcrun simctl install booted ./output/SmartPharma5.app
+          xcrun simctl launch booted com.tonentreprise.smartpharma  # Lancer l'application
+          
     artifacts:
-      - output/**/*
-    publishing:
-      email:
-        recipients:
-          - "abdessalemennour@gmail.com"
+      - ./output/*
