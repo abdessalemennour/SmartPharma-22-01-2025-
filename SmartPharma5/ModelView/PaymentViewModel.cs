@@ -35,6 +35,7 @@ namespace SmartPharma5.ViewModel
     {
         public AsyncCommand ExitCommand { get; set; }
         public AsyncCommand LogoutCommand { get; set; }
+        public AsyncCommand<Payment.currency> CurrencySelectionChangedCommand { get; set; }
 
         public int iduser = Preferences.Get("iduser", 0);
         private Payment payment;
@@ -62,6 +63,13 @@ namespace SmartPharma5.ViewModel
         public bool VerifPopup { get => verifPopup; set => SetProperty(ref verifPopup, value); }
         private bool isVisibleSaveButton = true;
         public bool IsVisibleSaveButton { get => isVisibleSaveButton; set => SetProperty(ref isVisibleSaveButton, value); }
+      /*  private bool isCurrencySymbolVisible;
+        public bool IsCurrencySymbolVisible
+        {
+            get => isCurrencySymbolVisible;
+            set => SetProperty(ref isCurrencySymbolVisible, value);
+        }*/
+
         private bool isVisibleCurrency = false;
         public bool IsVisibleCurrency
         {
@@ -89,8 +97,8 @@ namespace SmartPharma5.ViewModel
         /*************currency**************/
         #region Currency
         private string _currencySelectedItem;
-        private currency _currencyListselecteditem;
-        public currency CurrencyListselecteditem
+        private Payment.currency _currencyListselecteditem;
+        public Payment.currency CurrencyListselecteditem
         {
             get => _currencyListselecteditem;
             set
@@ -99,17 +107,25 @@ namespace SmartPharma5.ViewModel
                 {
                     _currencyListselecteditem = value;
                     OnPropertyChanged(nameof(CurrencyListselecteditem));
+                    OnPropertyChanged(nameof(CurrencyNameview));
 
                     // Met à jour l'ID de la devise
                     if (value != null)
                     {
                         Currency = (uint?)value.Id;
-                        Payment.Currency = Currency; // Mise à jour dans Payment
+                        Payment.Currency = Currency;
+                        OnPropertyChanged(nameof(CurrencyName));
+                        OnPropertyChanged(nameof(CurrencyNameview));
+
+
                     }
+
                 }
             }
         }
-        public ObservableRangeCollection<currency> CurrencyList { get; set; }
+
+
+        public ObservableRangeCollection<Payment.currency> CurrencyList { get; set; }
         public string CurrencySelectedItem
         {
             get => _currencySelectedItem;
@@ -134,7 +150,7 @@ namespace SmartPharma5.ViewModel
         }
 
         #endregion
-        
+
         #region PaymentMethod
         private ObservableRangeCollection<Payment.Payment_method> payment_methodList;
         public ObservableRangeCollection<Payment.Payment_method> Payment_methodList { get => payment_methodList; set => SetProperty(ref payment_methodList, value); }
@@ -189,18 +205,18 @@ namespace SmartPharma5.ViewModel
                 {
                     if (piece == UnpaiedList.Last())
                     {
-                        this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, restEffectedAmount, piece.total_amount, piece.paied_amount, piece.rest_amount));
+                        this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, restEffectedAmount, piece.total_amount, piece.paied_amount, piece.rest_amount,piece.currencySymbol, piece.DecimalNumbre));
                         restEffectedAmount = restEffectedAmount - piece.rest_amount;
                     }
                     else
                     {
-                        this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, piece.rest_amount, piece.total_amount, piece.paied_amount, piece.rest_amount));
+                        this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, piece.rest_amount, piece.total_amount, piece.paied_amount, piece.rest_amount, piece.currencySymbol, piece.DecimalNumbre));
                         restEffectedAmount = restEffectedAmount - piece.rest_amount;
                     }
                 }
                 else
                 {
-                    this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, restEffectedAmount, piece.total_amount, piece.paied_amount, piece.rest_amount));
+                    this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, restEffectedAmount, piece.total_amount, piece.paied_amount, piece.rest_amount, piece.currencySymbol, piece.DecimalNumbre));
                     break;
                 }
             }
@@ -228,7 +244,7 @@ namespace SmartPharma5.ViewModel
                         foreach (Payment.Piece piece in UnpaiedList)
                             if (piece.Is_checked == true)
                             {
-                                this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, piece.rest_amount, piece.total_amount, piece.paied_amount, piece.rest_amount));
+                                this.Payment.Payment_pieceList.Add(new Payment.Payment_piece(0, piece.Id, piece.piece_type, piece.piece_type_name, piece.code, 0, piece.rest_amount, piece.total_amount, piece.paied_amount, piece.rest_amount, piece.currencySymbol, piece.DecimalNumbre));
                             }
                         if (p.Is_checked)
                         {
@@ -251,6 +267,7 @@ namespace SmartPharma5.ViewModel
                 Payment.SetAmount();
             }
         }
+
         #endregion
         #region PaymentType
         private ObservableRangeCollection<Payment.Type> paymentTypeList;
@@ -271,21 +288,65 @@ namespace SmartPharma5.ViewModel
         }
         #endregion
         #region Constructeur
-          public string CurrencyName
-           {
-               get
-               {
-                   return Currency switch
-                   {
-                       1 => "TND",
-                       2 => "USD",
-                       3 => "EURO",
-                       _ => "Unknown"
-                   };
-               }
-           }
+        private string _currencyName;
+        public string CurrencyDisplayName
+        {
+            get => _currencyName;
+            set
+            {
+                _currencyName = value;
+                OnPropertyChanged(nameof(CurrencyDisplayName));
+            }
+        }
 
-        public PaymentViewModel() { }
+        public string CurrencyName
+        {
+            get
+            {
+                return Currency switch
+                {
+                    1 => "TND",
+                    2 => "USD",
+                    3 => "EURO",
+                    _ => "Unknown"
+                };
+            }
+        }
+
+        private string _displayFormat;
+        public string DisplayFormat
+        {
+            get => _displayFormat;
+            set => SetProperty(ref _displayFormat, value);
+        }
+        private int? _decimalNumber;
+        public int? DecimalNumber
+        {
+            get => _decimalNumber;
+            set
+            {
+                if (_decimalNumber != value)
+                {
+                    _decimalNumber = value;
+                    OnPropertyChanged(nameof(DecimalNumber));
+                    UpdateDisplayFormat();
+                  //  UpdateDisplayTotal();
+                }
+            }
+        }
+        private string _currencyNameview;
+        public string CurrencyNameview
+        {
+            get => _currencyNameview;
+            set => SetProperty(ref _currencyNameview, value);
+        }
+
+        //public string CurrencyNameview => CurrencyListselecteditem?.Name;
+
+        public PaymentViewModel() {
+
+            //CurrencySelectionChangedCommand = new AsyncCommand<Payment.currency>(OnCurrencySelectionChanged);
+        }
         public PaymentViewModel(Payment payment)
         {
             Payment = payment;
@@ -295,18 +356,17 @@ namespace SmartPharma5.ViewModel
              CurrencySelectedItem = Payment.Currency?.ToString();*/
             Currency = Payment.Currency;
             Currency = payment.Currency ?? Partner.Currency;
-            CurrencyList = new ObservableRangeCollection<currency>
+            CurrencyList = new ObservableRangeCollection<Payment.currency>
             {
-                new currency { Id = 1, Name = "TND" },
-                new currency { Id = 2, Name = "USD" },
-                new currency { Id = 3, Name = "EURO" }
+                new Payment.currency { Id = 1, Name = "TND" },
+                new Payment.currency { Id = 2, Name = "USD" },
+                new Payment.currency { Id = 3, Name = "EURO" }
             };
+
             // Sélectionner la devise correcte en fonction de l'ID de la devise récupéré
             CurrencyListselecteditem = CurrencyList.FirstOrDefault(c => c.Id == Currency.Value);
-
-
             UnpaiedList = new ObservableRangeCollection<Payment.Piece>();
-
+            CurrencySelectionChangedCommand = new AsyncCommand<Payment.currency>(OnCurrencySelectionChanged);
             UnpaiedList = new ObservableRangeCollection<Payment.Piece>();
             Payment_methodList = new ObservableRangeCollection<Payment.Payment_method>();
             Cash_deskList = new ObservableRangeCollection<Payment.Cash_desk>();
@@ -324,7 +384,76 @@ namespace SmartPharma5.ViewModel
             Payment_pieceAmountChangeCommand = new AsyncCommand<object>(Payment_pieceAmountChange);
             setSaveVisibility();
             Task.Run(() => LoadList());
+            UpdateDisplayFormat();
+          //  UpdateDisplayTotal();
 
+
+        }
+
+        #endregion
+        #region DisplayFormat
+        private void UpdateDisplayFormat()
+        {
+            if (Payment.DecimalNumber.HasValue)
+            {
+                DisplayFormat = "n" + Payment.DecimalNumber.Value.ToString();
+            }
+            else
+            {
+                DisplayFormat = "n3"; 
+            }
+        }
+
+        private async Task OnCurrencySelectionChanged(Payment.currency selectedCurrency)
+        {
+            if (selectedCurrency != null)
+            {
+                if (Payment_methodListSelectedItem != null)
+                {
+                    await LoadCashDeskList((uint)selectedCurrency.Id);
+                    await LoadUnpaiedPieces(Payment.IdPartner);
+                    OnPropertyChanged(nameof(CurrencyName));
+                    OnPropertyChanged(nameof(CurrencyNameview));
+
+                }
+                else
+                {
+                   // await App.Current.MainPage.DisplayAlert("Warning", "Please select a payment method first.", "Ok");
+                }
+            }
+        }
+        private async Task LoadCashDeskList(uint? currencyId)
+        {
+            var cashDesks = Payment.getCash_deskListByUserAndPaymentAndCurrency_methodAndPayment_type(iduser, Payment_methodListSelectedItem.Id, currencyId);
+            Cash_deskList.Clear();
+            Cash_deskList.AddRange(cashDesks);
+
+            // Sélectionner le cash_desk par défaut
+            Cash_deskListselecteditem = null;
+            foreach (Payment.Cash_desk cd in Cash_deskList)
+            {
+                if (cd.principal == true)
+                {
+                    Cash_deskListselecteditem = cd;
+                    break;
+                }
+            }
+
+            // Notifier la vue que la sélection a changé
+            OnPropertyChanged(nameof(Cash_deskListselecteditem));
+        }
+        /*  private async Task LoadUnpaiedPieces(int partnerId, uint? currencyId)
+          {
+              var unpaiedPieces = await Payment.GetUnpaiedPiece(partnerId, currencyId);
+              UnpaiedList.Clear();
+              UnpaiedList.AddRange(unpaiedPieces);
+          }
+        */
+        private async Task LoadUnpaiedPieces(int partnerId)
+        {
+            var unpaiedPieces = await Payment.GetUnpaiedPiece(partnerId, null); // Ne pas passer currencyId
+            UnpaiedList.Clear();
+            UnpaiedList.AddRange(unpaiedPieces);
         }
         #endregion
         #region Payment_piece Amount Changed
@@ -389,13 +518,14 @@ namespace SmartPharma5.ViewModel
             }
             Cash_deskListselecteditem = null;
             Cash_deskList.Clear();
-            Cash_deskList.AddRange(Payment.getCash_deskListByUserAndPayment_methodAndPayment_type(iduser, Payment_methodListSelectedItem.Id));
+            //Cash_deskList.AddRange(Payment.getCash_deskListByUserAndPayment_methodAndPayment_type(iduser, Payment_methodListSelectedItem.Id));
+            Cash_deskList.AddRange(Payment.getCash_deskListByUserAndPaymentAndCurrency_methodAndPayment_type(iduser, Payment_methodListSelectedItem.Id, Currency));
             foreach (Payment.Cash_desk cd in Cash_deskList)
                 if (cd.principal == true)
                 {
                     Cash_deskListselecteditem = cd;
                     break;
-                }
+                }   
         }
         #endregion
         #region Payment_typeChangeCommand
@@ -419,12 +549,128 @@ namespace SmartPharma5.ViewModel
         #endregion
         #region Save
         public AsyncCommand SaveCommand { get; }
+        /* private async Task Save()
+         {
+             SuccessPopupMessage = "data verification...";
+             VerifPopup = true;
+             await Task.Delay(1000);
+             VerifPopup = false;
+             if (Payment.Payment_pieceList.Count != 0)
+             {
+                 var Connectivity = DbConnection.CheckConnectivity();
+                 if (Connectivity)
+                 {
+                     var DbConnectivity = DbConnection.ConnectionIsTrue();
+                     if (DbConnectivity)
+                     {
+                         try
+                         {
+                             setInformation();
+                             if (Payment.IdCash_desk > 0)
+                             {
+                                 if ((Payment.IdPayment_method == 2 || Payment.IdPayment_method == 6 || Payment.IdPayment_method == 3 || Payment.IdPayment_method == 4 || Payment.IdPayment_method == 5) && (Payment.sale_bank > 0 && (Payment.reference != null)))
+                                 {
+                                     if (Payment.CountReference() == 0)
+                                     {
+                                         SuccessPopupMessage = "Payment has been added...";
+                                         Payment.Validate();
+                                         //await App.Current.MainPage.DisplayAlert("Success", "Added", "Ok");
+                                         //SavingPopup = false;
+                                         //SuccessPopupMessage = "Your opportunty has been successfully sent!";
+                                         //SuccessPopup = true;
+                                         //await Task.Delay(1000);
+                                         //SuccessPopup = false;
+                                         VerifPopup = false;
+
+                                         await App.Current.MainPage.DisplayAlert("Success", "Payment Saved", "Ok");
+                                         await App.Current.MainPage.Navigation.PopToRootAsync();
+
+                                         await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new View.PaymentListView()));
+                                     }
+                                     else
+                                     {
+                                         VerifPopup = false;
+                                         await App.Current.MainPage.DisplayAlert("Failed", "Try to set an other reference !", "Ok");
+                                     }
+                                 }
+                                 else if (Payment.IdPayment_method == 1 || Payment.IdPayment_method == 7 || Payment.IdPayment_method == 8 || Payment.IdPayment_method == 9 || Payment.IdPayment_method == 10 || Payment.IdPayment_method == 11)
+                                 {
+                                     Payment.Validate();
+                                     //await App.Current.MainPage.DisplayAlert("Success", "Added", "Ok");
+                                     //SavingPopup = false;
+                                     //SuccessPopupMessage = "Your opportunty has been successfully sent!";
+                                     //SuccessPopup = true;
+                                     //await Task.Delay(1000);
+                                     //SuccessPopup = false;
+                                     VerifPopup = false;
+                                     await App.Current.MainPage.Navigation.PopAsync();
+                                     await App.Current.MainPage.DisplayAlert("Success", "Payment Saved", "Ok");
+                                     //-------------------------------------------
+                                     await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new View.PaymentListView()));
+                                 }
+                                 else
+                                 {
+                                     VerifPopup = false;
+                                     await App.Current.MainPage.DisplayAlert("Failed", "Set bank and reference !", "Ok");
+                                 }
+
+                             }
+                             else
+                             {
+                                 VerifPopup = false;
+                                 await App.Current.MainPage.DisplayAlert("Failed", "Set Cash Desk", "Ok");
+                             }
+                         }
+                         catch (Exception ex)
+                         {
+                             await App.Current.MainPage.DisplayAlert("Warning", ex.Message, "Ok");
+                         }
+                     }
+                     else
+                     {
+                         VerifPopup = false;
+                         //SavingPopup = false;
+                         //App.Current.MainPage.DisplayAlert("Warning", "There is a problem in connecting to the server. \n Please contact our support for further assistance.", "Ok");
+                         //Message = "There is a problem in connecting to the server. \n Please contact our support for further assistance.";
+                         await App.Current.MainPage.DisplayAlert("Warning", "There is a problem in connecting to the server. \n Please contact our support for further assistance.", "Ok");
+                         //FieldPopup = true;
+                     }
+                 }
+                 else
+                 {
+                     VerifPopup = false;
+                     await App.Current.MainPage.DisplayAlert("Warning", "No network connectivity.", "Ok");
+                     //Message = "No network connectivity.";
+                     //SavingPopup = false;
+                     //await Task.Delay(1000);
+                     //FieldPopup = true;
+                 }
+             }
+             else
+             {
+                 VerifPopup = false;
+                 await App.Current.MainPage.DisplayAlert("Warning", "Add Payment before validate", "Ok");
+                 //SavingPopup = false;
+             }
+         }*/
         private async Task Save()
         {
+            // Vérifier la devise de chaque pièce sélectionnée
+            foreach (var piece in UnpaiedList)
+            {
+                if (piece.Is_checked && piece.IdCurrency != Currency)
+                {
+                    await App.Current.MainPage.DisplayAlert("Failed", $"Coin currency {piece.code} does not match the selected currency.", "Ok");
+                    return; // Arrête la sauvegarde si la devise ne correspond pas
+                }
+            }
+
+            // Continuer avec le reste de la logique de sauvegarde...
             SuccessPopupMessage = "data verification...";
             VerifPopup = true;
             await Task.Delay(1000);
             VerifPopup = false;
+
             if (Payment.Payment_pieceList.Count != 0)
             {
                 var Connectivity = DbConnection.CheckConnectivity();
@@ -444,12 +690,6 @@ namespace SmartPharma5.ViewModel
                                     {
                                         SuccessPopupMessage = "Payment has been added...";
                                         Payment.Validate();
-                                        //await App.Current.MainPage.DisplayAlert("Success", "Added", "Ok");
-                                        //SavingPopup = false;
-                                        //SuccessPopupMessage = "Your opportunty has been successfully sent!";
-                                        //SuccessPopup = true;
-                                        //await Task.Delay(1000);
-                                        //SuccessPopup = false;
                                         VerifPopup = false;
 
                                         await App.Current.MainPage.DisplayAlert("Success", "Payment Saved", "Ok");
@@ -466,16 +706,9 @@ namespace SmartPharma5.ViewModel
                                 else if (Payment.IdPayment_method == 1 || Payment.IdPayment_method == 7 || Payment.IdPayment_method == 8 || Payment.IdPayment_method == 9 || Payment.IdPayment_method == 10 || Payment.IdPayment_method == 11)
                                 {
                                     Payment.Validate();
-                                    //await App.Current.MainPage.DisplayAlert("Success", "Added", "Ok");
-                                    //SavingPopup = false;
-                                    //SuccessPopupMessage = "Your opportunty has been successfully sent!";
-                                    //SuccessPopup = true;
-                                    //await Task.Delay(1000);
-                                    //SuccessPopup = false;
                                     VerifPopup = false;
                                     await App.Current.MainPage.Navigation.PopAsync();
                                     await App.Current.MainPage.DisplayAlert("Success", "Payment Saved", "Ok");
-                                    //-------------------------------------------
                                     await App.Current.MainPage.Navigation.PushAsync(new NavigationPage(new View.PaymentListView()));
                                 }
                                 else
@@ -483,7 +716,6 @@ namespace SmartPharma5.ViewModel
                                     VerifPopup = false;
                                     await App.Current.MainPage.DisplayAlert("Failed", "Set bank and reference !", "Ok");
                                 }
-
                             }
                             else
                             {
@@ -499,31 +731,21 @@ namespace SmartPharma5.ViewModel
                     else
                     {
                         VerifPopup = false;
-                        //SavingPopup = false;
-                        //App.Current.MainPage.DisplayAlert("Warning", "There is a problem in connecting to the server. \n Please contact our support for further assistance.", "Ok");
-                        //Message = "There is a problem in connecting to the server. \n Please contact our support for further assistance.";
                         await App.Current.MainPage.DisplayAlert("Warning", "There is a problem in connecting to the server. \n Please contact our support for further assistance.", "Ok");
-                        //FieldPopup = true;
                     }
                 }
                 else
                 {
                     VerifPopup = false;
                     await App.Current.MainPage.DisplayAlert("Warning", "No network connectivity.", "Ok");
-                    //Message = "No network connectivity.";
-                    //SavingPopup = false;
-                    //await Task.Delay(1000);
-                    //FieldPopup = true;
                 }
             }
             else
             {
                 VerifPopup = false;
                 await App.Current.MainPage.DisplayAlert("Warning", "Add Payment before validate", "Ok");
-                //SavingPopup = false;
             }
         }
-
         private async Task Logout()
         {
             var r = await App.Current.MainPage.DisplayAlert("Warning", "Are you sure you want to lougout!", "Yes", "No");
@@ -548,10 +770,12 @@ namespace SmartPharma5.ViewModel
             if (Payment.Id > 0)
             {
                 IsVisibleSaveButton = false;
+               // isCurrencySymbolVisible = false;
                 IsVisibleCurrency = true;
                 IsReadOnlyOnValidated = true;
                 IsSaveDocumentButtonVisible = true;
             }
+           
         }
 
 
@@ -560,6 +784,7 @@ namespace SmartPharma5.ViewModel
         {
             try
             {
+                Payment.IdCurrency = CurrencyListselecteditem.Id;
                 Payment.IdPayment_method = payment_methodlistselecteditem.Id;
                 Payment.IdPayment_type = (int)paymentTypeListSelectedItem.Id;
                 if (bankListSelectedItem != null)
@@ -581,12 +806,25 @@ namespace SmartPharma5.ViewModel
         {
             ActPopup = true;
             UnpaiedList.Clear();
+            /*   if (!(Payment.Id > 0))
+               {
+                   var unpaiedPiecesTask = Task.Run(() => Payment.GetUnpaiedPiece(Payment.IdPartner, Currency));
+                   UnpaiedList = new ObservableRangeCollection<Payment.Piece>(await unpaiedPiecesTask);
+                   var totalUnpaiedPiecesTask = Task.Run(() => Payment.GettotalUnpaiedPiece(Payment.IdPartner));
+                   var totalUnpaiedPieces = await totalUnpaiedPiecesTask;
+                   Total_unpaied = totalUnpaiedPieces.Sum(p => p.rest_amount);
+               }
+            */
             if (!(Payment.Id > 0))
             {
-                var C = Task.Run(() => Payment.GetUnpaiedPiece(Payment.IdPartner));
-                UnpaiedList = new ObservableRangeCollection<Payment.Piece>(await C);
-                Total_unpaied = UnpaiedList.Sum(p => p.rest_amount);
+                var unpaiedPiecesTask = Task.Run(() => Payment.GetUnpaiedPiece(Payment.IdPartner, null)); // Ne pas passer currencyId
+                UnpaiedList = new ObservableRangeCollection<Payment.Piece>(await unpaiedPiecesTask);
+
+                var totalUnpaiedPiecesTask = Task.Run(() => Payment.GettotalUnpaiedPiece(Payment.IdPartner));
+                var totalUnpaiedPieces = await totalUnpaiedPiecesTask;
+                Total_unpaied = totalUnpaiedPieces.Sum(p => p.rest_amount);
             }
+
             if (Payment.Id > 0)
             {
                 Payment_methodList.Clear();
@@ -685,7 +923,8 @@ namespace SmartPharma5.ViewModel
                 {
                     var X = Task.Run(() => Payment.Payment_method.GetPayment_MethodById(Payment.IdPayment_method));
                     Payment_methodListSelectedItem = await X;
-                    var E = Task.Run(() => Payment.getCash_deskListByUserAndPayment_methodAndPayment_type(iduser, Payment.IdPayment_method));
+                    //var E = Task.Run(() => Payment.getCash_deskListByUserAndPayment_methodAndPayment_type(iduser, Payment.IdPayment_method));
+                    var E = Task.Run(() => Payment.getCash_deskListByUserAndPaymentAndCurrency_methodAndPayment_type(iduser, Payment.IdPayment_method, Currency));
                     Cash_deskList = new ObservableRangeCollection<Payment.Cash_desk>(await E);
                     foreach (Payment.Cash_desk cd in Cash_deskList)
                         if (cd.principal == true)

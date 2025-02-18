@@ -1865,7 +1865,6 @@ C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\bin\Debug\net7.0
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\bin\Debug\net7.0-ios\iossimulator-x64\DevExpress.iOS.Scheduler.resources\DXScheduler.xcframework\ios-arm64_x86_64-simulator\DXScheduler.framework\Headers\Gestures.h
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\bin\Debug\net7.0-ios\iossimulator-x64\DevExpress.iOS.Scheduler.resources\DXScheduler.xcframework\ios-arm64_x86_64-simulator\DXScheduler.framework\Modules\module.modulemap
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\bin\Debug\net7.0-ios\iossimulator-x64\DevExpress.iOS.Scheduler.resources\DXScheduler.xcframework\ios-arm64_x86_64-simulator\DXScheduler.framework\_CodeSignature\CodeResources
-C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\build-signature\signature
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\mauiimage.inputs
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\mauifont.inputs
 C:\Users\Asus\source\repos\SmartPharma-20-01-2025-\SmartPharma5\obj\Debug\net7.0-ios\iossimulator-x64\mauisplash.inputs

@@ -81,7 +81,16 @@
                                             <Label Text="{Binding code}" Margin="0,2" TextColor="#55575c" FontSize="17" FontAttributes="Bold"/>
                                             <Label Text="{Binding date,Mode=OneWay,StringFormat='{0:dd/MM/yyyy  h:mm tt}'}" TextColor="#959aa0"/>
                                             <Label Text="{Binding NameAgent,Mode=OneWay}" TextColor="#959aa0" FontSize="17"/>
-                                            <Label Text="{Binding Amount,Mode=OneWay, StringFormat='{0:F3}'}" FontSize="16" TextColor="DarkSlateBlue" FontAttributes="Bold"/>
+                                          <!--  <Label Text="{Binding AmountFormat, Mode=OneWay}" 
+       FontSize="16" 
+       TextColor="DarkSlateBlue" 
+       FontAttributes="Bold"/>-->
+                                          <!--  <Label Text="{Binding Amount,Mode=OneWay}" FontSize="16" TextColor="DarkSlateBlue" FontAttributes="Bold"/>
+-->
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                <Label Text="{Binding Amount, Mode=OneWay}" FontSize="16" TextColor="DarkSlateBlue" FontAttributes="Bold"/>
+                                                <Label Text="{Binding CurrencySymbol, Mode=OneWay}" FontSize="16" TextColor="DarkSlateBlue" FontAttributes="Bold"/>
+                                            </StackLayout>
                                         </StackLayout>
 
                                         <StackLayout Grid.Column="1">

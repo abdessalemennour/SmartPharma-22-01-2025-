@@ -6,8 +6,16 @@
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              xmlns:xct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:SmartPharma5.ViewModel"
+              xmlns:local="clr-namespace:SmartPharma5.Converters"
+
              x:Name="PaymentPay"
              Title="PayView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DecimalFormatter x:Key="DecimalFormatter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand"  FontSize="19" TextColor="White" VerticalOptions="CenterAndExpand"></Label>
     </NavigationPage.TitleView>
@@ -20,21 +28,29 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-
-
-
-
-
-        
-   <StackLayout Spacing="1" Margin="0" Padding="5,5,5,2">
-            <dxe:NumericEdit LabelText="Amount" Value="{Binding Payment.amount, Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" BorderColor="Black" VerticalOptions="Center" IsReadOnly="True" DisplayFormat="n3"/>
+        <StackLayout Spacing="1" Margin="0" Padding="5,5,5,2">
+            <dxe:NumericEdit LabelText="Amount" Value="{Binding Payment.amount, Mode=TwoWay}" HeightRequest="45" TextHorizontalAlignment="Center" BorderColor="Black" VerticalOptions="Center" IsReadOnly="True" DisplayFormat="{Binding DisplayFormat}"/>
             <dxe:ComboBoxEdit LabelText="Payment Method" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Payment_methodList, Mode=TwoWay}" BorderColor="Black" SelectedItem="{Binding Payment_methodListSelectedItem, Mode=TwoWay}" DisplayMember="name" SelectionChangedCommand="{Binding Payment_methodChangedCommand}" IsReadOnly="True"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <dxe:ComboBoxEdit Grid.Column="0" LabelText="Cash Desk" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" BorderColor="Black" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name" IsReadOnly="True"/>
+                <dxe:ComboBoxEdit Grid.Column="0"  LabelText="Cash Desk" HeightRequest="45" TextHorizontalAlignment="Center" VerticalOptions="Center" ItemsSource="{Binding Cash_deskList, Mode=TwoWay}" BorderColor="Black" SelectedItem="{Binding Cash_deskListselecteditem, Mode=TwoWay}" DisplayMember="name" IsReadOnly="True"/>
+               <!-- <Label Text="{Binding CurrencyName}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"></Label>-->
+                <!-- PayView.xaml -->
+                <dxe:ComboBoxEdit 
+    Grid.Column="1" 
+    LabelText="Currency" 
+    HeightRequest="45" 
+    TextHorizontalAlignment="Center" 
+    VerticalOptions="Center" 
+    ItemsSource="{Binding CurrencyList}" 
+    SelectedItem="{Binding CurrencyListselecteditem, Mode=TwoWay}" 
+    DisplayMember="Name" 
+    IsReadOnly="True"/>
+                <!--<Label Text="{Binding NameCurrency}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"></Label>
+
                 <dxe:ComboBoxEdit 
                 Grid.Column="1" 
                 LabelText="Currency" 
@@ -45,7 +61,7 @@
                 BorderColor="Black" 
                 SelectedItem="{Binding CurrencyName}" 
                 IsReadOnly="True"
-                IsVisible="{Binding IsVisibleCurrency}" />
+                IsVisible="{Binding IsVisibleCurrency}" />-->
 
 
             </Grid>
@@ -78,7 +94,7 @@
                             <Label Grid.Row="0" Grid.Column="1"  Text="{Binding PieceCode, Mode=OneWay}" FontSize="Default" FontAttributes="None" TextColor="Black" VerticalOptions="Center"/>
 
                             <StackLayout Grid.Row="2" Padding="3" Grid.Column="1" Orientation="Horizontal" HeightRequest="50"  HorizontalOptions="Start">
-                                <dxe:NumericEdit Margin="10"  TextHorizontalAlignment="Center" TextVerticalAlignment="Center" HorizontalOptions="Start" WidthRequest="120" VerticalOptions="CenterAndExpand" HeightRequest="40"  TextColor="#55575c" DisplayFormat="n3" IsReadOnly="{Binding Source={x:Reference PaymentPay},Path=BindingContext.IsReadOnlyOnValidated}"  Value="{Binding amount}" >
+                                <dxe:NumericEdit Margin="10"  TextHorizontalAlignment="Center" TextVerticalAlignment="Center" HorizontalOptions="Start" WidthRequest="120" VerticalOptions="CenterAndExpand" HeightRequest="40"  TextColor="#55575c" DisplayFormat="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PaymentViewModel}}, Path=DisplayFormat}"  IsReadOnly="{Binding Source={x:Reference PaymentPay},Path=BindingContext.IsReadOnlyOnValidated}"  Value="{Binding amount}" >
                                     <dxe:NumericEdit.Behaviors>
                                         <xct:EventToCommandBehavior
                                                                         EventName="Unfocused"
@@ -90,8 +106,19 @@
                             </StackLayout>
 
                             <Label Grid.Row="2" Grid.Column="0" Text="Amount :" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Piece_totalAmont, Mode=OneWay,StringFormat=Total :    '{0:F3}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Piece_restAmount, Mode=OneWay,StringFormat=Rest :    '{0:F3}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>
+                            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
+                                <!--<Label Text="{Binding Piece_totalAmont, Mode=OneWay,StringFormat=Total : '{0:F3}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>-->
+                                <Label Text="{Binding Piece_totalAmont, Mode=OneWay, Converter={StaticResource DecimalFormatter}, StringFormat='Total : {0}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>
+                                <!--<Label Text="{Binding Piece_totalAmont, Mode=OneWay, Converter={StaticResource DecimalFormatter}, ConverterParameter={Binding DecimalNumber}}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>-->
+                                <!--<Label Text="{Binding CurrencySymbol, Mode=OneWay}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" IsVisible="{Binding IsCurrencySymbolVisible}" />-->
+                            </StackLayout>
+                            <!--<Label Grid.Row="1" Grid.Column="1" Text="{Binding Piece_restAmount, Mode=OneWay,StringFormat=Rest :    '{0:F3}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center"/>-->
+                            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center">
+                               <!-- <Label Text="{Binding Piece_restAmount, Mode=OneWay, StringFormat=Rest : '{0:F3}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black"/>-->
+                                <Label Text="{Binding Piece_restAmount, Mode=OneWay, Converter={StaticResource DecimalFormatter}, StringFormat='Rest : {0}'}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black"/>
+                                <!--<Label Text="{Binding Piece_restAmount, Mode=OneWay, Converter={StaticResource DecimalFormatter}, ConverterParameter={Binding DecimalNumber}}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black"/>-->
+                               <!-- <Label Text="{Binding CurrencySymbol, Mode=OneWay}" FontSize="Subtitle" FontAttributes="Bold" TextColor="Black"/>-->
+                            </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>

@@ -61,11 +61,11 @@ namespace SmartPharma5.Model
      }
 
      */
-    public class currency
+/*    public class currency
     {
         public int Id { get; set; }
         public string Name { get; set; }
-    }
+    }*/
 
 
 }
