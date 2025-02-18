@@ -8,7 +8,8 @@ workflows:
     scripts:
       - name: Install .NET SDK
         script: |
-          curl -sSL https://dotnet.microsoft.com/download/dotnet | bash
+          # Télécharge et installe le .NET SDK
+          curl -sSL https://aka.ms/install-dotnet.sh | bash
           dotnet --version  # Vérifie que .NET est installé correctement
       
       - name: Restore dependencies
